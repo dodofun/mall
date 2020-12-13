@@ -1,0 +1,7 @@
+*.png
+*.eot
+*.ttf
+*.woff
+
+node_modules
+dist
