@@ -1,0 +1,7 @@
+/* 改变主题变量，具体变量名可查看 taro-ui/dist/style/variables/default.scss 文件 */
+$color-brand: #fad000;
+$color-brand-light: #fbdc40;
+$color-brand-dark: #c8a600;
+
+/* 引入 Taro UI 默认样式 */
+@import "~taro-ui/dist/style/index.scss";
