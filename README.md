@@ -23,6 +23,19 @@ https://github.com/chuyun/taro-plugin-canvas
 
 git提交规范：commitlint
 https://github.com/conventional-changelog/commitlint
-type: build, ci, chore, docs, feat, fix, perf, refactor, revert, style, test
+type-enum规则
+• feat: 新功能
+• fix: 修改bug
+• style: 代码格式化相关，与功能无关的改动
+• revert: 回滚
+• docs: 修改文档
+• chore: 改变构建流程，依赖库，工具等
+• build：构建项目
+• perf：性能优化
+• refactor：重构代码
+• test：测试用例相关修改
+• ci：ci相关修改
+• WIP（自定义）：过程中的工作
+e.g. git commit -m 'feat(scope): msg'
 
 ```

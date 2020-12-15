@@ -1,1 +1,18 @@
 @import './asset/style/custom-variables.scss';
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+div,
+view {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  outline: none;
+}

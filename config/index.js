@@ -1,5 +1,10 @@
+import pkgData from '../package.json'
+
+const constants = {
+  APP_NAME: pkgData.name,
+}
 const config = {
-  projectName: 'mall',
+  projectName: pkgData.name,
   date: '2020-12-13',
   designWidth: 750,
   deviceRatio: {
@@ -10,7 +15,10 @@ const config = {
   sourceRoot: 'src',
   outputRoot: `dist/${process.env.TARO_ENV}`,
   plugins: [],
-  defineConstants: {},
+  defineConstants: {
+    _APP_CONSTANTS: constants,
+    _PKG_DATA: pkgData,
+  },
   copy: {
     patterns: [],
     options: {},
@@ -57,8 +65,17 @@ const config = {
 }
 
 module.exports = function (merge) {
+  let res
   if (process.env.NODE_ENV === 'development') {
-    return merge({}, config, require('./dev'))
+    res = merge({}, config, require('./dev'))
+  } else {
+    res = merge({}, config, require('./prod'))
   }
-  return merge({}, config, require('./prod'))
+
+  // 配置常量解析
+  Object.keys(res.defineConstants).map((key) => {
+    res.defineConstants[key] = JSON.stringify(res.defineConstants[key])
+  })
+
+  return res
 }

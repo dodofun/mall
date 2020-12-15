@@ -1,19 +1,13 @@
-import {Component} from 'react'
+import {useEffect} from 'react'
 import './app.scss'
+import {getConfigData} from './utils/common'
 
-class App extends Component {
-  componentDidMount() {}
+const App = (props) => {
+  useEffect(() => {
+    console.log('Start', getConfigData('APP_NAME'), getConfigData('API_HOST'))
+  }, [])
 
-  componentDidShow() {}
-
-  componentDidHide() {}
-
-  componentDidCatchError() {}
-
-  // this.props.children 是将要会渲染的页面
-  render() {
-    return this.props.children
-  }
+  return props.children
 }
 
 export default App
