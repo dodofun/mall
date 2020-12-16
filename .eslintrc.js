@@ -6,5 +6,6 @@ module.exports = {
   rules: {
     'prefer-const': 2,
     'no-const-assign': 2,
+    'import/first': 0,
   },
 }

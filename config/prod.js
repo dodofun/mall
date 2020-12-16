@@ -9,6 +9,9 @@ module.exports = {
   defineConstants: {
     _APP_CONSTANTS: constants,
   },
+  terser: {
+    enable: true,
+  },
   mini: {},
   h5: {
     /**

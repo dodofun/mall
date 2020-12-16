@@ -1,9 +1,27 @@
+import Taro from '@tarojs/taro'
+
 /***
  * 获取当前环境
- * 取值范围：weapp / swan / alipay / h5 / rn / tt / qq / quickapp
  */
 export const getEnv = () => {
-  return process.env.TARO_ENV
+  return {
+    env: process.env.TARO_ENV,
+    envType: Taro.getEnv(),
+  }
+}
+
+/***
+ * 微信小程序环境
+ */
+export const isWeapp = () => {
+  return Taro.getEnv() === 'WEAPP'
+}
+
+/***
+ * Web环境
+ */
+export const isWeb = () => {
+  return Taro.getEnv() === 'WEB'
 }
 
 /***
@@ -20,4 +38,11 @@ export const getConfigData = (name) => {
 export const getPackageData = () => {
   // eslint-disable-next-line no-undef
   return _PKG_DATA
+}
+
+/***
+ * 获取小程序启动时的参数
+ */
+export const getLaunchOptionsSync = () => {
+  return Taro.getLaunchOptionsSync()
 }

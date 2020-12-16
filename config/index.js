@@ -1,3 +1,5 @@
+/* eslint-disable import/no-commonjs */
+import path from 'path'
 import pkgData from '../package.json'
 
 const constants = {
@@ -19,13 +21,31 @@ const config = {
     _APP_CONSTANTS: constants,
     _PKG_DATA: pkgData,
   },
+  alias: {
+    '@/utils': path.resolve(__dirname, '..', 'src/utils'),
+    '@/components': path.resolve(__dirname, '..', 'src/components'),
+    '@/pages': path.resolve(__dirname, '..', 'src/pages'),
+    '@/models': path.resolve(__dirname, '..', 'src/models'),
+    '@/config': path.resolve(__dirname, '..', 'src/config'),
+    '@/api': path.resolve(__dirname, '..', 'src/api'),
+  },
   copy: {
     patterns: [],
     options: {},
   },
+  plugins: [],
   framework: 'react',
   mini: {
+    minifyXML: {
+      collapseWhitespace: true,
+    },
     postcss: {
+      autoprefixer: {
+        enable: true,
+        config: {
+          // autoprefixer 配置项
+        },
+      },
       pxtransform: {
         enable: true,
         config: {},
@@ -46,7 +66,7 @@ const config = {
     },
   },
   h5: {
-    publicPath: '/',
+    publicPath: './',
     staticDirectory: 'static',
     postcss: {
       autoprefixer: {
@@ -61,6 +81,21 @@ const config = {
         },
       },
     },
+    output: {
+      filename: 'js/[name].[hash:8].js',
+      chunkFilename: 'js/[name].[chunkhash:8].js',
+    },
+    devServer: {
+      port: 10086,
+    },
+    router: {
+      mode: 'browser', // hash 或者 browser
+      basename: '/',
+      customRoutes: {
+        '/pages/index/index': '/index',
+      },
+    },
+    esnextModules: ['taro-ui'],
   },
 }
 

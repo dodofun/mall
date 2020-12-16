@@ -1,10 +1,10 @@
 import {useEffect} from 'react'
 import './app.scss'
-import {getConfigData} from './utils/common'
+import {init} from './init'
 
 const App = (props) => {
   useEffect(() => {
-    console.log('Start', getConfigData('APP_NAME'), getConfigData('API_HOST'))
+    init()
   }, [])
 
   return props.children
