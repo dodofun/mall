@@ -11,7 +11,5 @@ module.exports = {
     _APP_CONSTANTS: constants,
   },
   mini: {},
-  h5: {
-    esnextModules: ['taro-ui'],
-  },
+  h5: {},
 }
