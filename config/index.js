@@ -66,7 +66,7 @@ const config = {
     },
   },
   h5: {
-    publicPath: './',
+    publicPath: '/',
     staticDirectory: 'static',
     postcss: {
       autoprefixer: {
@@ -81,18 +81,18 @@ const config = {
         },
       },
     },
-    // output: {
-    //   filename: 'js/[name].[hash:8].js',
-    //   chunkFilename: 'js/[name].[chunkhash:8].js',
-    // },
-    // devServer: {
-    //   port: 10086,
-    // },
-    // router: {
-    //   mode: 'hash', // hash 或者 browser
-    //   basename: '/',
-    //   customRoutes: {},
-    // },
+    output: {
+      filename: 'js/[name].[hash:8].js',
+      chunkFilename: 'js/[name].[chunkhash:8].js',
+    },
+    devServer: {
+      port: 10086,
+    },
+    router: {
+      mode: 'browser', // hash 或者 browser
+      basename: '',
+      customRoutes: {},
+    },
   },
 }
 
