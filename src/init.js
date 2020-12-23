@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro'
 import {updateApp} from '@/utils/update'
-import {isWeapp} from './utils/common'
+import {isWeapp} from '@/utils/common'
 
 export const init = () => {
   // 更新app
