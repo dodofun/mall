@@ -38,4 +38,15 @@ type-enum规则
 • WIP（自定义）：过程中的工作
 e.g. git commit -m 'feat(scope): msg'
 
+
+时间：dayjs
+https://github.com/iamkun/dayjs
+
+常用工具库：lodash
+https://github.com/lodash/lodash
+
+
+常用hooks：ahooks
+https://github.com/alibaba/hooks
+
 ```

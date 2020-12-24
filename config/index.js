@@ -93,7 +93,6 @@ const config = {
       basename: '',
       customRoutes: {},
     },
-    esnextModules: ['taro-ui'],
   },
 }
 

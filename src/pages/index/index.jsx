@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import {useDidHide, useDidShow, useReady} from '@tarojs/taro'
 import {View, Text} from '@tarojs/components'
 import {useCounterModelWithInitialValue} from '@/models/counter'
-import {AtButton} from 'taro-ui'
+import {AtButton, AtDivider} from 'taro-ui'
 import './index.scss'
 
 export default function () {
@@ -20,6 +20,7 @@ export default function () {
     <View className="index">
       <Text>Hello world!</Text>
       <Text>{counter.count}</Text>
+      <AtDivider />
       <AtButton onClick={counter.increment}>Increment</AtButton>
     </View>
   )
