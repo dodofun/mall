@@ -3,6 +3,8 @@ import {updateApp} from '@/utils/update'
 import {isWeapp} from '@/utils/common'
 
 export const init = () => {
+  // eslint-disable-next-line no-undef
+  console.log('_APP_CONSTANTS', _APP_CONSTANTS)
   // 更新app
   updateApp()
 

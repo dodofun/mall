@@ -4,6 +4,7 @@ import pkgData from '../package.json'
 
 const constants = {
   APP_NAME: pkgData.name,
+  OPEN_CUSTOM_INTERCEPTOR: false,
 }
 const config = {
   projectName: pkgData.name,
@@ -28,6 +29,7 @@ const config = {
     '@/models': path.resolve(__dirname, '..', 'src/models'),
     '@/config': path.resolve(__dirname, '..', 'src/config'),
     '@/api': path.resolve(__dirname, '..', 'src/api'),
+    '@/mock': path.resolve(__dirname, '..', 'src/mock'),
   },
   copy: {
     patterns: [],

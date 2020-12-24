@@ -1,6 +1,8 @@
 import Taro from '@tarojs/taro'
 import getBaseUrl from './baseUrl'
 import interceptors from './interceptors'
+import {APP_CONSTANTS} from '@/config/index'
+import runMock from '@/mock/index'
 
 interceptors.forEach((interceptorItem) => Taro.addInterceptor(interceptorItem))
 
@@ -18,6 +20,9 @@ class httpRequest {
         'content-type': contentType,
         token: Taro.getStorageSync('token'),
       },
+    }
+    if (APP_CONSTANTS.OPEN_MOCK) {
+      return runMock({method, url})
     }
     return Taro.request(option)
   }

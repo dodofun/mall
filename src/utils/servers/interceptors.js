@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro'
 import {HTTP_STATUS} from './config'
+import {APP_CONSTANTS} from '../../config/index'
 
 const customInterceptor = (chain) => {
   const requestParams = chain.requestParams
@@ -19,13 +20,14 @@ const customInterceptor = (chain) => {
   })
 }
 
-// Taro 提供了两个内置拦截器
-// logInterceptor - 用于打印请求的相关信息
-// timeoutInterceptor - 在请求超时时抛出错误。
 const interceptors = [
-  customInterceptor,
   Taro.interceptors.logInterceptor,
   Taro.interceptors.timeoutInterceptor,
 ]
+
+// eslint-disable-next-line no-undef
+if (APP_CONSTANTS.OPEN_CUSTOM_INTERCEPTOR) {
+  interceptors.unshift(customInterceptor)
+}
 
 export default interceptors

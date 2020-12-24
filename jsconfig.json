@@ -8,6 +8,7 @@
       "@/models/*": ["./src/models/*"],
       "@/config/*": ["./src/config/*"],
       "@/api/*": ["./src/api/*"],
+      "@/mock/*": ["./src/mock/*"],
     }
   }
 }
