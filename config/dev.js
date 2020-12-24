@@ -1,6 +1,6 @@
 const constants = {
-  API_HOST: 'https://test.com',
   OPEN_MOCK: true,
+  API_HOST: 'https://test.com',
 }
 
 // eslint-disable-next-line import/no-commonjs
