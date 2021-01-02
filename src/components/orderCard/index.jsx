@@ -7,6 +7,7 @@ import {
   AtModalHeader,
   AtModalContent,
   AtModalAction,
+  AtButton,
 } from 'taro-ui'
 import './index.scss'
 import {cardTagIcon} from '@/config'
@@ -15,23 +16,15 @@ import dayjs from 'dayjs'
 
 export default function ({order}) {
   const [isOpened, setIsOpened] = useState(false)
-  const [timer, setTimer] = useState(0)
   const [ended, setEnded] = useState(true)
   const [diffTime, setDiffTime] = useState({hours: 0, minutes: 0, seconds: 0})
-  const title = order.type === 1 ? '福利单' : '抢夺单'
+  const isFuli = order.type === 1
   const diffMillisecond = dayjs(order.endTime) - dayjs()
   useEffect(() => {
-    console.log('eeeeeeee', diffMillisecond)
-    if (timer) {
-      clearInterval(timer)
+    if (diffMillisecond > 0) {
+      setEnded(false)
+      setDiffTimeFunc()
     }
-    const id = setInterval(() => {
-      if (diffMillisecond > 0) {
-        setEnded(false)
-        setDiffTimeFunc()
-      }
-    }, 1000)
-    setTimer(id)
   }, [diffMillisecond > 0])
 
   const setDiffTimeFunc = () => {
@@ -46,7 +39,9 @@ export default function ({order}) {
 
   return (
     <View className="order-card">
-      <View className="title">{title}</View>
+      <View className={isFuli ? 'title1' : 'title2'}>
+        {isFuli ? '福利单' : '抢夺单'}
+      </View>
       <View className="card">
         <View className="tag">
           <Image className="tag-icon" src={cardTagIcon[0]} />
@@ -63,7 +58,7 @@ export default function ({order}) {
               <View className="progress">
                 <AtProgress
                   percent={(order.hasPeople / order.totalPeople) * 100}
-                  strokeWidth={6}
+                  strokeWidth={4}
                   status="progress"
                   color="#FAD000"
                 />
@@ -103,11 +98,30 @@ export default function ({order}) {
                 hours={diffTime.hours}
                 minutes={diffTime.minutes}
                 seconds={diffTime.seconds}
+                onTimeUp={() => {
+                  setEnded(true)
+                }}
               />
             </View>
           )}
         </View>
       </View>
+      {order.status === 1 && !order.payed && (
+        <View className="doing">
+          <View className="left-1">
+            <Image
+              className="wexinpay-icon"
+              src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-order/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98%402x.png"
+            />
+            <View className="wexinpay-text">微信支付</View>
+          </View>
+          <View className="right-1">
+            <AtButton type="secondary" size="small">
+              立即支付
+            </AtButton>
+          </View>
+        </View>
+      )}
       {!order.payed && order.totalPeople <= order.hasPeople && (
         <View className="fulled">
           <View>当前人数已满，无法参与抢夺</View>
@@ -115,7 +129,7 @@ export default function ({order}) {
       )}
       {order.payed && order.status === 2 && !order.winning && (
         <View className="failed">
-          <View>很遗憾，未中奖</View>
+          <View>很遗憾，您未中奖</View>
         </View>
       )}
       {order.payed && order.status === 2 && order.winning && (

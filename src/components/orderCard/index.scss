@@ -4,7 +4,15 @@
   border-radius: 14px;
   padding: 15px 20px 30px 20px;
 
-  .title {
+  .title1 {
+    font-size: 26px;
+    font-family: PingFang SC;
+    font-weight: bold;
+    font-style: italic;
+    color: #f12a2a;
+  }
+
+  .title2 {
     font-size: 26px;
     font-family: PingFang SC;
     font-weight: bold;
@@ -39,39 +47,52 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px;
+      height: 200px;
 
       .left {
+        width: 300px;
+        height: 100%;
+
         .cover {
-          width: 298px;
-          height: 172px;
-          border-radius: 14px;
+          width: 100%;
+          height: 100%;
+          border-top-left-radius: 14px;
+          border-bottom-left-radius: 14px;
         }
       }
 
       .right {
+        max-width: 50%;
+        padding: 15px;
+        height: 100%;
+
         .info {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+
           .name {
             font-size: 24px;
             font-family: PingFang SC;
             font-weight: 500;
             color: #000;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
           }
 
           .num {
-            font-size: 22px;
+            font-size: 20px;
             font-family: PingFang SC;
             font-weight: 500;
             color: #999;
-            margin-top: 8px;
-          }
-
-          .progress {
-            margin: 10px 0;
           }
 
           .order-count {
-            font-size: 22px;
+            font-size: 20px;
             font-family: PingFang SC;
             font-weight: 500;
             color: #000;
@@ -141,6 +162,47 @@
             margin-top: -6px;
           }
         }
+      }
+    }
+  }
+
+  .doing {
+    margin-top: 30px;
+    border-top: 1px solid #efefef;
+    padding-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .left-1 {
+      display: flex;
+      align-items: center;
+
+      .wexinpay-icon {
+        width: 28px;
+        height: 25px;
+      }
+
+      .wexinpay-text {
+        font-size: 24px;
+        font-family: PingFang SC;
+        color: #000;
+        margin-left: 14px;
+      }
+    }
+
+    .right-1 {
+      .at-button--small {
+        font-size: 24px;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #09bb07;
+      }
+
+      .at-button--secondary {
+        color: #09bb07;
+        border: 1px solid #09bb07;
+        background-color: #fff;
       }
     }
   }
