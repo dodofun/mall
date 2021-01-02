@@ -1,0 +1,28 @@
+.action-cell {
+  background-color: #fff;
+  border-radius: 14px;
+  margin-top: 20px;
+  padding: 30px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .icon {
+      width: 36px;
+      height: 36px;
+    }
+
+    .label {
+      font-size: 26px;
+      font-family: PingFang SC;
+      font-weight: 400;
+      color: #010101;
+      margin-left: 30px;
+    }
+  }
+}
