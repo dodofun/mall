@@ -79,7 +79,6 @@ export default function () {
   useReady(() => {})
 
   const changeCondition = (index) => {
-    console.log('eeeeee')
     setCurrentTab(index)
   }
 

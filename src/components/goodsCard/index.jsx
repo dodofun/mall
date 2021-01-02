@@ -2,19 +2,15 @@ import React, {useEffect} from 'react'
 import {View, Image} from '@tarojs/components'
 import {AtProgress, AtCountdown} from 'taro-ui'
 import './index.scss'
+import {cardTagIcon} from '@/config'
 
-const tatIcon = [
-  'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/%E7%BB%84%2017%402x.png',
-  'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/%E7%BB%84%2020%402x.png',
-]
 export default function ({goods}) {
-  console.log('goods', goods)
   useEffect(() => {}, [])
 
   return (
     <View className="goods-card">
       <View className="tag">
-        <Image className="tag-icon" src={tatIcon[0]} />
+        <Image className="tag-icon" src={cardTagIcon[0]} />
         <View className="tag-info">{goods.totalPeople}人抢</View>
       </View>
       <View className="main">

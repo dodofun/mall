@@ -1,0 +1,219 @@
+.order-card {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 14px;
+  padding: 15px 20px 30px 20px;
+
+  .title {
+    font-size: 26px;
+    font-family: PingFang SC;
+    font-weight: bold;
+    font-style: italic;
+    color: #fad000;
+  }
+
+  .card {
+    margin-top: 30px;
+    background: #fff;
+    border: 2px solid #eee;
+    border-radius: 14px;
+
+    .tag {
+      .tag-icon {
+        position: absolute;
+        width: 128px;
+        height: 38px;
+      }
+
+      .tag-info {
+        position: absolute;
+        font-size: 22px;
+        font-family: PingFang SC;
+        line-height: 38px;
+        color: #fff;
+        margin-left: 20px;
+      }
+    }
+
+    .main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+
+      .left {
+        .cover {
+          width: 298px;
+          height: 172px;
+          border-radius: 14px;
+        }
+      }
+
+      .right {
+        .info {
+          .name {
+            font-size: 24px;
+            font-family: PingFang SC;
+            font-weight: 500;
+            color: #000;
+          }
+
+          .num {
+            font-size: 22px;
+            font-family: PingFang SC;
+            font-weight: 500;
+            color: #999;
+            margin-top: 8px;
+          }
+
+          .progress {
+            margin: 10px 0;
+          }
+
+          .order-count {
+            font-size: 22px;
+            font-family: PingFang SC;
+            font-weight: 500;
+            color: #000;
+
+            .sub-count {
+              color: #999;
+              margin-left: 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .date {
+    margin-top: 30px;
+
+    .time {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+
+      .label {
+        font-size: 24px;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #010101;
+      }
+
+      .value {
+        font-size: 24px;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #999;
+      }
+
+      .timer {
+        background: linear-gradient(90deg, #f33529, #fe2126, #ff2334);
+        border-radius: 17px;
+        margin-top: 20px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        .timer-icon {
+          width: 36px;
+          height: 34px;
+        }
+
+        .timer-main {
+          margin-top: -6px;
+
+          .at-countdown__time-box {
+            font-size: 22px;
+            font-family: PingFang SC;
+            font-weight: bold;
+            color: #fff;
+          }
+
+          .at-countdown__separator {
+            font-size: 22px;
+            font-family: PingFang SC;
+            font-weight: bold;
+            color: #fff;
+            align-self: center;
+            margin-top: -6px;
+          }
+        }
+      }
+    }
+  }
+
+  .fulled {
+    font-size: 24px;
+    font-family: PingFang SC;
+    font-weight: 400;
+    color: #999;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+    border-top: 1px solid #efefef;
+    padding-top: 30px;
+  }
+
+  .failed {
+    font-size: 24px;
+    font-family: PingFang SC;
+    font-weight: 400;
+    color: #999;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+    border-top: 1px solid #efefef;
+    padding-top: 30px;
+  }
+
+  .success {
+    margin-top: 30px;
+    border-top: 1px solid #efefef;
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .left-2 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .icon {
+        width: 22px;
+        height: 24px;
+      }
+
+      .text {
+        font-size: 24px;
+        font-family: PingFang SC;
+        color: #fad000;
+        margin-left: 10px;
+      }
+    }
+
+    .right-2 {
+      .code-btn {
+        background-size: 100% 100%;
+        background-image: url('https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-order/%E7%9F%A9%E5%BD%A2%2024%402x.png');
+        width: 206px;
+        height: 58px;
+        font-size: 24px;
+        font-family: PingFang SC;
+        font-weight: 400;
+        color: #fff;
+        text-align: center;
+        line-height: 58px;
+      }
+
+      .used-text {
+        font-size: 24px;
+        font-family: PingFang SC;
+        color: #999;
+      }
+    }
+  }
+}

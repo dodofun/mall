@@ -7,5 +7,6 @@ module.exports = {
     'prefer-const': 2,
     'no-const-assign': 2,
     'import/first': 0,
+    'react/jsx-closing-bracket-location': 1,
   },
 }
