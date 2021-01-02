@@ -6,6 +6,7 @@ const getBaseUrl = (url) => {
       baseUrl = ''
       break
   }
+
   return baseUrl
 }
 
