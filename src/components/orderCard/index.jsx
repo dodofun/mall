@@ -11,12 +11,35 @@ import {
 import './index.scss'
 import {cardTagIcon} from '@/config'
 import {QRCode} from 'taro-code'
+import dayjs from 'dayjs'
 
 export default function ({order}) {
   const [isOpened, setIsOpened] = useState(false)
+  const [timer, setTimer] = useState(0)
+  const [ended, setEnded] = useState(true)
+  const [diffTime, setDiffTime] = useState({hours: 0, minutes: 0, seconds: 0})
   const title = order.type === 1 ? '福利单' : '抢夺单'
-  useEffect(() => {}, [])
+  const diffMillisecond = dayjs(order.endTime) - dayjs()
+  useEffect(() => {
+    console.log('eeeeeeee', diffMillisecond)
+    if (timer) {
+      clearInterval(timer)
+    }
+    const id = setInterval(() => {
+      if (diffMillisecond > 0) {
+        setEnded(false)
+        setDiffTimeFunc()
+      }
+    }, 1000)
+    setTimer(id)
+  }, [diffMillisecond > 0])
 
+  const setDiffTimeFunc = () => {
+    const hours = Math.floor(diffMillisecond / 1000 / 60 / 60)
+    const minutes = Math.floor((diffMillisecond / 1000 / 60) % 60)
+    const seconds = Math.floor((diffMillisecond / 1000) % 60)
+    setDiffTime({hours, minutes, seconds})
+  }
   const openExchangeCode = () => {
     setIsOpened(true)
   }
@@ -56,25 +79,33 @@ export default function ({order}) {
       <View className="date">
         <View className="time">
           <View className="label">开始时间</View>
-          <View className="value">2020年8月15日 15:20</View>
+          <View className="value">
+            {dayjs(order.startTime).format('YYYY-MM-DD HH:mm:ss')}
+          </View>
         </View>
         <View className="time">
           <View className="label">结束时间</View>
-          <View className="timer">
-            <Image
-              class="timer-icon"
-              src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/%E7%BB%84%2018%402x.png"
-            />
-            <AtCountdown
-              className="timer-main"
-              isShowHour
-              format={{hours: ':', minutes: ':', seconds: ''}}
-              day={2}
-              hours={1}
-              minutes={1}
-              seconds={10}
-            />
-          </View>
+          {ended && (
+            <View className="value">
+              {dayjs(order.endTime).format('YYYY-MM-DD HH:mm:ss')}
+            </View>
+          )}
+          {!ended && (
+            <View className="timer">
+              <Image
+                class="timer-icon"
+                src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/%E7%BB%84%2018%402x.png"
+              />
+              <AtCountdown
+                className="timer-main"
+                isShowHour
+                format={{hours: ':', minutes: ':', seconds: ''}}
+                hours={diffTime.hours}
+                minutes={diffTime.minutes}
+                seconds={diffTime.seconds}
+              />
+            </View>
+          )}
         </View>
       </View>
       {!order.payed && order.totalPeople <= order.hasPeople && (
