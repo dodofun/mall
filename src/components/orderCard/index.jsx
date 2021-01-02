@@ -1,12 +1,25 @@
-import React, {useEffect} from 'react'
-import {View, Image, Text} from '@tarojs/components'
-import {AtProgress, AtCountdown} from 'taro-ui'
+import React, {useState, useEffect} from 'react'
+import {View, Image, Text, Button} from '@tarojs/components'
+import {
+  AtProgress,
+  AtCountdown,
+  AtModal,
+  AtModalHeader,
+  AtModalContent,
+  AtModalAction,
+} from 'taro-ui'
 import './index.scss'
 import {cardTagIcon} from '@/config'
+import {QRCode} from 'taro-code'
 
 export default function ({order}) {
+  const [isOpened, setIsOpened] = useState(false)
   const title = order.type === 1 ? '福利单' : '抢夺单'
   useEffect(() => {}, [])
+
+  const openExchangeCode = () => {
+    setIsOpened(true)
+  }
 
   return (
     <View className="order-card">
@@ -83,18 +96,35 @@ export default function ({order}) {
             />
             <View className="text">抢夺成功</View>
           </View>
-          {order.used && (
+          {order.used > 0 && (
             <View className="right-2">
               <View className="used-text">已领取</View>
             </View>
           )}
           {!order.used && (
-            <View className="right-2">
+            <View className="right-2" onClick={() => openExchangeCode()}>
               <View className="code-btn">查看兑换码</View>
             </View>
           )}
         </View>
       )}
+      <AtModal isOpened={isOpened} onClose={() => setIsOpened(false)}>
+        <AtModalHeader>兑换码</AtModalHeader>
+        <AtModalContent>
+          <View className="qrcode">
+            <QRCode
+              text={order.exchangeCode}
+              size={160}
+              scale={4}
+              errorCorrectLevel="M"
+              typeNumber={2}
+            />
+          </View>
+        </AtModalContent>
+        <AtModalAction>
+          <Button onClick={() => setIsOpened(false)}>关闭</Button>
+        </AtModalAction>
+      </AtModal>
     </View>
   )
 }
