@@ -2,7 +2,7 @@
   "miniprogramRoot": "dist/weapp",
   "projectname": "mall",
   "description": "",
-  "appid": "touristappid",
+  "appid": "wxefcb10dd67c03b07",
   "setting": {
     "urlCheck": true,
     "es6": false,
@@ -17,7 +17,7 @@
     "useCompilerModule": false
   },
   "compileType": "miniprogram",
-  "simulatorType": "wechat",
+  "simulatorType": "一朵后浪",
   "simulatorPluginLibVersion": {},
   "condition": {}
 }

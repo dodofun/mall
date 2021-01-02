@@ -1,0 +1,97 @@
+.goods-card {
+  background-color: #fff;
+  border-radius: 14px;
+
+  .tag {
+    .tag-icon {
+      position: absolute;
+      width: 128px;
+      height: 38px;
+    }
+
+    .tag-info {
+      position: absolute;
+      font-size: 22px;
+      font-family: PingFang SC;
+      line-height: 38px;
+      color: #fff;
+      margin-left: 20px;
+    }
+  }
+
+  .main {
+    padding: 20px;
+
+    .cover {
+      margin: 50px 0 30px 0;
+      width: 100%;
+      height: 172px;
+    }
+
+    .name {
+      font-size: 26px;
+      font-family: PingFang SC;
+      color: #000;
+    }
+
+    .num {
+      font-size: 22px;
+      font-family: PingFang SC;
+      color: #999;
+      margin-top: 14px;
+    }
+
+    .timer {
+      background: linear-gradient(90deg, #f33529, #fe2126, #ff2334);
+      border-radius: 17px;
+      margin-top: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      .timer-icon {
+        width: 36px;
+        height: 34px;
+      }
+
+      .timer-main {
+        margin-top: -6px;
+
+        .at-countdown__time-box {
+          font-size: 22px;
+          font-family: PingFang SC;
+          font-weight: bold;
+          color: #fff;
+        }
+
+        .at-countdown__separator {
+          font-size: 22px;
+          font-family: PingFang SC;
+          font-weight: bold;
+          color: #fff;
+          align-self: center;
+          margin-top: -6px;
+        }
+      }
+    }
+
+    .goods-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+
+      .price {
+        font-size: 22px;
+        font-family: PingFang SC;
+        font-weight: bold;
+        color: #fad000;
+      }
+
+      .action {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
+}

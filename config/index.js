@@ -5,6 +5,7 @@ import pkgData from '../package.json'
 const constants = {
   APP_NAME: pkgData.name,
   OPEN_CUSTOM_INTERCEPTOR: false,
+  ASSETS_IMAGE_HOST: 'https://ydhl-assets.oss-cn-beijing.aliyuncs.com',
 }
 const config = {
   projectName: pkgData.name,

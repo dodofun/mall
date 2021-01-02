@@ -2,6 +2,7 @@
   "extends": "stylelint-config-standard",
   "plugins": ["stylelint-order", "stylelint-scss"],
   "rules": {
-    "no-empty-source": null
+    "no-empty-source": null,
+    "font-family-no-missing-generic-family-keyword": null
   }
 }
