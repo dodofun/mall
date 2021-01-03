@@ -1,5 +1,6 @@
 export default {
   pages: [
+    'pages/paySuccess/index',
     'pages/orderDetail/index',
     'pages/index/index',
     'pages/goodsDetail/index',
