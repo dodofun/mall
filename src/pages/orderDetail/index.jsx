@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {useDidHide, useDidShow, useReady} from '@tarojs/taro'
+import Taro, {useDidHide, useDidShow, useReady} from '@tarojs/taro'
 import {View, Image} from '@tarojs/components'
 import OrderCard from '@/components/orderCard'
 import {AtNoticebar} from 'taro-ui'
@@ -52,7 +52,15 @@ export default function () {
         </View>
         <View className="connect">
           <View className="label">联系电话</View>
-          <View className="mobile">{shopInfo.mobile}</View>
+          <View
+            className="mobile"
+            onClick={() => {
+              if (shopInfo.mobile) {
+                Taro.makePhoneCall({phoneNumber: shopInfo.mobile})
+              }
+            }}>
+            {shopInfo.mobile}
+          </View>
         </View>
         <Image
           className="address-line"
