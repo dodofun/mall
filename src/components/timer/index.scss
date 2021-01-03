@@ -1,0 +1,32 @@
+.timer {
+  background: linear-gradient(90deg, #f33529, #fe2126, #ff2334);
+  border-radius: 17px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  .timer-icon {
+    width: 36px;
+    height: 34px;
+  }
+
+  .timer-main {
+    margin-top: -6px;
+
+    .at-countdown__time-box {
+      font-size: 22px;
+      font-family: PingFang SC;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .at-countdown__separator {
+      font-size: 22px;
+      font-family: PingFang SC;
+      font-weight: bold;
+      color: #fff;
+      align-self: center;
+      margin-top: -6px;
+    }
+  }
+}

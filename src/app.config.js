@@ -1,9 +1,14 @@
 export default {
-  pages: ['pages/order/index', 'pages/index/index', 'pages/mine/index'],
+  pages: [
+    'pages/goodsDetail/index',
+    'pages/index/index',
+    'pages/order/index',
+    'pages/mine/index',
+  ],
   window: {
     backgroundTextStyle: 'light',
     navigationBarBackgroundColor: '#fff',
-    navigationBarTitleText: 'WeChat',
+    navigationBarTitleText: '狂抢派',
     navigationBarTextStyle: 'black',
   },
   tabBar: {
