@@ -1,0 +1,46 @@
+.contact-us {
+  background: #fff;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .icon {
+    width: 596px;
+    height: 438px;
+    margin-top: 180px;
+  }
+
+  .tip {
+    font-size: 28px;
+    font-family: PingFang SC;
+    color: #666;
+    line-height: 6px;
+    margin-top: -40px;
+  }
+
+  .btn {
+    margin-top: 300px;
+    padding: 0 30px;
+    width: 100%;
+
+    .btn-call {
+      width: 100%;
+      background: linear-gradient(90deg, #fad000, #faa500);
+      border-radius: 14px;
+      font-size: 32px;
+      font-family: PingFang SC;
+      font-weight: 500;
+      color: #fff;
+      border: none;
+    }
+  }
+
+  .footer {
+    font-size: 24px;
+    font-family: PingFang SC;
+    color: #999;
+    margin: 50px 0;
+  }
+}

@@ -1,0 +1,27 @@
+page {
+  background: #f5f5f5;
+}
+
+.join-us-form {
+  width: 100%;
+
+  .btn {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding: 20px 30px;
+    width: 100%;
+    background-color: #fff;
+
+    .btn-join {
+      width: 100%;
+      background: linear-gradient(90deg, #fad000, #faa500);
+      border-radius: 14px;
+      font-size: 32px;
+      font-family: PingFang SC;
+      font-weight: 500;
+      color: #fff;
+      border: none;
+    }
+  }
+}

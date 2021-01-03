@@ -17,19 +17,20 @@ const actions = [
     label: '抢夺订单',
     icon:
       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-mine/%E8%AE%A2%E5%8D%95%281%29%20%E6%8B%B7%E8%B4%9D%402x.png',
-    url: '',
+    url: '/pages/order/index',
+    isTab: true,
   },
   {
     label: '商家入驻',
     icon:
       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-mine/%E5%95%86%E5%AE%B6%E5%85%A5%E9%A9%BB%402x.png',
-    url: '',
+    url: '/pages/contactUs/index',
   },
   {
     label: '联系我们',
     icon:
       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-mine/%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC-%E9%82%AE%E4%BB%B6%20%E6%8B%B7%E8%B4%9D%402x.png',
-    url: '',
+    url: '/pages/contactUs/index',
   },
 ]
 

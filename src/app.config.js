@@ -1,6 +1,9 @@
 export default {
   pages: [
+    'pages/joinUsForm/index',
+    'pages/joinUs/index',
     'pages/mine/index',
+    'pages/contactUs/index',
     'pages/order/index',
     'pages/index/index',
     'pages/coupon/index',

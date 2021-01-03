@@ -4,6 +4,7 @@
   "rules": {
     "no-empty-source": null,
     "font-family-no-missing-generic-family-keyword": null,
-    "block-no-empty": null
+    "block-no-empty": null,
+    "selector-type-no-unknown": null
   }
 }

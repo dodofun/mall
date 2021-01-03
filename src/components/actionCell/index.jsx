@@ -9,9 +9,15 @@ export default function ({action}) {
     if (!action.url) {
       return
     }
-    Taro.navigateTo({
-      url: action.url,
-    })
+    if (action.isTab) {
+      Taro.switchTab({
+        url: action.url,
+      })
+    } else {
+      Taro.navigateTo({
+        url: action.url,
+      })
+    }
   }
 
   return (
