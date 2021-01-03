@@ -1,11 +1,11 @@
 export default {
   pages: [
+    'pages/order/index',
+    'pages/index/index',
     'pages/coupon/index',
     'pages/paySuccess/index',
     'pages/orderDetail/index',
-    'pages/index/index',
     'pages/goodsDetail/index',
-    'pages/order/index',
     'pages/mine/index',
   ],
   window: {

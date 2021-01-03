@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import Taro from '@tarojs/taro'
 import {View, Image, Text, Button} from '@tarojs/components'
 import {
   AtProgress,
-  AtCountdown,
   AtModal,
   AtModalHeader,
   AtModalContent,
@@ -13,27 +12,14 @@ import {
 import './index.scss'
 import {cardTagIcon} from '@/config'
 import {QRCode} from 'taro-code'
+import Timer from '../timer'
 import dayjs from 'dayjs'
 
 export default function ({order}) {
   const [isOpened, setIsOpened] = useState(false)
-  const [ended, setEnded] = useState(true)
-  const [diffTime, setDiffTime] = useState({hours: 0, minutes: 0, seconds: 0})
+  const [ended, setEnded] = useState(dayjs(order.endTime) - dayjs() < 0)
   const isFuli = order.type === 1
-  const diffMillisecond = dayjs(order.endTime) - dayjs()
-  useEffect(() => {
-    if (diffMillisecond > 0) {
-      setEnded(false)
-      setDiffTimeFunc()
-    }
-  }, [diffMillisecond > 0])
 
-  const setDiffTimeFunc = () => {
-    const hours = Math.floor(diffMillisecond / 1000 / 60 / 60)
-    const minutes = Math.floor((diffMillisecond / 1000 / 60) % 60)
-    const seconds = Math.floor((diffMillisecond / 1000) % 60)
-    setDiffTime({hours, minutes, seconds})
-  }
   const openExchangeCode = () => {
     setIsOpened(true)
   }
@@ -92,23 +78,13 @@ export default function ({order}) {
             </View>
           )}
           {!ended && (
-            <View className="timer">
-              <Image
-                class="timer-icon"
-                src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/%E7%BB%84%2018%402x.png"
-              />
-              <AtCountdown
-                className="timer-main"
-                isShowHour
-                format={{hours: ':', minutes: ':', seconds: ''}}
-                hours={diffTime.hours}
-                minutes={diffTime.minutes}
-                seconds={diffTime.seconds}
-                onTimeUp={() => {
-                  setEnded(true)
-                }}
-              />
-            </View>
+            <Timer
+              className="timer"
+              endTime={order.endTime}
+              onSetEnded={(val) => {
+                setEnded(val)
+              }}
+            />
           )}
         </View>
       </View>

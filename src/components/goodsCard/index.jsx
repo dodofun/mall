@@ -1,9 +1,10 @@
 import React, {useEffect} from 'react'
 import {View, Image} from '@tarojs/components'
-import {AtProgress, AtCountdown} from 'taro-ui'
-import './index.scss'
+import {AtProgress} from 'taro-ui'
 import {cardTagIcon} from '@/config'
 import Taro from '@tarojs/taro'
+import Timer from '../timer'
+import './index.scss'
 
 export default function ({goods}) {
   useEffect(() => {}, [])
@@ -29,21 +30,7 @@ export default function ({goods}) {
             color="#FAD000"
           />
         </View>
-        <View className="timer">
-          <Image
-            class="timer-icon"
-            src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/%E7%BB%84%2018%402x.png"
-          />
-          <AtCountdown
-            className="timer-main"
-            isShowHour
-            format={{hours: ':', minutes: ':', seconds: ''}}
-            day={2}
-            hours={1}
-            minutes={1}
-            seconds={10}
-          />
-        </View>
+        <Timer className="timer" endTime={goods.endTime} />
         <View className="goods-footer">
           <View className="price">￥{goods.price}</View>
           <Image

@@ -31,22 +31,24 @@ export default function ({endTime, onSetEnded}) {
 
   return (
     <View className="timer">
-      <Image
-        class="timer-icon"
-        src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/%E7%BB%84%2018%402x.png"
-      />
       {loaded && (
-        <AtCountdown
-          className="timer-main"
-          isShowHour
-          format={{hours: ':', minutes: ':', seconds: ''}}
-          hours={diffTime.hours}
-          minutes={diffTime.minutes}
-          seconds={diffTime.seconds}
-          onTimeUp={() => {
-            onSetEnded(true)
-          }}
-        />
+        <>
+          <Image
+            class="timer-icon"
+            src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/%E7%BB%84%2018%402x.png"
+          />
+          <AtCountdown
+            className="timer-main"
+            isShowHour
+            format={{hours: ':', minutes: ':', seconds: ''}}
+            hours={diffTime.hours}
+            minutes={diffTime.minutes}
+            seconds={diffTime.seconds}
+            onTimeUp={() => {
+              onSetEnded && onSetEnded(true)
+            }}
+          />
+        </>
       )}
     </View>
   )

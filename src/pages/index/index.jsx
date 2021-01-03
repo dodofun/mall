@@ -36,7 +36,8 @@ export default function () {
         hasPeople: 8,
         cover:
           'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xigua.png',
-        endTime: '2021-01-02 18:00:00',
+        startTime: 1609596415948,
+        endTime: 1609699179948,
         price: 10.5,
       },
       {
@@ -46,7 +47,8 @@ export default function () {
         hasPeople: 4,
         cover:
           'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xihongshi.png',
-        endTime: '2021-01-02 17:00:00',
+        startTime: 1609596415948,
+        endTime: 1609699179948,
         price: 12,
       },
       {
@@ -56,7 +58,8 @@ export default function () {
         hasPeople: 20,
         cover:
           'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xiaomai.png',
-        endTime: '2021-01-02 18:00:00',
+        startTime: 1609596415948,
+        endTime: 1609699179948,
         price: 10.5,
       },
       {
@@ -66,7 +69,8 @@ export default function () {
         hasPeople: 32,
         cover:
           'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-you.png',
-        endTime: '2021-01-03 18:00:00',
+        startTime: 1609596415948,
+        endTime: 1609699179948,
         price: 50,
       },
     ])
@@ -99,8 +103,8 @@ export default function () {
             )
           })}
         </View>
-        <AtNoticebar icon="volume-plus" marquee speed={30}>
-          分为按人数：10人、30人、40人来抢夺意见商品；也可按价格：1元、2元、5元
+        <AtNoticebar icon="volume-plus">
+          人数：10人、30人、40人；价格：1元、2元、5元。
         </AtNoticebar>
       </View>
       <AtTabs current={currentTab} tabList={tabList} onClick={changeCondition}>

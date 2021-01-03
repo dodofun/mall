@@ -4,6 +4,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
+  height: 40px;
 
   .timer-icon {
     width: 36px;
@@ -11,7 +12,9 @@
   }
 
   .timer-main {
-    margin-top: -6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .at-countdown__time-box {
       font-size: 22px;
@@ -26,7 +29,6 @@
       font-weight: bold;
       color: #fff;
       align-self: center;
-      margin-top: -6px;
     }
   }
 }
