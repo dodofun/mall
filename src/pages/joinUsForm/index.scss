@@ -4,6 +4,48 @@ page {
 
 .join-us-form {
   width: 100%;
+  padding: 30px;
+  margin-bottom: 50px;
+
+  .form-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 40px 30px;
+    margin-top: 30px;
+
+    .form-title {
+      font-size: 30px;
+      font-family: PingFang SC;
+      font-weight: 500;
+      color: #000;
+    }
+
+    .at-form::after {
+      border-bottom-width: 0;
+    }
+
+    .form-data {
+      margin-top: 50px;
+
+      .at-input {
+        margin-left: 0;
+      }
+
+      .at-input__title {
+        font-size: 26px;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #666;
+      }
+
+      .at-input input {
+        font-size: 26px;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #000;
+      }
+    }
+  }
 
   .btn {
     position: fixed;

@@ -24,7 +24,7 @@ const actions = [
     label: '商家入驻',
     icon:
       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-mine/%E5%95%86%E5%AE%B6%E5%85%A5%E9%A9%BB%402x.png',
-    url: '/pages/contactUs/index',
+    url: '/pages/joinUs/index',
   },
   {
     label: '联系我们',

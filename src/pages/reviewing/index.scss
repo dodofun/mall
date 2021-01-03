@@ -1,0 +1,48 @@
+.review {
+  width: 100%;
+  margin-bottom: 40px;
+
+  .head-img {
+    width: 100%;
+    height: 590px;
+  }
+
+  .tips {
+    padding: 10px 80px;
+    margin-top: 116px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .title {
+      font-size: 28px;
+      font-family: PingFang SC;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .sub-title {
+      margin-top: 20px;
+      font-size: 24px;
+      font-family: PingFang SC;
+      font-weight: 500;
+      color: #999;
+      line-height: 36px;
+    }
+  }
+
+  .bottom-bar {
+    margin-top: 80px;
+    padding: 50px 140px;
+
+    .btn {
+      background: linear-gradient(90deg, #fad000, #faa500);
+      border-radius: 14px;
+      font-size: 32px;
+      font-family: PingFang SC;
+      font-weight: 500;
+      color: #fff;
+      border: none;
+    }
+  }
+}
