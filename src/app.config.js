@@ -1,7 +1,8 @@
 export default {
   pages: [
-    'pages/goodsDetail/index',
+    'pages/orderDetail/index',
     'pages/index/index',
+    'pages/goodsDetail/index',
     'pages/order/index',
     'pages/mine/index',
   ],

@@ -3,12 +3,16 @@ import {View, Image} from '@tarojs/components'
 import {AtProgress, AtCountdown} from 'taro-ui'
 import './index.scss'
 import {cardTagIcon} from '@/config'
+import Taro from '@tarojs/taro'
 
 export default function ({goods}) {
   useEffect(() => {}, [])
+  const goDetail = () => {
+    Taro.navigateTo({url: `/pages/goodsDetail/index?id=${goods.id}`})
+  }
 
   return (
-    <View className="goods-card">
+    <View className="goods-card" onClick={goDetail}>
       <View className="tag">
         <Image className="tag-icon" src={cardTagIcon[0]} />
         <View className="tag-info">{goods.totalPeople}人抢</View>
