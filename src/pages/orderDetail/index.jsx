@@ -1,87 +1,41 @@
 import React, {useState, useEffect} from 'react'
-import Taro, {useDidHide, useDidShow, useReady} from '@tarojs/taro'
+import {useDidHide, useDidShow, useReady} from '@tarojs/taro'
 import {View, Image} from '@tarojs/components'
+import OrderCard from '@/components/orderCard'
+import {AtNoticebar} from 'taro-ui'
 import './index.scss'
-import Footer from '@/components/footer'
-import Timer from '@/components/timer'
-import GoodsCard from '@/components/goodsCard'
-import {AtButton} from 'taro-ui'
 
 export default function () {
-  const [detail, setDetail] = useState({})
-  const [goodsList, setGoodsList] = useState([])
-  const [ended, setEnded] = useState(false)
+  const [shopInfo, setShopInfo] = useState({})
+  const [orderDetail, setOrderDetail] = useState({})
 
   useEffect(() => {
-    // 获取详情
-    setDetail({
+    setShopInfo({
       id: 1,
-      name: '绿色冰糖西瓜3kg',
-      price: 10.5,
+      address: '保利罗兰香谷二区社区惠民超市',
+      mobile: '18513971114',
+    })
+    setOrderDetail({
+      id: 4,
+      type: 0, // 0: 抢夺单，1: 福利单
+      status: 1, // 1: 进行中；2: 已开奖；3: 已关闭
+      winning: false, // 1: 中奖；0: 未中奖
+      payed: false, // 1: 已支付，0: 待支付
+      used: false, // 1: 已使用, 0: 未使用
       totalPeople: 10,
       hasPeople: 8,
+      goodsId: 1,
+      goodsName: '绿色冰糖西瓜3kg',
       cover:
         'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xigua.png',
+      count: 3,
+      price: 8,
+      totalAmount: 24,
       startTime: 1609596415948,
-      endTime: 1609899179948,
+      endTime: 1609896495948,
+      exchangeCode: 'demo',
     })
-    setGoodsList([
-      {
-        id: 1,
-        name: '绿色冰糖西瓜3kg',
-        totalPeople: 10,
-        hasPeople: 8,
-        cover:
-          'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xigua.png',
-        endTime: '2021-01-02 18:00:00',
-        price: 10.5,
-      },
-      {
-        id: 2,
-        name: '新到番茄2kg',
-        totalPeople: 10,
-        hasPeople: 4,
-        cover:
-          'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xihongshi.png',
-        endTime: '2021-01-02 17:00:00',
-        price: 12,
-      },
-      {
-        id: 3,
-        name: '东北大米25kg',
-        totalPeople: 20,
-        hasPeople: 20,
-        cover:
-          'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xiaomai.png',
-        endTime: '2021-01-02 18:00:00',
-        price: 10.5,
-      },
-      {
-        id: 4,
-        name: '金龙鱼调和油5kg',
-        totalPeople: 50,
-        hasPeople: 32,
-        cover:
-          'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-you.png',
-        endTime: '2021-01-03 18:00:00',
-        price: 50,
-      },
-    ])
   }, [])
-
-  useEffect(() => {
-    if (!detail.id) {
-      return
-    }
-    if (detail.name) {
-      // 设置页面title
-      Taro.setNavigationBarTitle({title: detail.name})
-    }
-  }, [detail])
-
-  const placeOrder = () => {
-    // 下单
-  }
 
   useDidShow(() => {})
 
@@ -90,67 +44,28 @@ export default function () {
   useReady(() => {})
 
   return (
-    <View className="goods-detail">
+    <View className="order-detail">
       <View className="head">
-        <Image className="cover" src={detail.cover} />
+        <View className="address">
+          <View className="icon">领取地址</View>
+          <View className="address-detail">{shopInfo.address}</View>
+        </View>
+        <View className="connect">
+          <View className="label">联系电话</View>
+          <View className="mobile">{shopInfo.mobile}</View>
+        </View>
+        <Image
+          className="address-line"
+          src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-pay/%E7%BB%84%2010%402x.png"
+        />
       </View>
-      <View className="info">
-        <View className="left">
-          <View className="price">￥{detail.price}</View>
-          <View className="name">{detail.name}</View>
-        </View>
-        <View className="right">
-          <View className="label">距离抢夺结束还剩</View>
-          {!ended && (
-            <Timer
-              className="timer"
-              endTime={detail.endTime}
-              onSetEnded={(val) => {
-                setEnded(val)
-              }}
-            />
-          )}
-        </View>
+      <View className="notice">
+        <AtNoticebar icon="volume-plus">
+          抢夺失败可领取对应金额的优惠券呦
+        </AtNoticebar>
       </View>
-      <View className="rules">
-        <View className="rule">
-          <View className="label-left">优惠券</View>
-          <View className="label-right">抢夺失败可以领对应金额的优惠券</View>
-        </View>
-        <View className="rule">
-          <View className="label-left">活动规则</View>
-          <View className="label-right">
-            抢夺结束只有一名幸运宠儿，失败者可领取优惠券
-          </View>
-        </View>
-        <View className="rule">
-          <View className="label-left">领取方式</View>
-          <View className="label-right">
-            抢夺成功者可凭订单里的兑奖码到店兑换商品
-          </View>
-        </View>
-      </View>
-      <View className="recommend">
-        <View className="title">推荐活动</View>
-        <View className="goods-list at-row at-row--wrap">
-          {goodsList.map((item) => {
-            return (
-              <View key={item.id} className="goods-item at-col at-col-6">
-                <GoodsCard className="" goods={item} />
-              </View>
-            )
-          })}
-        </View>
-      </View>
-      <Footer />
-      <View className="bottom-bar">
-        <AtButton
-          className="btn"
-          onClick={() => {
-            placeOrder()
-          }}>
-          立即抢夺
-        </AtButton>
+      <View className="order-card">
+        <OrderCard order={orderDetail} />
       </View>
     </View>
   )

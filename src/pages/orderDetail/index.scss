@@ -1,3 +1,67 @@
-.goods-detail {
+.order-detail {
   width: 100%;
+  background: #fff;
+  padding: 30px;
+
+  .head {
+    padding: 30px;
+
+    .address {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .icon {
+        background-size: 100% 100%;
+        background-image: url('https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-pay/%E7%9F%A9%E5%BD%A2%209%402x.png');
+        width: 94px;
+        height: 32px;
+        font-size: 20px;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #fff;
+        text-align: center;
+      }
+
+      .address-detail {
+        font-size: 32px;
+        font-family: PingFang SC;
+        font-weight: bold;
+        color: #000;
+        margin-left: 30px;
+      }
+    }
+
+    .connect {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 20px;
+
+      .label {
+        font-size: 26px;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #999;
+      }
+
+      .mobile {
+        font-size: 26px;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #999;
+        margin-left: 30px;
+      }
+    }
+
+    .address-line {
+      height: 6px;
+      width: 100%;
+      margin-top: 20px;
+    }
+  }
+
+  .notice {
+    padding: 10px 30px;
+  }
 }
