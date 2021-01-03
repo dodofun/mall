@@ -1,0 +1,88 @@
+.coupon-card {
+  background-color: #fff;
+  border-radius: 14px;
+  padding: 40px;
+  margin-bottom: 30px;
+
+  .content {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-bottom: 30px;
+
+    .coupon-icon {
+      background-size: 100% 100%;
+      background-image: url('https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/%E5%9B%BE%E5%B1%82%202%402x%20%281%29.png');
+      width: 210px;
+      height: 80px;
+      font-size: 30px;
+      font-family: PingFang SC;
+      font-weight: bold;
+      color: #fff;
+      line-height: 80px;
+      padding-left: 10px;
+    }
+
+    .coupon-detail {
+      margin-left: 50px;
+
+      .name {
+        font-size: 26px;
+        font-family: PingFang SC;
+        font-weight: bold;
+        color: #000;
+      }
+
+      .note {
+        font-size: 24px;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #999;
+        margin-left: 10px;
+        margin-top: 10px;
+      }
+    }
+  }
+
+  .footer1 {
+    border-top: 1px solid rgba($color: #efefef, $alpha: 1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 30px;
+
+    .validity-period {
+      font-size: 24px;
+      font-family: PingFang SC;
+      font-weight: 500;
+      color: #999;
+    }
+
+    .btn {
+      .use-btn {
+        background: linear-gradient(90deg, #fad000, #faa500);
+        border-radius: 14px;
+        border: none;
+        font-size: 24px;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #fff;
+      }
+    }
+  }
+
+  .footer2 {
+    border-top: 1px solid rgba($color: #efefef, $alpha: 1);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 30px;
+
+    .used-text {
+      font-size: 24px;
+      font-family: PingFang SC;
+      font-weight: 500;
+      color: #999;
+    }
+  }
+}
