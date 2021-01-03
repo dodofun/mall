@@ -11,7 +11,7 @@ const actions = [
     label: '优惠券',
     icon:
       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-mine/%E4%BC%98%E6%83%A0%E5%88%B8%402x.png',
-    url: '',
+    url: '/pages/coupon/index',
   },
   {
     label: '抢夺订单',

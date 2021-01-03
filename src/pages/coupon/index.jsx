@@ -32,11 +32,12 @@ export default function () {
   return (
     <View className="coupon">
       <View className="title">满减优惠券</View>
-      {couponList.map((item) => {
-        return (
-          <CouponCard className="coupon-item" key={item.id} coupon={item} />
-        )
-      })}
+      {couponList &&
+        couponList.map((item) => {
+          return (
+            <CouponCard className="coupon-item" key={item.id} coupon={item} />
+          )
+        })}
     </View>
   )
 }

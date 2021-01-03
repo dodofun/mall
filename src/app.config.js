@@ -1,12 +1,12 @@
 export default {
   pages: [
+    'pages/mine/index',
     'pages/order/index',
     'pages/index/index',
     'pages/coupon/index',
     'pages/paySuccess/index',
     'pages/orderDetail/index',
     'pages/goodsDetail/index',
-    'pages/mine/index',
   ],
   window: {
     backgroundTextStyle: 'light',
