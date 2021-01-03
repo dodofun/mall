@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import Taro from '@tarojs/taro'
 import {View, Image, Text, Button} from '@tarojs/components'
 import {
   AtProgress,
@@ -39,6 +40,7 @@ export default function ({order}) {
 
   const toPay = () => {
     console.log('发起支付')
+    Taro.navigateTo({url: '/pages/paySuccess/index'})
   }
 
   return (

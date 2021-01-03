@@ -81,6 +81,7 @@ export default function () {
 
   const placeOrder = () => {
     // 下单
+    Taro.navigateTo({url: '/pages/orderDetail/index'})
   }
 
   useDidShow(() => {})
