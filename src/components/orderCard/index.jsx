@@ -37,6 +37,10 @@ export default function ({order}) {
     setIsOpened(true)
   }
 
+  const toPay = () => {
+    console.log('发起支付')
+  }
+
   return (
     <View className="order-card">
       <View className={isFuli ? 'title1' : 'title2'}>
@@ -116,12 +120,17 @@ export default function ({order}) {
             <View className="wexinpay-text">微信支付</View>
           </View>
           <View className="right-1">
-            <AtButton type="secondary" size="small">
+            <AtButton type="secondary" size="small" onClick={toPay}>
               立即支付
             </AtButton>
           </View>
         </View>
       )}
+      {order.status === 3 &&
+        order.payed &&
+        order.totalPeople > order.hasPeople && (
+          <View className="closed">请到微信钱包查看零钱是否返回</View>
+        )}
       {!order.payed && order.totalPeople <= order.hasPeople && (
         <View className="fulled">
           <View>当前人数已满，无法参与抢夺</View>
