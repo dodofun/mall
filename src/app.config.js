@@ -1,9 +1,10 @@
 export default {
   pages: [
+    'pages/index/index',
+    'pages/bWriteOff/index',
     'pages/bIncomeRecord/index',
     'pages/bWithdrawalRecord/index',
     'pages/bHome/index',
-    'pages/index/index',
     'pages/reviewing/index',
     'pages/joinUsForm/index',
     'pages/joinUs/index',
