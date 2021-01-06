@@ -14,11 +14,11 @@ const actions = [
     url: '/pages/coupon/index',
   },
   {
-    label: '抢夺订单',
+    label: '商户管理',
     icon:
       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-mine/%E8%AE%A2%E5%8D%95%281%29%20%E6%8B%B7%E8%B4%9D%402x.png',
-    url: '/pages/order/index',
-    isTab: true,
+    url: '/pages/bHome/index',
+    isTab: false,
   },
   {
     label: '商家入驻',
