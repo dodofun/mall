@@ -37,7 +37,7 @@ export default function () {
         cover:
           'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xigua.png',
         startTime: 1609596415948,
-        endTime: 1609699179948,
+        endTime: 1609999179948,
         price: 10.5,
       },
       {
@@ -48,7 +48,7 @@ export default function () {
         cover:
           'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xihongshi.png',
         startTime: 1609596415948,
-        endTime: 1609699179948,
+        endTime: 1609999179948,
         price: 12,
       },
       {
@@ -59,7 +59,7 @@ export default function () {
         cover:
           'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xiaomai.png',
         startTime: 1609596415948,
-        endTime: 1609699179948,
+        endTime: 1609999179948,
         price: 10.5,
       },
       {
@@ -70,7 +70,7 @@ export default function () {
         cover:
           'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-you.png',
         startTime: 1609596415948,
-        endTime: 1609699179948,
+        endTime: 1609999179948,
         price: 50,
       },
     ])
