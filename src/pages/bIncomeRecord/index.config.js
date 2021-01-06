@@ -1,4 +1,4 @@
 export default {
-  navigationBarTitleText: '商户管理',
+  navigationBarTitleText: '收益记录',
   usingComponents: {},
 }
