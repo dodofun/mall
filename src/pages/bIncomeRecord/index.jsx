@@ -65,12 +65,12 @@ export default function () {
         <View className="footer">
           <View
             className="withdrawal-record"
-            onClick={() => goto('/pages/bWithdrawalRecord/index')}>
+            onClick={() => goto('/pages/withdrawalRecord/index')}>
             提现记录
           </View>
           <View
             className="income-record"
-            onClick={() => goto('/pages/bIncomeRecord/index')}>
+            onClick={() => goto('/pages/incomeRecord/index')}>
             收入明细
           </View>
         </View>
