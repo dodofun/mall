@@ -1,5 +1,6 @@
 export default {
   pages: [
+    'pages/bHome/index',
     'pages/index/index',
     'pages/reviewing/index',
     'pages/joinUsForm/index',

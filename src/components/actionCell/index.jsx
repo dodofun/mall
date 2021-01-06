@@ -26,12 +26,17 @@ export default function ({action}) {
         <Image className="icon" src={action.icon} />
         <View className="label">{action.label}</View>
       </View>
-      <AtIcon
-        className="right"
-        value="chevron-right"
-        size="16"
-        color="#999999"
-      />
+      {action.tailIcon && (
+        <Image className="right-icon" src={action.tailIcon} />
+      )}
+      {!action.tailIcon && (
+        <AtIcon
+          className="right"
+          value="chevron-right"
+          size="16"
+          color="#999999"
+        />
+      )}
     </View>
   )
 }
