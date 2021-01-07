@@ -1,15 +1,23 @@
 import React, {useEffect, useState} from 'react'
-import {useDidHide, useDidShow, useReady} from '@tarojs/taro'
-import {View, Image} from '@tarojs/components'
+import Taro, {useDidHide, useDidShow, useReady} from '@tarojs/taro'
+import {View} from '@tarojs/components'
 import './index.scss'
 import BottomBtn from '@/components/bottomBtn'
+import WithdrawalCard from '@/components/withdrawalCard'
+import {AtInput} from 'taro-ui'
 
 export default function () {
+  const rate = '0.20'
+  const minAmount = '0.10'
   const [amount, setAmount] = useState({
     canWithdrawn: 0,
     withdrawned: 0,
     totalIncome: 0,
   })
+  const [inputVal, setInputVal] = useState('')
+  const [fee, setFee] = useState(0)
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     setAmount({
       canWithdrawn: 23411.0,
@@ -17,6 +25,24 @@ export default function () {
       totalIncome: 30000.0,
     })
   }, [])
+
+  useEffect(() => {
+    const res = Math.round(inputVal * rate) / 100
+    setFee(res > minAmount ? res : minAmount)
+  }, [inputVal])
+
+  useEffect(() => {
+    loading && Taro.showLoading({title: '正在提现...'})
+    !loading && Taro.hideLoading()
+  }, [loading])
+
+  const withdrawal = () => {
+    console.log('withdrawal')
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 4000)
+  }
 
   useDidShow(() => {})
 
@@ -26,32 +52,41 @@ export default function () {
 
   return (
     <View className="b-withdrawal">
-      <View className="head">
-        <View className="title">
-          <Image
-            className="icon"
-            src="https://assets.yiduohoulang.com/images/mall/app-tixian/%E7%9F%A2%E9%87%8F%E6%99%BA%E8%83%BD%E5%AF%B9%E8%B1%A1%402x.png"
-          />
-          <View className="label">可提现金额</View>
+      <WithdrawalCard amount={amount} />
+      <View className="amount-card">
+        <View className="title">提现金额</View>
+        <View className="input">
+          <AtInput
+            clear
+            border={false}
+            title="￥"
+            placeholder={`当前可提现金额￥${amount.canWithdrawn}`}
+            type="digit"
+            value={inputVal}
+            onChange={(val) => {
+              setInputVal(val)
+            }}>
+            <View
+              className="all-btn"
+              onClick={() => {
+                setInputVal(amount.canWithdrawn)
+              }}>
+              全部提现
+            </View>
+          </AtInput>
         </View>
-        <View className="can-withdrawn">￥{amount.canWithdrawn}</View>
-        <View className="footer">
-          <View className="cell">
-            <View className="text">提现已完成</View>
-            <View className="amount">￥{amount.withdrawned}</View>
+        <View className="cell">
+          <View className="label-start">费率</View>
+          <View className="label-end">
+            {rate}%(最低￥{minAmount})
           </View>
-          <View className="cell">
-            <View className="text">累计收益金额</View>
-            <View className="amount">￥{amount.totalIncome}</View>
-          </View>
+        </View>
+        <View className="cell">
+          <View className="label-start">服务费</View>
+          <View className="label-end">￥{fee}</View>
         </View>
       </View>
-      <BottomBtn
-        text="立即提现"
-        onClick={() => {
-          console.log('提现')
-        }}
-      />
+      <BottomBtn disabled={loading} text="立即提现" onClick={withdrawal} />
     </View>
   )
 }

@@ -1,0 +1,59 @@
+.withdrawal-card {
+  background-image: url('https://assets.yiduohoulang.com/images/mall/app-tixian/%E7%BB%84%204%402x.png');
+  background-size: 100% 100%;
+  width: 100%;
+  padding: 20px 30px;
+
+  .title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .icon {
+      width: 36px;
+      height: 32px;
+    }
+
+    .label {
+      font-size: 28px;
+      font-family: PingFang SC;
+      font-weight: 500;
+      color: #fff;
+      margin-left: 20px;
+    }
+  }
+
+  .can-withdrawn {
+    font-size: 60px;
+    font-family: PingFang SC;
+    font-weight: 800;
+    color: #fff;
+    padding: 38px 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba($color: #efefef, $alpha: 0.8);
+
+    .cell {
+      .text {
+        font-size: 24px;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #fff;
+      }
+
+      .amount {
+        font-size: 36px;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #fff;
+        margin-top: 10px;
+      }
+    }
+  }
+}

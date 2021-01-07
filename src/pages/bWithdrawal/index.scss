@@ -6,61 +6,67 @@ page {
   width: 100%;
   padding: 30px;
 
-  .head {
-    background-image: url('https://assets.yiduohoulang.com/images/mall/app-tixian/%E7%BB%84%204%402x.png');
-    background-size: 100% 100%;
-    width: 100%;
-    padding: 20px 30px;
+  .amount-card {
+    margin-top: 30px;
+    background-color: #fff;
+    border-radius: 14px;
+    padding: 40px 30px;
 
     .title {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
+      font-size: 30px;
+      font-family: PingFang SC;
+      font-weight: 500;
+      color: #000;
+    }
 
-      .icon {
-        width: 44px;
-        height: 38px;
+    .input {
+      margin-top: 40px;
+
+      .at-input {
+        margin-left: 0;
       }
 
-      .label {
-        font-size: 30px;
+      .at-input input {
+        font-size: 26px;
         font-family: PingFang SC;
         font-weight: 500;
-        color: #fff;
-        margin-left: 20px;
+      }
+
+      .at-input__title {
+        width: 60px;
+        font-size: 40px;
+        font-family: PingFang SC;
+        font-weight: 800;
+        color: #333;
+      }
+
+      .all-btn {
+        font-size: 26px;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #fad000;
       }
     }
 
-    .can-withdrawn {
-      font-size: 60px;
-      font-family: PingFang SC;
-      font-weight: 800;
-      color: #fff;
-      padding: 38px 0;
-      width: 100%;
-      text-align: center;
-    }
-
-    .footer {
+    .cell {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 50px 0;
+      border-top: 1px solid rgba($color: #efefef, $alpha: 1);
 
-      .cell {
-        .text {
-          font-size: 24px;
-          font-family: PingFang SC;
-          font-weight: 500;
-          color: #fff;
-        }
+      .label-start {
+        font-size: 26px;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #666;
+      }
 
-        .amount {
-          font-size: 36px;
-          font-family: PingFang SC;
-          font-weight: 500;
-          color: #fff;
-          margin-top: 10px;
-        }
+      .label-end {
+        font-size: 26px;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #000;
       }
     }
   }
