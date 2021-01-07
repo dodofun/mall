@@ -1,7 +1,7 @@
 export default {
   pages: [
-    'pages/bWithdrawal/index',
     'pages/index/index',
+    'pages/bWithdrawal/index',
     'pages/bWriteOff/index',
     'pages/bIncomeRecord/index',
     'pages/bWithdrawalRecord/index',

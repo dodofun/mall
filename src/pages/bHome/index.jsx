@@ -57,7 +57,13 @@ export default function () {
   return (
     <View className="b-home">
       <View className="head">
-        <View className="withdrawal">提现</View>
+        <View
+          className="withdrawal"
+          onClick={() => {
+            goto('/pages/bWithdrawal/index')
+          }}>
+          提现
+        </View>
         <View className="income">
           <View className="tite">累计收益金额</View>
           <View className="amount">{amount}</View>
