@@ -1,21 +1,22 @@
 export default {
   pages: [
-    'pages/index/index',
-    'pages/bWithdrawal/index',
-    'pages/bWriteOff/index',
-    'pages/bIncomeRecord/index',
-    'pages/bWithdrawalRecord/index',
-    'pages/bHome/index',
-    'pages/reviewing/index',
-    'pages/joinUsForm/index',
-    'pages/joinUs/index',
-    'pages/mine/index',
-    'pages/contactUs/index',
-    'pages/order/index',
-    'pages/coupon/index',
-    'pages/paySuccess/index',
-    'pages/orderDetail/index',
-    'pages/goodsDetail/index',
+    'pages/bPutOn/index', // 商品上架
+    'pages/bHome/index', // 商户主页
+    'pages/index/index', // 用户首页
+    'pages/bWithdrawal/index', // 提现
+    'pages/bWriteOff/index', // 核销
+    'pages/bIncomeRecord/index', // 收益记录
+    'pages/bWithdrawalRecord/index', // 提现记录
+    'pages/joinUs/index', // 商家入驻
+    'pages/joinUsForm/index', // 商家入驻表单
+    'pages/reviewing/index', // 入驻审核
+    'pages/mine/index', // 我的主页
+    'pages/contactUs/index', // 联系我们
+    'pages/order/index', // 订单
+    'pages/coupon/index', // 优惠券
+    'pages/paySuccess/index', // 支付成功
+    'pages/orderDetail/index', // 订单详情
+    'pages/goodsDetail/index', // 商品详情
   ],
   window: {
     backgroundTextStyle: 'light',

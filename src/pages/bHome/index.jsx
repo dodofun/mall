@@ -7,28 +7,28 @@ import './index.scss'
 
 const actions = [
   {
-    label: '核销',
+    label: '优惠核销',
     icon:
       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/b-home/%E6%A0%B8%E9%94%80%402x.png',
     tailIcon:
       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/b-home/%E6%89%AB%E7%A0%81%402x.png',
-    url: '/pages/coupon/index',
+    url: '/pages/bWriteOff/index',
   },
   {
-    label: '上架',
+    label: '商品上架',
     icon:
       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/b-home/%E4%B8%8A%E6%9E%B6%402x.png',
-    url: '/pages/order/index',
-    isTab: true,
+    url: '/pages/bPutOn/index',
+    isTab: false,
   },
   {
-    label: '福利',
+    label: '福利发布',
     icon:
       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/b-home/%E7%A6%8F%E5%88%A9%402x.png',
     url: '/pages/bIncomeRecord/index',
   },
   {
-    label: '管理',
+    label: '订单管理',
     icon:
       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/b-home/%E7%AE%A1%E7%90%86%20%281%29%20%E6%8B%B7%E8%B4%9D%402x.png',
     url: '/pages/contactUs/index',
