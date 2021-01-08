@@ -1,6 +1,7 @@
 /* eslint-disable import/no-commonjs */
 import path from 'path'
 import pkgData from '../package.json'
+import {printFiglet} from './figlet'
 
 const constants = {
   APP_NAME: pkgData.name,
@@ -112,6 +113,6 @@ module.exports = function (merge) {
   Object.keys(res.defineConstants).map((key) => {
     res.defineConstants[key] = JSON.stringify(res.defineConstants[key])
   })
-
+  printFiglet()
   return res
 }
