@@ -1,5 +1,6 @@
 export default {
   pages: [
+    'pages/bWelfarePutOn/index', // 福利发布
     'pages/bPutOn/index', // 商品上架
     'pages/bHome/index', // 商户主页
     'pages/index/index', // 用户首页
