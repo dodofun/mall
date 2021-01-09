@@ -140,64 +140,25 @@
     border-top: 1px solid #efefef;
     padding-top: 30px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .left-1 {
-      display: flex;
-      align-items: center;
-
-      .wexinpay-icon {
-        width: 28px;
-        height: 25px;
-      }
-
-      .wexinpay-text {
-        font-size: 24px;
-        font-family: PingFang SC;
-        color: #000;
-        margin-left: 14px;
-      }
-    }
-
-    .right-1 {
-      .at-button--small {
-        font-size: 24px;
-        font-family: PingFang SC;
-        font-weight: 500;
-        color: #09bb07;
-      }
-
-      .at-button--secondary {
-        color: #09bb07;
-        border: 1px solid #09bb07;
-        background-color: #fff;
-      }
-    }
-  }
-
-  .closed {
-    display: flex;
+    align-items: flex-end;
     justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-    border-top: 1px solid #efefef;
-    padding-top: 30px;
-    font-size: 24px;
-    font-family: PingFang SC;
-    color: #fad000;
-  }
+    flex-direction: column;
+    width: 100%;
 
-  .fulled {
-    font-size: 24px;
-    font-family: PingFang SC;
-    font-weight: 400;
-    color: #999;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 30px;
-    border-top: 1px solid #efefef;
-    padding-top: 30px;
+    .income-text {
+      font-size: 26px;
+      font-family: PingFang SC;
+      color: #010101;
+      padding-bottom: 30px;
+
+      .amount {
+        display: inline;
+        color: #fad000;
+        font-weight: 500;
+        margin-left: 18px;
+        font-size: 30px;
+      }
+    }
   }
 
   .failed {
@@ -212,57 +173,31 @@
     padding-top: 30px;
   }
 
-  .success {
-    margin-top: 30px;
-    border-top: 1px solid #efefef;
-    padding-top: 30px;
+  .pending {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid #efefef;
 
-    .left-2 {
+    .action {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
 
       .icon {
-        width: 22px;
-        height: 24px;
+        width: 28px;
+        height: 28px;
       }
 
-      .text {
-        font-size: 24px;
+      .txt {
+        font-size: 26px;
         font-family: PingFang SC;
-        color: #fad000;
-        margin-left: 10px;
+        font-weight: 500;
+        color: #010101;
+        margin-left: 16px;
       }
     }
-
-    .right-2 {
-      .code-btn {
-        background-size: 100% 100%;
-        background-image: url('https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-order/%E7%9F%A9%E5%BD%A2%2024%402x.png');
-        width: 206px;
-        height: 58px;
-        font-size: 24px;
-        font-family: PingFang SC;
-        font-weight: 400;
-        color: #fff;
-        text-align: center;
-        line-height: 58px;
-      }
-
-      .used-text {
-        font-size: 24px;
-        font-family: PingFang SC;
-        color: #999;
-      }
-    }
-  }
-
-  .qrcode {
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 }

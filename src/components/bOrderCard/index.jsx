@@ -1,33 +1,15 @@
 import React, {useState} from 'react'
-import Taro from '@tarojs/taro'
-import {View, Image, Text, Button} from '@tarojs/components'
-import {
-  AtProgress,
-  AtModal,
-  AtModalHeader,
-  AtModalContent,
-  AtModalAction,
-  AtButton,
-} from 'taro-ui'
+import {View, Image} from '@tarojs/components'
+import {AtProgress} from 'taro-ui'
 import './index.scss'
 import {cardTagIcon} from '@/config'
-import {QRCode} from 'taro-code'
 import Timer from '../timer'
 import dayjs from 'dayjs'
+import CommonBtn from '../commonBtn'
 
 export default function ({order}) {
-  const [isOpened, setIsOpened] = useState(false)
   const [ended, setEnded] = useState(dayjs(order.endTime) - dayjs() < 0)
   const isFuli = order.type === 1
-
-  const openExchangeCode = () => {
-    setIsOpened(true)
-  }
-
-  const toPay = () => {
-    console.log('发起支付')
-    Taro.navigateTo({url: '/pages/paySuccess/index'})
-  }
 
   return (
     <View className="order-card">
@@ -55,29 +37,28 @@ export default function ({order}) {
                   color="#FAD000"
                 />
               </View>
-              <View className="order-count">
-                小计：￥{order.totalAmount}
-                <Text className="sub-count">(共{order.count}份)</Text>
-              </View>
+              <View className="order-count">价格：￥{order.price}</View>
             </View>
           </View>
         </View>
       </View>
       <View className="date">
-        <View className="time">
-          <View className="label">开始时间</View>
-          <View className="value">
-            {dayjs(order.startTime).format('YYYY-MM-DD HH:mm:ss')}
+        {order.status !== 4 && (
+          <View className="time">
+            <View className="label">开始时间</View>
+            <View className="value">
+              {dayjs(order.startTime).format('YYYY-MM-DD HH:mm:ss')}
+            </View>
           </View>
-        </View>
+        )}
         <View className="time">
           <View className="label">结束时间</View>
-          {ended && (
+          {(ended || order.status === 4) && (
             <View className="value">
               {dayjs(order.endTime).format('YYYY-MM-DD HH:mm:ss')}
             </View>
           )}
-          {!ended && (
+          {!ended && order.status !== 4 && (
             <Timer
               className="timer"
               endTime={order.endTime}
@@ -87,76 +68,50 @@ export default function ({order}) {
             />
           )}
         </View>
-      </View>
-      {order.status === 1 && !order.payed && (
-        <View className="doing">
-          <View className="left-1">
-            <Image
-              className="wexinpay-icon"
-              src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-order/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98%402x.png"
-            />
-            <View className="wexinpay-text">微信支付</View>
+        {order.status === 4 && (
+          <View className="time">
+            <View className="label">距上架时间</View>
+            <Timer className="timer" endTime={order.startTime} />
           </View>
-          <View className="right-1">
-            <AtButton type="secondary" size="small" onClick={toPay}>
-              立即支付
-            </AtButton>
-          </View>
-        </View>
-      )}
-      {order.status === 3 &&
-        order.payed &&
-        order.totalPeople > order.hasPeople && (
-          <View className="closed">请到微信钱包查看零钱是否返回</View>
         )}
-      {!order.payed && order.totalPeople <= order.hasPeople && (
-        <View className="fulled">
-          <View>当前人数已满，无法参与抢夺</View>
+      </View>
+      {order.status === 1 && (
+        <View className="doing">
+          <CommonBtn text="立即分享" onClick={() => {}} />
         </View>
       )}
-      {order.payed && order.status === 2 && !order.winning && (
+      {order.status === 2 && (
+        <View className="doing">
+          <View className="income-text">
+            此单收益:
+            <View className="amount">￥{order.count * order.price}</View>
+          </View>
+          <CommonBtn text="再推一单" onClick={() => {}} />
+        </View>
+      )}
+      {order.status === 3 && (
         <View className="failed">
-          <View>很遗憾，您未中奖</View>
+          <View>因人数不全，抢夺未生效</View>
         </View>
       )}
-      {order.payed && order.status === 2 && order.winning && (
-        <View className="success">
-          <View className="left-2">
+      {order.status === 4 && (
+        <View className="pending">
+          <View className="action">
             <Image
               className="icon"
-              src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-order/%E7%A4%BC%E7%89%A9%281%29%402x.png"
+              src="https://assets.yiduohoulang.com/images/mall/%E7%BC%96%20%E8%BE%91%402x.png"
             />
-            <View className="text">抢夺成功</View>
+            <View className="txt">编辑</View>
           </View>
-          {order.used > 0 && (
-            <View className="right-2">
-              <View className="used-text">已领取</View>
-            </View>
-          )}
-          {!order.used && (
-            <View className="right-2" onClick={() => openExchangeCode()}>
-              <View className="code-btn">查看兑换码</View>
-            </View>
-          )}
+          <View className="action">
+            <Image
+              className="icon"
+              src="https://assets.yiduohoulang.com/images/mall/%E4%B8%8B%E6%9E%B6%402x.png"
+            />
+            <View className="txt">下架</View>
+          </View>
         </View>
       )}
-      <AtModal isOpened={isOpened} onClose={() => setIsOpened(false)}>
-        <AtModalHeader>兑换码</AtModalHeader>
-        <AtModalContent>
-          <View className="qrcode">
-            <QRCode
-              text={order.exchangeCode}
-              size={160}
-              scale={4}
-              errorCorrectLevel="M"
-              typeNumber={2}
-            />
-          </View>
-        </AtModalContent>
-        <AtModalAction>
-          <Button onClick={() => setIsOpened(false)}>关闭</Button>
-        </AtModalAction>
-      </AtModal>
     </View>
   )
 }

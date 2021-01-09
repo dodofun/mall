@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import {useDidHide, useDidShow, useReady} from '@tarojs/taro'
+import Taro, {useDidHide, useDidShow, useReady} from '@tarojs/taro'
 import {View} from '@tarojs/components'
-import {AtTabs, AtActivityIndicator} from 'taro-ui'
+import {AtTabs} from 'taro-ui'
 import './index.scss'
 import OrderCard from '@/components/orderCard'
 
@@ -111,6 +111,14 @@ export default function () {
     }, 2000)
   }, [currentTab])
 
+  useEffect(() => {
+    if (openLoading) {
+      Taro.showLoading({title: '加载中'})
+    } else {
+      Taro.hideLoading()
+    }
+  }, [openLoading])
+
   useDidShow(() => {})
 
   useDidHide(() => {})
@@ -139,12 +147,6 @@ export default function () {
           )
         })}
       </View>
-      <AtActivityIndicator
-        className="loading"
-        isOpened={openLoading}
-        mode="center"
-        content="Loading..."
-      />
     </View>
   )
 }
