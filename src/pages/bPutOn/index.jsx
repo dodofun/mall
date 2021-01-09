@@ -1,18 +1,30 @@
 import React, {useState, useEffect} from 'react'
 import Taro, {useDidHide, useDidShow, useReady} from '@tarojs/taro'
-import {View} from '@tarojs/components'
-import {AtForm, AtInput, AtButton, AtImagePicker} from 'taro-ui'
+import {View, Picker} from '@tarojs/components'
+import {
+  AtForm,
+  AtInput,
+  AtButton,
+  AtImagePicker,
+  AtList,
+  AtListItem,
+} from 'taro-ui'
 import './index.scss'
+import dayjs from 'dayjs'
 
 const defaultFormData = {
   cover: '',
-  shopName: '',
-  ownerName: '',
-  mobile: '',
-  province: '',
-  city: '',
-  address: '',
+  name: '',
+  personNum: 10,
+  price: '',
+  startDate: '',
+  startTime: '',
+  endDate: '',
+  endTime: '',
+  couponDesc: '',
+  couponEndDate: '',
 }
+const personNum = [5, 10, 15, 20, 25, 30, 40, 50, 100]
 export default function () {
   const [formData, setFormData] = useState(defaultFormData)
   const [verificated, setVerificated] = useState(false)
@@ -78,73 +90,153 @@ export default function () {
         <View className="form-title">商品信息</View>
         <AtForm className="form-data">
           <AtInput
-            name="shopName"
+            name="name"
             title="商品描述"
             type="text"
             placeholder="例：冰糖西瓜3kg"
-            value={formData.shopName}
+            value={formData.name}
             required
             onChange={handleChange}
           />
+          <Picker
+            mode="selector"
+            value={1}
+            range={personNum}
+            onChange={(e) => {
+              setFormData({...formData, personNum: personNum[e.detail.value]})
+            }}>
+            <AtList>
+              <AtListItem
+                title="参与人数"
+                extraText={formData.personNum + '人'}
+                arrow="right"
+              />
+            </AtList>
+          </Picker>
           <AtInput
-            name="ownerName"
-            title="参与人数"
-            type="number"
-            placeholder="输入参与人数"
-            value={formData.ownerName}
-            required
-            onChange={handleChange}
-          />
-          <AtInput
-            name="mobile"
+            name="price"
             title="商品价格"
             type="digit"
-            placeholder="输入商品价格"
-            value={formData.mobile}
-            required
-            onChange={handleChange}
-          />
-          <AtInput
-            name="mobile"
-            title="上架时间"
-            type="phone"
-            placeholder="输入商品价格"
-            value={formData.mobile}
-            required
-            onChange={handleChange}
-          />
-          <AtInput
-            name="mobile"
-            title="截止时间"
-            type="phone"
-            placeholder="输入商品价格"
-            value={formData.mobile}
+            placeholder="输入商品价格(元)"
+            value={formData.price}
             required
             onChange={handleChange}
           />
         </AtForm>
       </View>
       <View className="form-card">
-        <View className="form-title">优惠券描述</View>
+        <View className="form-title">活动时间</View>
+        <AtForm className="form-data">
+          <Picker
+            mode="date"
+            value={formData.startDate}
+            start={dayjs().format('YYYY-MM-DD')}
+            onChange={(e) => {
+              if (formData.startTime) {
+                setFormData({
+                  ...formData,
+                  startDate: e.detail.value,
+                })
+              } else {
+                setFormData({
+                  ...formData,
+                  startDate: e.detail.value,
+                  startTime: dayjs().format('HH:mm'),
+                })
+              }
+            }}>
+            <AtList>
+              <AtListItem
+                title="上架日期"
+                extraText={formData.startDate}
+                arrow="right"
+              />
+            </AtList>
+          </Picker>
+          <Picker
+            mode="time"
+            value={formData.startTime}
+            onChange={(e) => {
+              setFormData({...formData, startTime: e.detail.value})
+            }}>
+            <AtList>
+              <AtListItem
+                title="上架时间"
+                extraText={formData.startTime}
+                arrow="right"
+              />
+            </AtList>
+          </Picker>
+          <Picker
+            style={{marginTop: '20px'}}
+            mode="date"
+            value={formData.endDate}
+            start={dayjs().format('YYYY-MM-DD')}
+            onChange={(e) => {
+              if (formData.endTime) {
+                setFormData({
+                  ...formData,
+                  endDate: e.detail.value,
+                })
+              } else {
+                setFormData({
+                  ...formData,
+                  endDate: e.detail.value,
+                  endTime: dayjs().format('HH:mm'),
+                })
+              }
+            }}>
+            <AtList>
+              <AtListItem
+                title="截止日期"
+                extraText={formData.endDate}
+                arrow="right"
+              />
+            </AtList>
+          </Picker>
+          <Picker
+            mode="time"
+            value={formData.endTime}
+            onChange={(e) => {
+              setFormData({...formData, endTime: e.detail.value})
+            }}>
+            <AtList>
+              <AtListItem
+                title="截止时间"
+                extraText={formData.endTime}
+                arrow="right"
+              />
+            </AtList>
+          </Picker>
+        </AtForm>
+      </View>
+      <View className="form-card">
+        <View className="form-title">优惠券信息</View>
         <AtForm className="form-data">
           <AtInput
-            name="province"
+            name="couponDesc"
             title="使用描述"
             type="text"
             placeholder="例：满10元可用，仅限水果类"
-            value={formData.province}
+            value={formData.couponDesc}
             required
             onChange={handleChange}
           />
-          <AtInput
-            name="city"
-            title="截止时间"
-            type="text"
-            placeholder="输入城市"
-            value={formData.city}
-            required
-            onChange={handleChange}
-          />
+          <Picker
+            mode="date"
+            value={formData.couponEndDate}
+            start={dayjs().format('YYYY-MM-DD')}
+            onChange={(e) => {
+              setFormData({...formData, couponEndDate: e.detail.value})
+            }}>
+            <AtList>
+              <AtListItem
+                title="有效期"
+                extraText={formData.couponEndDate}
+                arrow="right"
+              />
+            </AtList>
+          </Picker>
         </AtForm>
       </View>
       <View className="btn">

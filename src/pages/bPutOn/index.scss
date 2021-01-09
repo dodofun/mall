@@ -63,6 +63,44 @@ page {
         color: #000;
         text-align: right;
       }
+
+      .at-list::after {
+        border-top-width: 0;
+        border-bottom-width: 0;
+      }
+
+      .at-list__item {
+        padding: 24px 0;
+
+        .item-extra__icon-arrow {
+          color: #ccc;
+          font-size: 28px;
+        }
+      }
+
+      .item-content__info-title {
+        font-size: 26px;
+        font-family: PingFang SC;
+        color: #666;
+      }
+
+      .item-extra__info {
+        font-size: 26px;
+        font-family: PingFang SC;
+        font-weight: 400;
+        color: #000;
+        text-align: right;
+      }
+
+      .item-content__info-title::before {
+        display: inline-block;
+        margin-right: 8px;
+        color: #ff4949;
+        font-size: 28px;
+        font-family: SimSun, sans-serif;
+        line-height: 1;
+        content: '*';
+      }
     }
   }
 

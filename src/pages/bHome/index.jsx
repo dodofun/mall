@@ -25,7 +25,7 @@ const actions = [
     label: '福利发布',
     icon:
       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/b-home/%E7%A6%8F%E5%88%A9%402x.png',
-    url: '/pages/bIncomeRecord/index',
+    url: '/pages/bWelfarePutOn/index',
   },
   {
     label: '订单管理',
