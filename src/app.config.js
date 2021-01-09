@@ -1,10 +1,11 @@
 export default {
   pages: [
-    'pages/bOrder/index', // 商户订单
+    'pages/welfare/index', // 福利页
+    'pages/index/index', // 用户首页
     'pages/bHome/index', // 商户主页
+    'pages/bOrder/index', // 商户订单
     'pages/bWelfarePutOn/index', // 福利发布
     'pages/bPutOn/index', // 商品上架
-    'pages/index/index', // 用户首页
     'pages/bWithdrawal/index', // 提现
     'pages/bWriteOff/index', // 核销
     'pages/bIncomeRecord/index', // 收益记录

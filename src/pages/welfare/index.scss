@@ -1,0 +1,151 @@
+page {
+  background: #f5f5f5;
+  height: 100%;
+}
+
+.welfare {
+  width: 100%;
+  height: 1500px;
+  background-size: 100% 100%;
+  background-image: url('https://assets.yiduohoulang.com/images/mall/welfare/WX20210109-171758%402x.png');
+
+  .rule {
+    width: 96px;
+    height: 96px;
+    background-size: 100% 100%;
+    background-image: url('https://assets.yiduohoulang.com/images/mall/welfare/%E5%9C%86%E8%A7%92%E7%9F%A9%E5%BD%A2%201%402x.png');
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 20px;
+    font-family: PingFang SC;
+    font-weight: bold;
+    color: #ffd9ac;
+    padding: 6px 20px;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 36px;
+    font-family: PingFang SC;
+    font-weight: 500;
+    color: #fff;
+    line-height: 0px;
+    text-align: center;
+    padding-top: 110px;
+  }
+
+  .head-img {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .lucky-icon {
+      width: 57px;
+      height: 94px;
+    }
+
+    .lucky-text {
+      width: 513px;
+      height: 144px;
+    }
+  }
+
+  .user-box {
+    position: relative;
+    width: 650px;
+    height: 630px;
+    margin-top: 240px;
+    margin-left: 50px;
+    background-size: 100% 100%;
+    background-image: url('https://assets.yiduohoulang.com/images/mall/welfare/%E7%BB%84%2012%402x.png');
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .join-btn {
+      width: 195px;
+      height: 195px;
+      background-size: 100% 100%;
+      background-image: url('https://assets.yiduohoulang.com/images/mall/welfare/%E7%BB%84%2027%402x%281%29.png');
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .join-inner {
+        width: 166px;
+        height: 166px;
+        background-size: 100% 100%;
+        background-image: url('https://assets.yiduohoulang.com/images/mall/welfare/%E7%BB%84%2027%402x.png');
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        font-family: PingFang SC;
+        font-weight: bold;
+        color: #fff;
+        line-height: 36px;
+      }
+    }
+
+    .tip-text {
+      font-size: 20px;
+      font-family: PingFang SC;
+      font-weight: 500;
+      color: #fefefe;
+      margin-top: 10px;
+    }
+
+    .user-list {
+      // position: absolute;
+      // top: 50%;
+      // left: 50%;
+      // width: 20px;
+      // height: 20px;
+      // margin-left: -10px;
+      // margin-top: -10px;
+      border-radius: 50%;
+      background-color: #000;
+
+      .avatar {
+        position: absolute;
+        // transform: rotateZ(270deg) translateY(200px);
+      }
+    }
+  }
+
+  .timer-line {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+
+    .at-countdown__separator {
+      background-color: #fff;
+      font-size: 26px;
+    }
+
+    .at-countdown__time-box {
+      font-size: 40px;
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+
+    .text {
+      background: #8f0300;
+      opacity: 0.32;
+      border-radius: 14px;
+      font-size: 22px;
+      font-family: Adobe Heiti Std;
+      font-weight: normal;
+      color: #fff1e4;
+      padding: 12px 30px;
+    }
+  }
+}
