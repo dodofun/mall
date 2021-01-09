@@ -1,7 +1,7 @@
 export default {
   pages: [
-    'pages/welfare/index', // 福利页
     'pages/index/index', // 用户首页
+    'pages/welfare/index', // 福利页
     'pages/bHome/index', // 商户主页
     'pages/bOrder/index', // 商户订单
     'pages/bWelfarePutOn/index', // 福利发布

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {useDidHide, useDidShow, useReady} from '@tarojs/taro'
+import Taro, {useDidHide, useDidShow, useReady} from '@tarojs/taro'
 import {View, Image, Text} from '@tarojs/components'
 import {AtNoticebar, AtTabs, AtTabsPane} from 'taro-ui'
 import {APP_CONSTANTS} from '@/config'
@@ -92,6 +92,9 @@ export default function () {
         <Image
           className="head-image"
           src={`${APP_CONSTANTS.ASSETS_IMAGE_HOST}/images/mall/%E7%BB%84%2015%402x.png`}
+          onClick={() => {
+            Taro.navigateTo({url: '/pages/welfare/index'})
+          }}
         />
         <View className="tip-list">
           {tipList.map((item, index) => {
