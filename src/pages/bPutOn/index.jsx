@@ -31,7 +31,6 @@ export default function () {
   const [files, setFiles] = useState([])
 
   useEffect(() => {
-    console.log('formData.cover', formData.cover)
     if (formData.cover) {
       setFiles([{url: formData.cover}])
     } else {

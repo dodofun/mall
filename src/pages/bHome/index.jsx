@@ -31,7 +31,7 @@ const actions = [
     label: '订单管理',
     icon:
       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/b-home/%E7%AE%A1%E7%90%86%20%281%29%20%E6%8B%B7%E8%B4%9D%402x.png',
-    url: '/pages/contactUs/index',
+    url: '/pages/bOrder/index',
   },
 ]
 

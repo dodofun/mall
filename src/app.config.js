@@ -1,8 +1,9 @@
 export default {
   pages: [
+    'pages/bOrder/index', // 商户订单
+    'pages/bHome/index', // 商户主页
     'pages/bWelfarePutOn/index', // 福利发布
     'pages/bPutOn/index', // 商品上架
-    'pages/bHome/index', // 商户主页
     'pages/index/index', // 用户首页
     'pages/bWithdrawal/index', // 提现
     'pages/bWriteOff/index', // 核销
