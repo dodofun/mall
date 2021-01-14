@@ -8,16 +8,19 @@ interceptors.forEach((interceptorItem) => Taro.addInterceptor(interceptorItem))
 
 class httpRequest {
   baseOptions(params, method = 'GET') {
-    const {url, data} = params
+    const {url, data, header} = params
+    const defaultHeader = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    }
     const BASE_URL = getBaseUrl(url)
-    let contentType = 'application/json'
-    contentType = params.contentType || contentType
     const option = {
       url: BASE_URL + url,
       data: data,
       method: method,
       header: {
-        'content-type': contentType,
+        ...defaultHeader,
+        ...header,
         token: Taro.getStorageSync('token'),
       },
     }
@@ -27,23 +30,23 @@ class httpRequest {
     return Taro.request(option)
   }
 
-  get(url, data = '') {
-    const option = {url, data}
+  get(url, data = {}, header = {}) {
+    const option = {url, data, header}
     return this.baseOptions(option)
   }
 
-  post(url, data, contentType) {
-    const params = {url, data, contentType}
-    return this.baseOptions(params, 'POST')
+  post(url, data = {}, header = {}) {
+    const option = {url, data, header}
+    return this.baseOptions(option, 'POST')
   }
 
-  put(url, data = '') {
-    const option = {url, data}
+  put(url, data = {}, header = {}) {
+    const option = {url, data, header}
     return this.baseOptions(option, 'PUT')
   }
 
-  delete(url, data = '') {
-    const option = {url, data}
+  delete(url, data = {}, header = {}) {
+    const option = {url, data, header}
     return this.baseOptions(option, 'DELETE')
   }
 }
