@@ -3,7 +3,17 @@ import path from 'path'
 import pkgData from '../package.json'
 import {printFiglet} from './figlet'
 
+// 配置参数信息
 const constants = {
+  APP_OWNERID: 1,
+  APP_ID: {
+    WEAPP: 'wxefcb10dd67c03b07',
+    WEB: 'wxefcb10dd67c03b07',
+    SWAN: '',
+    TT: '',
+    ALIPAY: '',
+    RN: '',
+  },
   APP_NAME: pkgData.name,
   OPEN_CUSTOM_INTERCEPTOR: false,
   ASSETS_IMAGE_HOST: 'https://ydhl-assets.oss-cn-beijing.aliyuncs.com',

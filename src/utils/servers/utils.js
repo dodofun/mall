@@ -36,7 +36,6 @@ export const commonHttpRequest = (
   let url = `/${version}/owner/${pathParams.ownerId}/${model}/${pathParams.id}`
   if (type === 'getList') {
     url = `/v1/owner/${pathParams.ownerId}/${model}s`
-    type = 'get'
   }
   const queryKeys = Object.keys(query)
   if (queryKeys.length > 0) {
@@ -44,7 +43,6 @@ export const commonHttpRequest = (
     queryKeys.forEach((key) => (queryUrl += key + '=' + query[key] + '&'))
     url += '?' + queryUrl.substring(0, queryUrl.length - 1)
   }
-  console.log('url', url)
   let res
   switch (type) {
     case 'getList':

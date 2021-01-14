@@ -1,7 +1,8 @@
 import Taro from '@tarojs/taro'
+import {APP_CONSTANTS} from '@/config'
 
 /***
- * 获取当前环境
+ * @description 获取当前环境
  */
 export const getEnv = () => {
   return {
@@ -11,29 +12,21 @@ export const getEnv = () => {
 }
 
 /***
- * 微信小程序环境
+ * @description 微信小程序环境
  */
 export const isWeapp = () => {
   return Taro.getEnv() === 'WEAPP'
 }
 
 /***
- * Web环境
+ * @description Web环境
  */
 export const isWeb = () => {
   return Taro.getEnv() === 'WEB'
 }
 
 /***
- * 获取配置参数
- */
-export const getConfigData = (name) => {
-  // eslint-disable-next-line no-undef
-  return _APP_CONSTANTS[name]
-}
-
-/***
- * 获取package参数
+ * @description 获取package参数
  */
 export const getPackageData = () => {
   // eslint-disable-next-line no-undef
@@ -45,4 +38,39 @@ export const getPackageData = () => {
  */
 export const getLaunchOptionsSync = () => {
   return Taro.getLaunchOptionsSync()
+}
+
+/***
+ * @description 获取appid
+ */
+export const getAppid = () => {
+  return APP_CONSTANTS.APP_ID[Taro.getEnv()]
+}
+
+/***
+ * @description 判断是否微信浏览器
+ */
+export function isWxBrowser() {
+  if (isWeb()) {
+    const ua = navigator.userAgent.toLowerCase()
+    if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+      return true
+    }
+  }
+  return false
+}
+
+/***
+ * @description 获取浏览器地址参数
+ * @param name
+ * @returns {string|null}
+ */
+export function getQueryString(name) {
+  var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
+  var r = window.location.search.substr(1).match(reg)
+  if (r != null) {
+    return decodeURIComponent(r[2])
+  } else {
+    return null
+  }
 }
