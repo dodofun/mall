@@ -3,6 +3,7 @@ import getBaseUrl from './baseUrl'
 import interceptors from './interceptors'
 import {APP_CONSTANTS} from '@/config/index'
 import runMock from '@/mock/index'
+import {getAppid} from '../common'
 
 interceptors.forEach((interceptorItem) => Taro.addInterceptor(interceptorItem))
 
@@ -22,6 +23,7 @@ class httpRequest {
         ...defaultHeader,
         ...header,
         token: Taro.getStorageSync('token'),
+        appid: getAppid(),
       },
     }
     if (APP_CONSTANTS.OPEN_MOCK) {

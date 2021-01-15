@@ -74,3 +74,17 @@ export function getQueryString(name) {
     return null
   }
 }
+
+/***
+ * @description 获取用户信息
+ */
+export const getUserInfo = () => {
+  return Taro.getStorageSync('user') || {}
+}
+
+/***
+ * @description 获取用户ID
+ */
+export const getUserId = () => {
+  return getUserInfo().id
+}
