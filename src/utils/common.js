@@ -1,5 +1,20 @@
 import Taro from '@tarojs/taro'
-import {APP_CONSTANTS} from '@/config'
+import {APP_CONSTANTS} from '../config'
+
+/***
+ * @description 获取 NODE_ENV
+ */
+export const getNodeEnv = () => process.env.NODE_ENV
+
+/***
+ * @description 是否开发环境
+ */
+export const isDev = () => getNodeEnv() === 'development'
+
+/***
+ * @description 是否启用 mock
+ */
+export const isOpenMock = () => isDev() && APP_CONSTANTS.OPEN_MOCK
 
 /***
  * @description 获取当前环境
@@ -44,7 +59,7 @@ export const getLaunchOptionsSync = () => {
  * @description 获取appid
  */
 export const getAppid = () => {
-  return APP_CONSTANTS.APP_ID[Taro.getEnv()]
+  return APP_CONSTANTS.APP_ID[Taro.getEnv()] || ''
 }
 
 /***
