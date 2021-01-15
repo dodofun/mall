@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro'
 import {APP_CONSTANTS} from '../config'
+import {urlReg} from '../config/regular'
 
 /***
  * @description 获取 NODE_ENV
@@ -102,4 +103,11 @@ export const getUserInfo = () => {
  */
 export const getUserId = () => {
   return getUserInfo().id
+}
+
+/***
+ * @description 获取用户ID
+ */
+export const isUrl = (str) => {
+  return urlReg.test(str)
 }

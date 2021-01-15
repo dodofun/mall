@@ -1,5 +1,5 @@
 const constants = {
-  API_HOST: 'https://test.com',
+  API_HOST: 'https://api.yiduohoulang.com',
 }
 // eslint-disable-next-line import/no-commonjs
 module.exports = {

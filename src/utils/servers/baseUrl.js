@@ -1,13 +1,8 @@
-const getBaseUrl = (url) => {
-  let baseUrl = ''
-  // 根据 url 不同，配置不同的 baseUrl
-  switch (url) {
-    case '/api':
-      baseUrl = ''
-      break
-  }
+import {APP_CONSTANTS} from '@/config'
+import {isUrl} from '../common'
 
-  return baseUrl
+const getBaseUrl = (url = '') => {
+  return isUrl(url) ? '' : APP_CONSTANTS.API_HOST
 }
 
 export default getBaseUrl

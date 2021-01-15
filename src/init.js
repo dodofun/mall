@@ -3,8 +3,6 @@ import {updateApp} from '@/utils/update'
 import {isWeapp} from '@/utils/common'
 
 export const init = () => {
-  // eslint-disable-next-line no-undef
-  console.log('_APP_CONSTANTS', _APP_CONSTANTS)
   // 更新app
   updateApp()
 
@@ -12,11 +10,6 @@ export const init = () => {
     // 找不到页面时，回到首页
     Taro.onPageNotFound(() => {
       Taro.reLaunch({url: '/pages/index/index'})
-    })
-
-    // 错误监听
-    Taro.onError((error) => {
-      console.error('onError:', error)
     })
 
     // 监听小程序切前台事件
@@ -27,6 +20,11 @@ export const init = () => {
     // 监听小程序切前台事件
     Taro.onAppHide((result) => {
       console.log('onAppHide:', result)
+    })
+
+    // 错误监听
+    Taro.onError((error) => {
+      console.error('onError:', error)
     })
   }
 }
