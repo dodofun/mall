@@ -1,10 +1,16 @@
 import Taro from '@tarojs/taro'
 import {updateApp} from '@/utils/update'
 import {isWeapp} from '@/utils/common'
+import {queryAppinfo} from './action/common'
+import {login} from './action/user'
 
 export const init = () => {
   // 更新app
   updateApp()
+  // 获取 app 信息
+  queryAppinfo()
+  // 登录
+  login()
 
   if (isWeapp()) {
     // 找不到页面时，回到首页

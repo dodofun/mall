@@ -13,6 +13,11 @@ export const getNodeEnv = () => process.env.NODE_ENV
 export const isDev = () => getNodeEnv() === 'development'
 
 /***
+ * @description 是否生产环境
+ */
+export const isProd = () => getNodeEnv() === 'production'
+
+/***
  * @description 是否启用 mock
  */
 export const isOpenMock = () => isDev() && APP_CONSTANTS.OPEN_MOCK

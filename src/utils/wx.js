@@ -1,4 +1,4 @@
-import {getWxToken, networkAgent} from '../api'
+import {getWxToken, networkAgent} from '../action'
 import {getAppid, isWeapp} from '@/utils/common'
 
 /***

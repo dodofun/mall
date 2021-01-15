@@ -1,17 +1,20 @@
+import Taro from '@tarojs/taro'
 import {useState, useEffect} from 'react'
 import {createModel} from 'hox'
-import {getUserInfo} from '../api/user'
 
 function useUser() {
   const [user, setUser] = useState({})
+
   useEffect(() => {
     getUser()
   }, [])
+
   const getUser = async () => {
-    const res = await getUserInfo()
-    console.log('getUserInfo', res)
-    setUser(res)
+    const userInfo = Taro.getStorageSync('userInfo') || {}
+    setUser(userInfo)
+    return userInfo
   }
+
   return {
     user,
     getUser,

@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {createModel} from 'hox'
-import {getUserInfo} from '../api/user'
+import {getUserInfo} from '../action/user'
 
 function useCounter(initialValue) {
   const [count, setCount] = useState(initialValue ?? 0)

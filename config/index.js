@@ -41,7 +41,7 @@ const config = {
     '@/pages': path.resolve(__dirname, '..', 'src/pages'),
     '@/models': path.resolve(__dirname, '..', 'src/models'),
     '@/config': path.resolve(__dirname, '..', 'src/config'),
-    '@/api': path.resolve(__dirname, '..', 'src/api'),
+    '@/action': path.resolve(__dirname, '..', 'src/action'),
     '@/mock': path.resolve(__dirname, '..', 'src/mock'),
   },
   copy: {

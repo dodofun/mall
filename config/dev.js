@@ -1,5 +1,5 @@
 const constants = {
-  OPEN_MOCK: true,
+  OPEN_MOCK: false,
   API_HOST: 'https://api.yiduohoulang.com',
 }
 
