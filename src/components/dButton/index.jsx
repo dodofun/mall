@@ -8,9 +8,6 @@ import {useUserModel} from '@/models/user'
 export default function (props) {
   const {updateUser} = useUserModel((model) => [model.updateUser])
   const content = props.content
-  props.content = undefined
-
-  // 根据 openType 绑定不同的点击事件
 
   return (
     <AtButton

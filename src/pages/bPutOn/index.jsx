@@ -11,11 +11,19 @@ import {
 } from 'taro-ui'
 import './index.scss'
 import dayjs from 'dayjs'
+import {upload} from '../../utils/upload'
+import {createId} from '../../utils/idCreator'
+import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
+import {useShopModel} from '@/models/shop'
 
 const defaultFormData = {
-  cover: '',
+  id: 0,
+  ownerId: 0,
+  type: 0,
   name: '',
-  personNum: 10,
+  cover: '',
+  totalPeople: 10,
+  hasPeople: 0,
   price: '',
   startDate: '',
   startTime: '',
@@ -23,9 +31,12 @@ const defaultFormData = {
   endTime: '',
   couponDesc: '',
   couponEndDate: '',
+  couponAmount: 1,
+  enabled: true,
 }
-const personNum = [5, 10, 15, 20, 25, 30, 40, 50, 100]
+const totalPeople = [5, 10, 15, 20, 25, 30, 40, 50]
 export default function () {
+  const {shop = {}} = useShopModel((model) => [model.shop])
   const [formData, setFormData] = useState(defaultFormData)
   const [verificated, setVerificated] = useState(false)
   const [files, setFiles] = useState([])
@@ -39,7 +50,13 @@ export default function () {
   }, [formData.cover])
 
   useEffect(() => {
-    const varif = Object.keys(formData).every((item) => !!formData[item])
+    const varif = Object.keys(formData).every((item) => {
+      if (typeof formData[item] === 'number') {
+        return true
+      } else {
+        return !!formData[item]
+      }
+    })
     setVerificated(varif)
   }, [formData])
 
@@ -47,12 +64,39 @@ export default function () {
     setFormData({...formData, [e.target.id]: val})
   }
 
-  const submit = () => {
-    if (verificated) {
-      // 提交数据
+  const parseTime = (date, time) => {
+    return dayjs(date + ' ' + time + ':00').valueOf()
+  }
 
-      // 跳转页面
-      Taro.redirectTo({url: '/pages/index/index'})
+  const submit = () => {
+    const id = createId()
+    formData.id = id
+    if (verificated) {
+      // 组装数据
+      formData.ownerId = shop.id
+      formData.startTime = parseTime(formData.startDate, formData.startTime)
+      formData.endTime = parseTime(formData.endDate, formData.endTime)
+      setVerificated(false)
+      // 提交数据
+      Taro.showLoading({title: '发布中'})
+      commonHttpRequest(
+        'goods',
+        'add',
+        {ownerId: shop.id, id},
+        {},
+        formData,
+      ).then((res) => {
+        Taro.hideLoading()
+        if (checkAndGetResult(res)) {
+          Taro.showToast({title: '成功发布商品', icon: 'none'})
+          setTimeout(() => {
+            // 跳转页面
+            Taro.switchTab({url: '/pages/index/index'})
+          }, 600)
+        } else {
+          setVerificated(true)
+        }
+      })
     }
   }
 
@@ -74,14 +118,20 @@ export default function () {
           length={2}
           mode="scaleToFill"
           showAddBtn={files.length === 0}
-          onChange={(fileList) => {
+          onChange={async (fileList) => {
             if (fileList.length > 0) {
               console.log('fileList', fileList, fileList[0].url)
-              setFormData({...formData, cover: fileList[0].url})
-              // 上传图片
+              const key = `images/goods/${createId()}.png`
+              const url = await upload(key, fileList[0].url, '活动商品图')
+              if (url) {
+                setFormData({...formData, cover: url})
+              }
             } else {
               setFormData({...formData, cover: ''})
             }
+          }}
+          onFail={(msg) => {
+            console.log('onFail', msg)
           }}
         />
       </View>
@@ -100,14 +150,17 @@ export default function () {
           <Picker
             mode="selector"
             value={1}
-            range={personNum}
+            range={totalPeople}
             onChange={(e) => {
-              setFormData({...formData, personNum: personNum[e.detail.value]})
+              setFormData({
+                ...formData,
+                totalPeople: totalPeople[e.detail.value],
+              })
             }}>
             <AtList>
               <AtListItem
                 title="参与人数"
-                extraText={formData.personNum + '人'}
+                extraText={formData.totalPeople + '人'}
                 arrow="right"
               />
             </AtList>
@@ -221,17 +274,38 @@ export default function () {
             required
             onChange={handleChange}
           />
+          <AtInput
+            name="couponAmount"
+            title="优惠券金额"
+            type="digit"
+            placeholder="输入优惠券金额(元)"
+            value={formData.couponAmount}
+            required
+            onChange={handleChange}
+          />
           <Picker
             mode="date"
-            value={formData.couponEndDate}
+            value={formData.couponEndDateTxt}
             start={dayjs().format('YYYY-MM-DD')}
             onChange={(e) => {
-              setFormData({...formData, couponEndDate: e.detail.value})
+              if (e.detail.value) {
+                setFormData({
+                  ...formData,
+                  couponEndDateTxt: e.detail.value,
+                  couponEndDate: dayjs(e.detail.value + ' 23:59:59').valueOf(),
+                })
+              } else {
+                setFormData({
+                  ...formData,
+                  couponEndDateTxt: '',
+                  couponEndDate: '',
+                })
+              }
             }}>
             <AtList>
               <AtListItem
                 title="有效期"
-                extraText={formData.couponEndDate}
+                extraText={formData.couponEndDateTxt}
                 arrow="right"
               />
             </AtList>

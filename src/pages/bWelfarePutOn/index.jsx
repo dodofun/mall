@@ -51,6 +51,7 @@ export default function () {
     formData.id = id
     if (verificated) {
       // 组装数据
+      formData.ownerId = shop.id
       formData.startTime = parseTime(formData.startDate, formData.startTime)
       formData.endTime = parseTime(formData.endDate, formData.endTime)
       setVerificated(false)

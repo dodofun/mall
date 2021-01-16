@@ -32,3 +32,9 @@ export const WX_CODE_TO_SESSION = `/wx/mp/code2Session`
  * @type {string}
  */
 export const WX_GET_USERINFO = `/wx/mp/getUserInfo`
+
+/***
+ * 阿里云直传签名
+ * @type {string}
+ */
+export const ALIYUN_OSS_SIGNATURE = `/aliyun/oss/getOssSignature`

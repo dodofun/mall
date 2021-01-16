@@ -16,7 +16,8 @@ const constants = {
   },
   APP_NAME: pkgData.name,
   OPEN_CUSTOM_INTERCEPTOR: false,
-  ASSETS_IMAGE_HOST: 'https://ydhl-assets.oss-cn-beijing.aliyuncs.com',
+  ASSETS_IMAGE_HOST: 'https://assets.yiduohoulang.com',
+  ASSETS_HOST: 'https://assets.yiduohoulang.com',
   CUSTOMER_SERVICE: '18513971114',
 }
 const config = {
