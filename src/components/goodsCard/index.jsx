@@ -5,13 +5,19 @@ import {cardTagIcon} from '@/config'
 import Taro from '@tarojs/taro'
 import Timer from '../timer'
 import './index.scss'
+import {useCurrentShopModel} from '@/models/currentShop'
 
 export default function ({goods}) {
+  const {shopOwnerId} = useCurrentShopModel((model) => [
+    model.shopId,
+    model.shopOwnerId,
+  ])
+
   useEffect(() => {}, [])
   const goDetail = () => {
     console.log('goods', goods)
     Taro.navigateTo({
-      url: `/pages/goodsDetail/index?shopId=${goods.ownerId}&goodsId=${goods.id}`,
+      url: `/pages/goodsDetail/index?shopOwnerId=${shopOwnerId}&shopId=${goods.ownerId}&goodsId=${goods.id}`,
     })
   }
 

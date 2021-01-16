@@ -3,6 +3,9 @@ import {createModel} from 'hox'
 import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
 import {useUserModel} from '@/models/user'
 
+/***
+ * 商户端
+ */
 function useShop() {
   const [shop, setShop] = useState({})
   const {user} = useUserModel((model) => [model.user])
@@ -14,7 +17,6 @@ function useShop() {
       {ownerId: user.id},
       {index: 0, size: 1},
     ).then((res) => {
-      console.log('updateShop', res)
       const list = checkAndGetResult(res)
       if (list) {
         setShop(list[0])

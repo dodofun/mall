@@ -7,8 +7,11 @@ import Timer from '@/components/timer'
 import GoodsList from '@/components/goodsList'
 import {AtButton} from 'taro-ui'
 import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
+// import {useCurrentShopModel} from '@/models/currentShop'
 
 export default function () {
+  // const currentShop = useCurrentShopModel((model) => [model.router])
+
   const router = useRouter()
   const [detail, setDetail] = useState({})
   const [ended, setEnded] = useState(false)

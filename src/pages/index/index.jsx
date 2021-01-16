@@ -1,5 +1,5 @@
-import React from 'react'
-import Taro, {useDidHide, useDidShow, useReady} from '@tarojs/taro'
+import React, {useEffect} from 'react'
+import Taro, {useRouter, useDidHide, useDidShow, useReady} from '@tarojs/taro'
 import {View, Image, Text} from '@tarojs/components'
 import {AtNoticebar} from 'taro-ui'
 import {APP_CONSTANTS} from '@/config'
@@ -7,6 +7,7 @@ import './index.scss'
 import Footer from '@/components/footer'
 import DButton from '@/components/dButton'
 import GoodsList from '@/components/goodsList'
+import {useCurrentShopModel} from '@/models/currentShop'
 
 const tipList = [
   {
@@ -24,6 +25,17 @@ const tipList = [
 ]
 
 export default function () {
+  const router = useRouter()
+  const params = router.params
+  const {setShopOwnerId, setShopId} = useCurrentShopModel((model) => [
+    model.shop,
+  ])
+
+  useEffect(() => {
+    setShopOwnerId(params.shopOwnerId)
+    setShopId(params.shopId)
+  }, [])
+
   useDidShow(() => {})
 
   useDidHide(() => {})

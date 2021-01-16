@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import Taro, {useRouter} from '@tarojs/taro'
+import {useRouter} from '@tarojs/taro'
 import {View} from '@tarojs/components'
 import {AtTabs} from 'taro-ui'
 import GoodsCard from '@/components/goodsCard'
@@ -30,10 +30,8 @@ export default function ({pageSize = 20, hideId = []}) {
       {ownerId: params.shopId},
       {index: pageIndex, size: pageSize, running: 1},
     ).then((res) => {
-      Taro.hideLoading()
       const list = checkAndGetResult(res)
       if (list) {
-        console.log('hideId', hideId)
         const filterData = list.filter((item) => !hideId.includes(item.id))
         setGoodsList(filterData)
       }
