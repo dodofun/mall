@@ -7,6 +7,7 @@ import {commonHttpRequest} from '@/utils/servers/utils'
 import * as api from '../config/api'
 import {APP_CONSTANTS} from '../config/index'
 import {getAppid} from '@/utils/common'
+import {checkAndGetResult} from '../utils/servers/utils'
 
 /***
  * @description 根据 code 获取用户信息
@@ -35,9 +36,7 @@ export const code2SessionWx = async (payload) => {
     appid: payload.appid,
     code: payload.code,
   })
-  if (result && result.data && result.data.head.code === 1) {
-    return result.data.body.data
-  }
+  return checkAndGetResult(result)
 }
 
 /***
@@ -64,18 +63,16 @@ export const authUserInfoWx = async (e, type) => {
   if (e.detail.iv) {
     const loginRes = await Taro.login()
     // 允许授权
-    getUserInfoWx({
+    const userInfo = await getUserInfoWx({
       ownerId: 1,
       appid: getAppid(),
       type,
       encryptedData: e.detail.encryptedData,
       iv: e.detail.iv,
       code: loginRes.code,
-    }).then((userInfo) => {
-      if (userInfo) {
-        Taro.setStorageSync('userInfo', userInfo)
-      }
     })
+
+    return userInfo
   }
 }
 
@@ -86,10 +83,7 @@ export const authUserInfoWx = async (e, type) => {
  */
 export const getUserInfoWx = async (payload) => {
   const result = await http.post(api.WX_GET_USERINFO, payload)
-  console.log('result', result)
-  if (result && result.data && result.data.head.code === 1) {
-    return result.data.body.data
-  }
+  return checkAndGetResult(result)
 }
 
 export const demo = () => {

@@ -56,3 +56,26 @@ export const commonHttpRequest = (
   }
   return res
 }
+
+/**
+ * @description checkResult
+ */
+export const checkResult = (result) => {
+  return result && result.data && result.data.head.code === 1
+}
+
+/**
+ * @description getResultData
+ */
+export const getResultData = (result) => {
+  return result.data.body.data
+}
+
+/**
+ * @description getResultData
+ */
+export const checkAndGetResult = (result) => {
+  if (checkResult(result)) {
+    return getResultData(result)
+  }
+}

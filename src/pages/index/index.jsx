@@ -6,6 +6,7 @@ import {APP_CONSTANTS} from '@/config'
 import './index.scss'
 import Footer from '@/components/footer'
 import GoodsCard from '@/components/goodsCard'
+import DButton from '@/components/dButton'
 
 const tipList = [
   {
@@ -89,13 +90,24 @@ export default function () {
   return (
     <View className="index">
       <View className="head">
-        <Image
-          className="head-image"
-          src={`${APP_CONSTANTS.ASSETS_IMAGE_HOST}/images/mall/%E7%BB%84%2015%402x.png`}
-          onClick={() => {
-            Taro.navigateTo({url: '/pages/welfare/index'})
-          }}
-        />
+        <DButton
+          openType="getUserInfo"
+          content={
+            <Image
+              className="head-image"
+              src={`${APP_CONSTANTS.ASSETS_IMAGE_HOST}/images/mall/%E7%BB%84%2015%402x.png`}
+            />
+          }
+          onGetUserInfo={(isAuth) => {
+            if (isAuth) {
+              Taro.navigateTo({url: '/pages/welfare/index'})
+            } else {
+              Taro.showToast({
+                title: '参与活动，需要您的授权',
+                icon: 'none',
+              })
+            }
+          }}></DButton>
         <View className="tip-list">
           {tipList.map((item, index) => {
             return (
