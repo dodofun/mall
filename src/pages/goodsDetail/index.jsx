@@ -5,13 +5,12 @@ import './index.scss'
 import Footer from '@/components/footer'
 import Timer from '@/components/timer'
 import GoodsList from '@/components/goodsList'
-import {AtButton} from 'taro-ui'
 import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
-// import {useCurrentShopModel} from '@/models/currentShop'
+import {createId} from '../../utils/idCreator'
+import {getUserId} from '@/utils/common'
+import DButton from '@/components/dButton'
 
 export default function () {
-  // const currentShop = useCurrentShopModel((model) => [model.router])
-
   const router = useRouter()
   const [detail, setDetail] = useState({})
   const [ended, setEnded] = useState(false)
@@ -47,11 +46,40 @@ export default function () {
       // 设置页面title
       Taro.setNavigationBarTitle({title: detail.name})
     }
+    console.log('getUserId()', getUserId())
   }, [detail])
 
   const placeOrder = () => {
     // 下单
-    Taro.navigateTo({url: '/pages/orderDetail/index'})
+    Taro.showLoading({title: '加载中'})
+    const order = {
+      id: createId(),
+      ownerId: getUserId(),
+      type: 0,
+      name: detail.name,
+      status: 1,
+      winning: false,
+      payed: false,
+      used: false,
+      goodsId: detail.id,
+      count: 1,
+      price: detail.price,
+      shopId: params.shopId - 0,
+      enabled: true,
+    }
+    commonHttpRequest(
+      'order',
+      'add',
+      {ownerId: order.ownerId, id: order.id},
+      {},
+      order,
+    ).then((res) => {
+      Taro.hideLoading()
+      const data = checkAndGetResult(res)
+      if (data) {
+        Taro.navigateTo({url: '/pages/orderDetail/index'})
+      }
+    })
   }
 
   useDidShow(() => {})
@@ -107,13 +135,19 @@ export default function () {
       </View>
       <Footer />
       <View className="bottom-bar">
-        <AtButton
-          className="btn"
-          onClick={() => {
-            placeOrder()
-          }}>
-          立即抢夺
-        </AtButton>
+        <DButton
+          openType="getUserInfo"
+          onGetUserInfo={(isAuth) => {
+            if (isAuth) {
+              placeOrder()
+            } else {
+              Taro.showToast({
+                title: '参与活动，需要您的授权',
+                icon: 'none',
+              })
+            }
+          }}
+          content={<View className="btn-c">立即抢夺</View>}></DButton>
       </View>
     </View>
   )

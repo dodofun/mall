@@ -100,7 +100,7 @@ export function getQueryString(name) {
  * @description 获取用户信息
  */
 export const getUserInfo = () => {
-  return Taro.getStorageSync('user') || {}
+  return Taro.getStorageSync('userInfo') || {}
 }
 
 /***

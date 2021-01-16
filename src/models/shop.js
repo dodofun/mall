@@ -11,6 +11,9 @@ function useShop() {
   const {user} = useUserModel((model) => [model.user])
 
   const updateShop = () => {
+    if (!user.id) {
+      return
+    }
     commonHttpRequest(
       'shop',
       'getList',

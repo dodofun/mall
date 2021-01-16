@@ -110,7 +110,9 @@
     background: #fff;
     padding: 10px 40px;
 
-    .btn {
+    .btn-c {
+      width: 690px;
+      height: 80px;
       background: linear-gradient(90deg, #fad000, #faa500);
       border-radius: 14px;
       font-size: 32px;
@@ -118,6 +120,9 @@
       font-weight: 500;
       color: #fff;
       border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

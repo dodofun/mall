@@ -6,7 +6,7 @@ import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
  * C端用户
  */
 function useCurrentShop() {
-  const shopOwnerId = 1
+  const [shopOwnerId, setShopOwnerId] = useState(1)
   const [shopId, setShopId] = useState(0)
   const [shop, setShop] = useState()
 
@@ -33,6 +33,7 @@ function useCurrentShop() {
   return {
     shop,
     setShopId,
+    setShopOwnerId,
   }
 }
 

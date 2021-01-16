@@ -18,6 +18,7 @@ export default function (props) {
         props.onClick && props.onClick()
       }}
       onGetUserInfo={async (e) => {
+        console.log('e', e)
         const isAuth = e.detail.errMsg.indexOf('ok') > -1
         if (isAuth) {
           // 根据 event 信息，获取用户信息
