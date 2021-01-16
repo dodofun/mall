@@ -23,7 +23,6 @@ export default function () {
   }, [])
 
   const init = () => {
-    console.log('paramsparamsparamsparams', params)
     commonHttpRequest(
       'goods',
       'getList',
@@ -32,7 +31,6 @@ export default function () {
     ).then((res) => {
       Taro.hideLoading()
       const list = checkAndGetResult(res)
-      console.log('list', list)
       if (list) {
         setGoodsList(list)
       }
