@@ -23,7 +23,7 @@ const defaultFormData = {
 }
 
 export default function () {
-  const userModel = useUserModel((model) => [model.getUser])
+  const userModel = useUserModel((model) => [model.user])
 
   const [formData, setFormData] = useState(defaultFormData)
   const [verificated, setVerificated] = useState(false)
@@ -40,7 +40,7 @@ export default function () {
   }, [formData])
 
   useEffect(() => {
-    const userInfo = userModel.getUser()
+    const userInfo = userModel.user
     setFormData({
       ...formData,
       ownerId: userInfo.id,
@@ -54,7 +54,7 @@ export default function () {
   }
 
   const submit = () => {
-    const userInfo = userModel.getUser()
+    const userInfo = userModel.user
     const id = createId()
     formData.id = id
     if (verificated) {

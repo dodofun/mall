@@ -4,8 +4,14 @@ import {View, Picker} from '@tarojs/components'
 import {AtForm, AtInput, AtButton, AtList, AtListItem} from 'taro-ui'
 import './index.scss'
 import dayjs from 'dayjs'
+import {useUserModel} from '@/models/user'
+import {createId} from '../../utils/idCreator'
+import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
 
 const defaultFormData = {
+  id: 0,
+  ownerId: 0,
+  type: 0,
   name: '',
   personNum: 10,
   price: '',
@@ -13,9 +19,11 @@ const defaultFormData = {
   startTime: '',
   endDate: '',
   endTime: '',
+  enabled: true,
 }
-const personNum = [5, 10, 15, 20, 25, 30, 40, 50, 100]
+const personNum = [5, 10, 15, 20]
 export default function () {
+  const userModel = useUserModel((model) => [model.user])
   const [formData, setFormData] = useState(defaultFormData)
   const [verificated, setVerificated] = useState(false)
 
@@ -29,11 +37,23 @@ export default function () {
   }
 
   const submit = () => {
+    const userInfo = userModel.user
+    const id = createId()
+    formData.id = id
     if (verificated) {
       // 提交数据
-
-      // 跳转页面
-      Taro.redirectTo({url: '/pages/index/index'})
+      commonHttpRequest(
+        'shop',
+        'add',
+        {ownerId: userInfo.id, id},
+        {},
+        formData,
+      ).then((res) => {
+        if (checkAndGetResult(res)) {
+          // 跳转页面
+          Taro.redirectTo({url: '/pages/index/index'})
+        }
+      })
     }
   }
 

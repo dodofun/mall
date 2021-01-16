@@ -2,18 +2,8 @@
  * ACTIONS
  */
 import http from '../utils/servers'
-import {commonHttpRequest} from '@/utils/servers/utils'
 import * as api from '../config/api'
 import {getAppid} from '@/utils/common'
-
-export const commonHttp = () => {
-  return commonHttpRequest(
-    'app',
-    'get',
-    {ownerId: 1, id: 2},
-    {page: 1, size: 10},
-  )
-}
 
 /***
  * @description 代理网络请求

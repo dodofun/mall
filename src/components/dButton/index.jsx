@@ -3,8 +3,10 @@ import Taro from '@tarojs/taro'
 import {authUserInfoWx} from '@/action'
 import {AtButton} from 'taro-ui'
 import './index.scss'
+import {useUserModel} from '@/models/user'
 
 export default function (props) {
+  const {updateUser} = useUserModel((model) => [model.updateUser])
   const content = props.content
   props.content = undefined
 
@@ -36,6 +38,7 @@ export default function (props) {
               ...(e.detail.userInfo || {}),
             })
           }
+          updateUser()
         }
         // 回调
         props.onGetUserInfo && props.onGetUserInfo(isAuth, e)

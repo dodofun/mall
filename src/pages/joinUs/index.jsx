@@ -9,10 +9,10 @@ import {useUserModel} from '@/models/user'
 export default function () {
   const [btnTxt, setBtnTxt] = useState('申请入驻')
   const [btnDisabled, setBtnDisabled] = useState(false)
-  const userModel = useUserModel((model) => [model.getUser])
+  const userModel = useUserModel((model) => [model.user])
 
   useEffect(() => {
-    const userInfo = userModel.getUser()
+    const userInfo = userModel.user
     commonHttpRequest(
       'shop',
       'getList',

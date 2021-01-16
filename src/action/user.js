@@ -49,7 +49,7 @@ export const login = async () => {
       appid: getAppid(),
       code: code,
     })
-    Taro.setStorageSync('userInfo', userInfo || {})
+    return userInfo
   }
 }
 
