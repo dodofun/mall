@@ -29,17 +29,6 @@ export default function () {
   const [verificated, setVerificated] = useState(false)
 
   useEffect(() => {
-    const varif = Object.keys(formData).every((item) => {
-      if (Number.isNaN(item)) {
-        return !!formData[item]
-      } else {
-        return true
-      }
-    })
-    setVerificated(varif)
-  }, [formData])
-
-  useEffect(() => {
     const userInfo = userModel.user
     setFormData({
       ...formData,
@@ -48,6 +37,17 @@ export default function () {
       mobile: userInfo.mobile || '',
     })
   }, [])
+
+  useEffect(() => {
+    const varif = Object.keys(formData).every((item) => {
+      if (typeof formData[item] === 'number') {
+        return true
+      } else {
+        return !!formData[item]
+      }
+    })
+    setVerificated(varif)
+  }, [formData])
 
   const handleChange = (val, e) => {
     setFormData({...formData, [e.target.id]: val})

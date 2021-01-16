@@ -4,7 +4,7 @@ import {View, Picker} from '@tarojs/components'
 import {AtForm, AtInput, AtButton, AtList, AtListItem} from 'taro-ui'
 import './index.scss'
 import dayjs from 'dayjs'
-import {useUserModel} from '@/models/user'
+import {useShopModel} from '@/models/shop'
 import {createId} from '../../utils/idCreator'
 import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
 
@@ -14,7 +14,7 @@ const defaultFormData = {
   type: 0,
   name: '',
   personNum: 10,
-  price: '',
+  price: 0,
   startDate: '',
   startTime: '',
   endDate: '',
@@ -23,12 +23,18 @@ const defaultFormData = {
 }
 const personNum = [5, 10, 15, 20]
 export default function () {
-  const userModel = useUserModel((model) => [model.user])
+  const {shop = {}} = useShopModel((model) => [model.shop])
   const [formData, setFormData] = useState(defaultFormData)
   const [verificated, setVerificated] = useState(false)
 
   useEffect(() => {
-    const varif = Object.keys(formData).every((item) => !!formData[item])
+    const varif = Object.keys(formData).every((item) => {
+      if (typeof formData[item] === 'number') {
+        return true
+      } else {
+        return !!formData[item]
+      }
+    })
     setVerificated(varif)
   }, [formData])
 
@@ -36,22 +42,34 @@ export default function () {
     setFormData({...formData, [e.target.id]: val})
   }
 
+  const parseTime = (date, time) => {
+    return dayjs(date + ' ' + time + ':00').valueOf()
+  }
+
   const submit = () => {
-    const userInfo = userModel.user
     const id = createId()
     formData.id = id
     if (verificated) {
+      // 组装数据
+      formData.startTime = parseTime(formData.startDate, formData.startTime)
+      formData.endTime = parseTime(formData.endDate, formData.endTime)
+      setVerificated(false)
       // 提交数据
       commonHttpRequest(
-        'shop',
+        'welfare',
         'add',
-        {ownerId: userInfo.id, id},
+        {ownerId: shop.id, id},
         {},
         formData,
       ).then((res) => {
         if (checkAndGetResult(res)) {
-          // 跳转页面
-          Taro.redirectTo({url: '/pages/index/index'})
+          Taro.showToast({title: '成功发布福利', icon: 'none'})
+          setTimeout(() => {
+            // 跳转页面
+            Taro.switchTab({url: '/pages/index/index'})
+          }, 600)
+        } else {
+          setVerificated(true)
         }
       })
     }
