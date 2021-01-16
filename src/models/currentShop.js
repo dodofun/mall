@@ -6,15 +6,13 @@ import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
  * C端用户
  */
 function useCurrentShop() {
-  const [shopOwnerId, setShopOwnerId] = useState(0)
+  const shopOwnerId = 1
   const [shopId, setShopId] = useState(0)
   const [shop, setShop] = useState()
 
   useEffect(() => {
-    if (shopOwnerId > 0 && shopId > 0) {
-      getShop()
-    }
-  }, [shopOwnerId, shopId])
+    getShop()
+  }, [shopId])
 
   const getShop = () => {
     if (shop) {
@@ -35,7 +33,6 @@ function useCurrentShop() {
   return {
     shop,
     setShopId,
-    setShopOwnerId,
   }
 }
 

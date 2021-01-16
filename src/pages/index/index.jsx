@@ -27,12 +27,9 @@ const tipList = [
 export default function () {
   const router = useRouter()
   const params = router.params
-  const {setShopOwnerId, setShopId} = useCurrentShopModel((model) => [
-    model.shop,
-  ])
+  const {setShopId} = useCurrentShopModel((model) => [model.shop])
 
   useEffect(() => {
-    setShopOwnerId(params.shopOwnerId)
     setShopId(params.shopId)
   }, [])
 
