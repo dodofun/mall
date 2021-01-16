@@ -21,7 +21,7 @@ export default function ({goods}) {
       <View className="main">
         <Image src={goods.cover} className="cover" />
         <View className="name">{goods.name}</View>
-        <View className="num">当前参加人数：{goods.hasPeople} 人</View>
+        <View className="num">当前参加人数：{goods.hasPeople || 0} 人</View>
         <View className="progress">
           <AtProgress
             percent={50}
