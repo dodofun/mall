@@ -3,7 +3,6 @@
  */
 import Taro from '@tarojs/taro'
 import http from '../utils/servers'
-import {commonHttpRequest} from '@/utils/servers/utils'
 import * as api from '../config/api'
 import {APP_CONSTANTS} from '../config/index'
 import {getAppid} from '@/utils/common'
@@ -84,13 +83,4 @@ export const authUserInfoWx = async (e, type) => {
 export const getUserInfoWx = async (payload) => {
   const result = await http.post(api.WX_GET_USERINFO, payload)
   return checkAndGetResult(result)
-}
-
-export const demo = () => {
-  return commonHttpRequest(
-    'app',
-    'get',
-    {ownerId: 1, id: 2},
-    {page: 1, size: 10},
-  )
 }

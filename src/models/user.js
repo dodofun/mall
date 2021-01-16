@@ -9,7 +9,7 @@ function useUser() {
     getUser()
   }, [])
 
-  const getUser = async () => {
+  const getUser = () => {
     const userInfo = Taro.getStorageSync('userInfo') || {}
     setUser(userInfo)
     return userInfo

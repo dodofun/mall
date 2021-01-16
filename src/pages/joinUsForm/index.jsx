@@ -3,35 +3,75 @@ import Taro, {useDidHide, useDidShow, useReady} from '@tarojs/taro'
 import {View} from '@tarojs/components'
 import {AtForm, AtInput, AtButton} from 'taro-ui'
 import './index.scss'
+import {commonHttpRequest} from '@/utils/servers/utils'
+import {useUserModel} from '@/models/user'
+import {createId} from '../../utils/idCreator'
+import {checkAndGetResult} from '../../utils/servers/utils'
 
 const defaultFormData = {
-  shopName: '',
+  id: 0,
+  ownerId: 0,
+  name: '',
   ownerName: '',
   mobile: '',
   province: '',
   city: '',
   address: '',
+  longitude: 0,
+  latitude: 0,
+  enabled: true,
 }
 
 export default function () {
+  const userModel = useUserModel((model) => [model.getUser])
+
   const [formData, setFormData] = useState(defaultFormData)
   const [verificated, setVerificated] = useState(false)
 
   useEffect(() => {
-    const varif = Object.keys(formData).every((item) => !!formData[item])
+    const varif = Object.keys(formData).every((item) => {
+      if (Number.isNaN(item)) {
+        return !!formData[item]
+      } else {
+        return true
+      }
+    })
     setVerificated(varif)
   }, [formData])
+
+  useEffect(() => {
+    const userInfo = userModel.getUser()
+    setFormData({
+      ...formData,
+      ownerId: userInfo.id,
+      ownerName: userInfo.name,
+      mobile: userInfo.mobile || '',
+    })
+  }, [])
 
   const handleChange = (val, e) => {
     setFormData({...formData, [e.target.id]: val})
   }
 
   const submit = () => {
+    const userInfo = userModel.getUser()
+    const id = createId()
+    formData.id = id
     if (verificated) {
       // 提交数据
-
-      // 跳转页面
-      Taro.redirectTo({url: '/pages/reviewing/index'})
+      commonHttpRequest(
+        'shop',
+        'add',
+        {ownerId: userInfo.id, id},
+        {},
+        formData,
+      ).then((res) => {
+        console.log('res', res)
+        if (checkAndGetResult(res)) {
+          // 跳转页面
+          Taro.redirectTo({url: '/pages/reviewing/index'})
+        }
+      })
     }
   }
 
@@ -47,17 +87,17 @@ export default function () {
         <View className="form-title">入驻信息</View>
         <AtForm className="form-data">
           <AtInput
-            name="shopName"
+            name="name"
             title="店铺名称"
             type="text"
             placeholder="输入店铺名称"
-            value={formData.shopName}
+            value={formData.name}
             required
             onChange={handleChange}
           />
           <AtInput
             name="ownerName"
-            title="店主名称"
+            title="店主姓名"
             type="text"
             placeholder="输入店主名称"
             value={formData.ownerName}
