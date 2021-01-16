@@ -7,7 +7,6 @@ function useRouterParam() {
   const [params, setParams] = useState({})
 
   useEffect(() => {
-    console.log('router', router)
     setParams(router.params)
   }, [router])
 
