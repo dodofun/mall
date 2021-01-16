@@ -1,77 +1,40 @@
 import React, {useState, useEffect} from 'react'
-import Taro, {useDidHide, useDidShow, useReady} from '@tarojs/taro'
+import Taro, {useRouter, useDidHide, useDidShow, useReady} from '@tarojs/taro'
 import {View, Image} from '@tarojs/components'
 import './index.scss'
 import Footer from '@/components/footer'
 import Timer from '@/components/timer'
-import GoodsCard from '@/components/goodsCard'
+import GoodsList from '@/components/goodsList'
 import {AtButton} from 'taro-ui'
+import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
 
 export default function () {
+  const router = useRouter()
   const [detail, setDetail] = useState({})
-  const [goodsList, setGoodsList] = useState([])
   const [ended, setEnded] = useState(false)
+  const params = router.params
 
   useEffect(() => {
-    // 获取详情
-    setDetail({
-      id: 1,
-      name: '绿色冰糖西瓜3kg',
-      price: 10.5,
-      totalPeople: 10,
-      hasPeople: 8,
-      cover:
-        'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xigua.png',
-      startTime: 1609596415948,
-      endTime: 1609899179948,
-    })
-    setGoodsList([
-      {
-        id: 1,
-        name: '绿色冰糖西瓜3kg',
-        totalPeople: 10,
-        hasPeople: 8,
-        cover:
-          'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xigua.png',
-        startTime: 1609596415948,
-        endTime: 1609699179948,
-        price: 10.5,
-      },
-      {
-        id: 2,
-        name: '新到番茄2kg',
-        totalPeople: 10,
-        hasPeople: 4,
-        cover:
-          'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xihongshi.png',
-        startTime: 1609596415948,
-        endTime: 1609699179948,
-        price: 12,
-      },
-      {
-        id: 3,
-        name: '东北大米25kg',
-        totalPeople: 20,
-        hasPeople: 20,
-        cover:
-          'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xiaomai.png',
-        startTime: 1609596415948,
-        endTime: 1609699179948,
-        price: 10.5,
-      },
-      {
-        id: 4,
-        name: '金龙鱼调和油5kg',
-        totalPeople: 50,
-        hasPeople: 32,
-        cover:
-          'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-you.png',
-        startTime: 1609596415948,
-        endTime: 1609699179948,
-        price: 50,
-      },
-    ])
-  }, [])
+    init()
+  }, [params])
+
+  const init = () => {
+    if (params.goodsId && params.shopId) {
+      Taro.showLoading({title: '加载中'})
+      commonHttpRequest('goods', 'get', {
+        ownerId: params.shopId,
+        id: params.goodsId,
+      }).then((res) => {
+        Taro.hideLoading()
+        const goods = checkAndGetResult(res)
+        if (goods) {
+          setDetail(goods)
+        }
+      })
+    } else {
+      Taro.showToast({title: '参数异常', icon: 'none'})
+    }
+  }
 
   useEffect(() => {
     if (!detail.id) {
@@ -137,15 +100,7 @@ export default function () {
       </View>
       <View className="recommend">
         <View className="title">推荐活动</View>
-        <View className="goods-list at-row at-row--wrap">
-          {goodsList.map((item) => {
-            return (
-              <View key={item.id} className="goods-item at-col at-col-6">
-                <GoodsCard className="" goods={item} />
-              </View>
-            )
-          })}
-        </View>
+        <GoodsList pageSize={10} hideId={[params.goodsId - 0]} />
       </View>
       <Footer />
       <View className="bottom-bar">

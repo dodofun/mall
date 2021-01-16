@@ -9,7 +9,10 @@ import './index.scss'
 export default function ({goods}) {
   useEffect(() => {}, [])
   const goDetail = () => {
-    Taro.navigateTo({url: `/pages/goodsDetail/index?id=${goods.id}`})
+    console.log('goods', goods)
+    Taro.navigateTo({
+      url: `/pages/goodsDetail/index?shopId=${goods.ownerId}&goodsId=${goods.id}`,
+    })
   }
 
   return (

@@ -5,8 +5,8 @@ import {useRouter} from '@tarojs/taro'
 function useRouterParam() {
   const router = useRouter()
   const [params, setParams] = useState({})
-
   useEffect(() => {
+    console.log('eeee', router)
     setParams(router.params)
   }, [router])
 
