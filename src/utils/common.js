@@ -69,6 +69,13 @@ export const getAppid = () => {
 }
 
 /***
+ * @description 获取appOwnerId
+ */
+export const getAppOwnerId = () => {
+  return APP_CONSTANTS.APP_OWNERID
+}
+
+/***
  * @description 判断是否微信浏览器
  */
 export function isWxBrowser() {

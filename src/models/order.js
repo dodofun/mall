@@ -9,6 +9,7 @@ import {useUserModel} from '@/models/user'
  */
 function useOrder() {
   const pageSize = 20
+  const [refreshTime, setRefreshTime] = useState(0)
   const [pageIndex, setPageIndex] = useState(0)
   const [orderList, setOrderList] = useState([])
   const [status, setStatus] = useState(1)
@@ -17,8 +18,8 @@ function useOrder() {
 
   useEffect(() => {
     setPageIndex(0)
-    updateOrder()
-  }, [user.id, status])
+    updateOrderList()
+  }, [user.id, status, refreshTime])
 
   useEffect(() => {
     if (openLoading) {
@@ -28,7 +29,7 @@ function useOrder() {
     }
   }, [openLoading])
 
-  const updateOrder = () => {
+  const updateOrderList = () => {
     if (!user.id) {
       return
     }
@@ -40,6 +41,7 @@ function useOrder() {
       {index: pageIndex, size: pageSize},
     ).then((res) => {
       setOpenLoading(false)
+      Taro.stopPullDownRefresh()
       const list = checkAndGetResult(res)
       if (list) {
         setOrderList(list)
@@ -53,6 +55,7 @@ function useOrder() {
     status,
     orderList,
     setStatus,
+    setRefreshTime,
   }
 }
 

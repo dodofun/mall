@@ -14,8 +14,11 @@ import {cardTagIcon} from '@/config'
 import {QRCode} from 'taro-code'
 import Timer from '../timer'
 import dayjs from 'dayjs'
+import {toPayOrder} from '../../action/order'
+import {useUserModel} from '@/models/user'
 
 export default function ({order}) {
+  const {user} = useUserModel((model) => [model.user])
   const [isOpened, setIsOpened] = useState(false)
   const [ended, setEnded] = useState(dayjs(order.endTime) - dayjs() < 0)
   const isFuli = order.type === 1
@@ -25,9 +28,27 @@ export default function ({order}) {
     setIsOpened(true)
   }
 
-  const toPay = () => {
+  const toPay = async () => {
     console.log('发起支付')
-    Taro.navigateTo({url: '/pages/paySuccess/index'})
+    const res = await toPayOrder({userId: user.id, orderId: order.id})
+    console.log('toPay res', res)
+    if (res) {
+      // 参数调整
+      res.package = res.packageValue
+      Taro.requestPayment(res).then((payRes) => {
+        console.log('payRes', payRes)
+        if (payRes.errMsg.indexOf('ok') >= 0) {
+          // 支付成功
+          Taro.navigateTo({url: '/pages/paySuccess/index'})
+          return
+        } else {
+          // 未支付成功
+          Taro.showToast({title: '请继续完成支付哦', icon: 'none'})
+        }
+      })
+    } else {
+      Taro.showToast({title: '支付异常，请稍后重试', icon: 'none'})
+    }
   }
 
   return (

@@ -312,7 +312,7 @@ export default function () {
           </Picker>
         </AtForm>
       </View>
-      <View className="btn">
+      <View className="put-on-btn">
         <AtButton
           full
           disabled={!verificated}

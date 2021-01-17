@@ -1,5 +1,10 @@
-import React, {useEffect} from 'react'
-import {useDidHide, useDidShow, useReady} from '@tarojs/taro'
+import React from 'react'
+import {
+  useDidHide,
+  useDidShow,
+  usePullDownRefresh,
+  useReady,
+} from '@tarojs/taro'
 import {View} from '@tarojs/components'
 import {AtTabs} from 'taro-ui'
 import './index.scss'
@@ -15,25 +20,22 @@ const tabList = [
 ]
 
 export default function () {
-  const {orderList, status, setStatus} = useOrderModel((model) => [
-    model.status,
-    model.orderList,
-  ])
-
-  useEffect(() => {
-    init()
-  }, [])
-
-  const init = () => {
-    // 初始化页面
-    setStatus(1)
-  }
+  const {
+    orderList,
+    status,
+    setStatus,
+    setRefreshTime,
+  } = useOrderModel((model) => [model.status, model.orderList])
 
   useDidShow(() => {})
 
   useDidHide(() => {})
 
   useReady(() => {})
+
+  usePullDownRefresh(() => {
+    setRefreshTime(new Date().getTime())
+  })
 
   const changeCondition = (index) => {
     setStatus(index)

@@ -38,3 +38,9 @@ export const WX_GET_USERINFO = `/wx/mp/getUserInfo`
  * @type {string}
  */
 export const ALIYUN_OSS_SIGNATURE = `/aliyun/oss/getOssSignature`
+
+/***
+ * 发起订单支付
+ * @type {string}
+ */
+export const TO_PAY_ORDER = `/v1/order/wx/topay`

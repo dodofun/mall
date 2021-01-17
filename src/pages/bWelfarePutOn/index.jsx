@@ -209,7 +209,7 @@ export default function () {
         </AtForm>
       </View>
 
-      <View className="btn">
+      <View className="welfare-put-on-btn">
         <AtButton
           full
           disabled={!verificated}
