@@ -11,7 +11,7 @@ export default function (props) {
 
   return (
     <AtButton
-      className="btn"
+      className="d-btn"
       type="secondary"
       {...props}
       onClick={() => {

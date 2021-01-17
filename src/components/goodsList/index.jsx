@@ -48,10 +48,10 @@ export default function ({refresh, pageSize = 20, hideId = []}) {
           tabList={tabList}
           onClick={changeCondition}></AtTabs>
       )}
-      <View className="goods-list at-row at-row--wrap">
+      <View className="goods-list-1 at-row at-row--wrap">
         {goodsList.map((item) => {
           return (
-            <View key={item.id} className="goods-item at-col at-col-6">
+            <View key={item.id} className="goods-item-1 at-col at-col-6">
               <GoodsCard className="" goods={item} />
             </View>
           )
