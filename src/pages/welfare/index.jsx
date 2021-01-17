@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import Taro, {useDidHide, useDidShow, useReady} from '@tarojs/taro'
+import Taro, {useRouter, useDidHide, useDidShow, useReady} from '@tarojs/taro'
 import {View, Image, Button} from '@tarojs/components'
 import './index.scss'
 import {
@@ -10,88 +10,100 @@ import {
   AtModalContent,
   AtModalAction,
 } from 'taro-ui'
+import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
+import dayjs from 'dayjs'
+import {useUserModel} from '@/models/user'
 
 export default function () {
+  const router = useRouter()
+  const params = router.params
   const [joinBoxShow, setJoinBoxShow] = useState(false)
   const [joinStatusText, setJoinStatusText] = useState('立即参与')
   const [ruleShow, setRuleShow] = useState(false)
-  const [goods, setGoods] = useState({})
   const [userList, setUserList] = useState([])
+  const [welfare, setWelfare] = useState({})
+  const {user} = useUserModel((model) => [model.user])
+
+  const [diffMillisecond, setDiffMillisecond] = useState(0)
+  const [diffTime, setDiffTime] = useState({hours: 0, minutes: 0, seconds: 0})
+
+  useEffect(() => {
+    if (params.shopId > 0) {
+      init()
+    }
+  }, [params.shopId])
+
+  const init = () => {
+    commonHttpRequest(
+      'welfare',
+      'getList',
+      {
+        ownerId: params.shopId,
+      },
+      {index: 0, size: 1},
+    ).then((res) => {
+      const data = checkAndGetResult(res)
+      if (data && data.length > 0) {
+        setWelfare(data[0])
+      }
+    })
+  }
+
+  useEffect(() => {
+    if (welfare.id) {
+      console.log('welfare', welfare)
+      const defaultUserList = new Array(10)
+      defaultUserList.fill({}, 0, welfare.personNum)
+      setUserList(defaultUserList)
+    }
+  }, [welfare])
+
+  useEffect(() => {
+    if (welfare.endTime) {
+      setDiffMillisecond(dayjs(welfare.endTime) - dayjs())
+    }
+  }, [welfare.endTime])
+
+  useEffect(() => {
+    if (diffMillisecond > 0) {
+      setDiffTimeFunc()
+    }
+  }, [diffMillisecond])
+
+  const setDiffTimeFunc = () => {
+    const hours = Math.floor(diffMillisecond / 1000 / 60 / 60)
+    const minutes = Math.floor((diffMillisecond / 1000 / 60) % 60)
+    const seconds = Math.floor((diffMillisecond / 1000) % 60)
+    setDiffTime({hours, minutes, seconds})
+  }
+
   useEffect(() => {
     // 判断：1.是否参与过，2.活动是否正在进行，3.是否人数已满，4.如果参与过，是否成功
     // 没参与过活动，则弹窗
-    setJoinBoxShow(true)
-    setGoods({
-      id: 1,
-      name: '无公害番茄3kg',
-    })
-    setUserList([
-      {
-        id: 1,
-        avatar:
-          'https://assets.yiduohoulang.com/images/mall/%E5%9B%BE%E5%B1%82%202%402x%20%286%29.png',
-      },
-      {
-        id: 2,
-        avatar:
-          'https://assets.yiduohoulang.com/images/mall/%E5%9B%BE%E5%B1%82%202%402x%20%286%29.png',
-      },
-      {
-        id: 3,
-        avatar:
-          'https://assets.yiduohoulang.com/images/mall/%E5%9B%BE%E5%B1%82%202%402x%20%286%29.png',
-      },
-      {
-        id: 4,
-        avatar:
-          'https://assets.yiduohoulang.com/images/mall/%E5%9B%BE%E5%B1%82%202%402x%20%286%29.png',
-      },
-      {
-        id: 5,
-        avatar:
-          'https://assets.yiduohoulang.com/images/mall/%E5%9B%BE%E5%B1%82%202%402x%20%286%29.png',
-      },
-      {
-        id: 6,
-        avatar:
-          'https://assets.yiduohoulang.com/images/mall/%E5%9B%BE%E5%B1%82%202%402x%20%286%29.png',
-      },
-      {
-        id: 7,
-        avatar:
-          'https://assets.yiduohoulang.com/images/mall/%E5%9B%BE%E5%B1%82%202%402x%20%286%29.png',
-      },
-      {
-        id: 8,
-        avatar:
-          'https://assets.yiduohoulang.com/images/mall/%E5%9B%BE%E5%B1%82%202%402x%20%286%29.png',
-      },
-      {
-        id: 9,
-        avatar:
-          'https://assets.yiduohoulang.com/images/mall/%E5%9B%BE%E5%B1%82%202%402x%20%286%29.png',
-      },
-      {
-        id: 10,
-        avatar:
-          'https://assets.yiduohoulang.com/images/mall/%E5%9B%BE%E5%B1%82%202%402x%20%286%29.png',
-      },
-      {
-        id: 11,
-        avatar:
-          'https://assets.yiduohoulang.com/images/mall/%E5%9B%BE%E5%B1%82%202%402x%20%286%29.png',
-      },
-      {
-        id: 12,
-        avatar:
-          'https://assets.yiduohoulang.com/images/mall/%E5%9B%BE%E5%B1%82%202%402x%20%286%29.png',
-      },
-    ])
+    setJoinBoxShow(false)
   }, [])
 
   const join = () => {
-    Taro.showToast({title: '参与成功', icon: 'none'})
-    setJoinStatusText('参与成功')
+    // 组装数据
+    const data = {...welfare}
+    data.hasPersonNum = (data.hasPersonNum || 0) + 1
+
+    commonHttpRequest(
+      'welfare',
+      'update',
+      {
+        ownerId: welfare.ownerId,
+        id: welfare.id,
+      },
+      {join: true},
+      user,
+    ).then((res) => {
+      const r = checkAndGetResult(res)
+      if (r) {
+        Taro.showToast({title: '参与成功', icon: 'none'})
+        setJoinStatusText('参与成功')
+      }
+    })
   }
 
   useDidShow(() => {})
@@ -121,15 +133,17 @@ export default function () {
         />
       </View>
       <View className="footer">
-        <View className="text">本次活动奖品为【{goods.name}】，赶紧参与吧</View>
+        <View className="text">
+          本次活动奖品为【{welfare.name}】，赶紧参与吧
+        </View>
       </View>
       <View className="timer-line">
         <AtCountdown
           isCard
           format={{day: '天', hours: '时', minutes: '分', seconds: '秒'}}
-          hours={2}
-          minutes={1}
-          seconds={10}
+          hours={diffTime.hours}
+          minutes={diffTime.minutes}
+          seconds={diffTime.seconds}
           onTimeUp={() => {}}
         />
       </View>
@@ -140,7 +154,9 @@ export default function () {
               key={index}
               style={{
                 position: 'absolute',
-                transform: `rotateZ(${index * 30}deg) translateY(240rpx)`,
+                transform: `rotateZ(${
+                  (index * 360) / userList.length
+                }deg) translateY(240rpx)`,
               }}>
               <AtAvatar circle image={item.avatar}></AtAvatar>
             </View>
@@ -177,7 +193,7 @@ export default function () {
         <View className="modal-box">
           <View className="bg-view">
             <View className="title">
-              <View>【{goods.name}】</View>
+              <View>【{welfare.name}】</View>
               <View>赶紧参与抢夺吧</View>
             </View>
             <View className="action-btn" onClick={() => setJoinBoxShow(false)}>

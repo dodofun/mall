@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro'
 import {HTTP_STATUS} from './config'
 import {APP_CONSTANTS} from '../../config/index'
+import {isDev} from '../common'
 
 const customInterceptor = (chain) => {
   const requestParams = chain.requestParams
@@ -20,10 +21,11 @@ const customInterceptor = (chain) => {
   })
 }
 
-const interceptors = [
-  Taro.interceptors.logInterceptor,
-  Taro.interceptors.timeoutInterceptor,
-]
+const interceptors = [Taro.interceptors.timeoutInterceptor]
+
+if (isDev()) {
+  interceptors.push(Taro.interceptors.logInterceptor)
+}
 
 // eslint-disable-next-line no-undef
 if (APP_CONSTANTS.OPEN_CUSTOM_INTERCEPTOR) {

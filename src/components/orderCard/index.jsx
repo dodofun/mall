@@ -143,7 +143,7 @@ export default function ({order, isBuss}) {
         </View>
       )}
       {status === 3 && payed && !isBuss && (
-        <View className="closed">请到微信钱包查看零钱是否返回</View>
+        <View className="closed">退款会在3个工作日内返还</View>
       )}
       {status === 3 && !payed && (
         <View className="fulled">

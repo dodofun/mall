@@ -27,7 +27,7 @@ const tipList = [
 export default function () {
   const router = useRouter()
   const params = router.params
-  const {setShopId} = useCurrentShopModel((model) => [model.shopId])
+  const {setShopId} = useCurrentShopModel((model) => [model.setShopId])
   const [refresh, setRefresh] = useState(0)
 
   useEffect(() => {
@@ -57,7 +57,10 @@ export default function () {
           }
           onGetUserInfo={(isAuth) => {
             if (isAuth) {
-              Taro.navigateTo({url: '/pages/welfare/index'})
+              console.log('url', '/pages/welfare/index?shopId=' + params.shopId)
+              Taro.navigateTo({
+                url: '/pages/welfare/index?shopId=' + params.shopId,
+              })
             } else {
               Taro.showToast({
                 title: '参与活动，需要您的授权',
