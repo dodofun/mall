@@ -19,6 +19,7 @@ export default function ({order}) {
   const [isOpened, setIsOpened] = useState(false)
   const [ended, setEnded] = useState(dayjs(order.endTime) - dayjs() < 0)
   const isFuli = order.type === 1
+  const goods = order.goods || {}
 
   const openExchangeCode = () => {
     setIsOpened(true)
@@ -37,26 +38,26 @@ export default function ({order}) {
       <View className="card">
         <View className="tag">
           <Image className="tag-icon" src={cardTagIcon[0]} />
-          <View className="tag-info">{order.totalPeople}人抢</View>
+          <View className="tag-info">{goods.totalPeople}人抢</View>
         </View>
         <View className="main">
           <View className="left">
-            <Image className="cover" src={order.cover} />
+            <Image className="cover" src={goods.cover} />
           </View>
           <View className="right">
             <View className="info">
-              <View className="name">{order.goodsName}</View>
-              <View className="num">参加人数：{order.hasPeople}人</View>
+              <View className="name">{goods.name}</View>
+              <View className="num">参加人数：{goods.hasPeople || 0}人</View>
               <View className="progress">
                 <AtProgress
-                  percent={(order.hasPeople / order.totalPeople) * 100}
+                  percent={((goods.hasPeople || 0) / goods.totalPeople) * 100}
                   strokeWidth={4}
                   status="progress"
                   color="#FAD000"
                 />
               </View>
               <View className="order-count">
-                小计：￥{order.totalAmount}
+                小计：￥{order.count * order.price}
                 <Text className="sub-count">(共{order.count}份)</Text>
               </View>
             </View>
@@ -67,20 +68,20 @@ export default function ({order}) {
         <View className="time">
           <View className="label">开始时间</View>
           <View className="value">
-            {dayjs(order.startTime).format('YYYY-MM-DD HH:mm:ss')}
+            {dayjs(goods.startTime).format('YYYY-MM-DD HH:mm:ss')}
           </View>
         </View>
         <View className="time">
           <View className="label">结束时间</View>
           {ended && (
             <View className="value">
-              {dayjs(order.endTime).format('YYYY-MM-DD HH:mm:ss')}
+              {dayjs(goods.endTime).format('YYYY-MM-DD HH:mm:ss')}
             </View>
           )}
           {!ended && (
             <Timer
               className="timer"
-              endTime={order.endTime}
+              endTime={goods.endTime}
               onSetEnded={(val) => {
                 setEnded(val)
               }}
@@ -145,7 +146,7 @@ export default function ({order}) {
         <AtModalContent>
           <View className="qrcode">
             <QRCode
-              text={order.exchangeCode}
+              text={order.id}
               size={160}
               scale={4}
               errorCorrectLevel="M"
