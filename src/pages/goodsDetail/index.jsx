@@ -9,10 +9,11 @@ import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
 import {createId} from '../../utils/idCreator'
 import {getUserId} from '@/utils/common'
 import DButton from '@/components/dButton'
+import {useOrderModel} from '@/models/order'
 
 export default function () {
   const router = useRouter()
-
+  const {setRefreshTime} = useOrderModel((model) => [model.setRefreshTime])
   const [detail, setDetail] = useState({})
   const [ended, setEnded] = useState(false)
   const params = router.params
@@ -79,6 +80,7 @@ export default function () {
       Taro.hideLoading()
       const data = checkAndGetResult(res)
       if (data) {
+        setRefreshTime(new Date().getTime())
         Taro.navigateTo({
           url: `/pages/orderDetail/index?userId=${order.ownerId}&orderId=${order.id}`,
         })
