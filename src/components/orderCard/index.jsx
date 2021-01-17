@@ -16,6 +16,7 @@ import Timer from '../timer'
 import dayjs from 'dayjs'
 import {toPayOrder} from '../../action/order'
 import {useUserModel} from '@/models/user'
+import {useOrderModel} from '@/models/order'
 
 export default function ({order}) {
   const goods = order.goods || {}
@@ -25,6 +26,8 @@ export default function ({order}) {
   const [payed, setPayed] = useState(order.payed)
   const [ended, setEnded] = useState(dayjs(goods.endTime) - dayjs() < 0)
   const isFuli = order.type === 1
+
+  const {setRefreshTime} = useOrderModel((model) => [model.setRefreshTime])
 
   const openExchangeCode = () => {
     setIsOpened(true)
@@ -38,6 +41,7 @@ export default function ({order}) {
       Taro.requestPayment(res).then((payRes) => {
         if (payRes.errMsg.indexOf('ok') >= 0) {
           setPayed(true)
+          setRefreshTime(new Date().getTime())
           // 支付成功
           Taro.navigateTo({url: '/pages/paySuccess/index'})
         } else {
@@ -62,7 +66,7 @@ export default function ({order}) {
         </View>
         <View className="main">
           <View className="left">
-            <Image className="cover" src={goods.cover} />
+            <Image className="cover" src={goods.cover} lazyLoad />
           </View>
           <View className="right">
             <View className="info">

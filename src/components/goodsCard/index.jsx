@@ -21,7 +21,7 @@ export default function ({goods}) {
         <View className="tag-info">{goods.totalPeople}人抢</View>
       </View>
       <View className="main">
-        <Image src={goods.cover} className="cover" />
+        <Image src={goods.cover} className="cover" lazyLoad />
         <View className="name">{goods.name}</View>
         <View className="num">当前参加人数：{goods.hasPeople || 0} 人</View>
         <View className="progress">

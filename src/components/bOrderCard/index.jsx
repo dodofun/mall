@@ -23,7 +23,7 @@ export default function ({order}) {
         </View>
         <View className="main">
           <View className="left">
-            <Image className="cover" src={order.cover} />
+            <Image className="cover" src={order.cover} lazyLoad />
           </View>
           <View className="right">
             <View className="info">
