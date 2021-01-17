@@ -27,10 +27,12 @@ const tipList = [
 export default function () {
   const router = useRouter()
   const params = router.params
-  const {setShopId} = useCurrentShopModel((model) => [model.shop])
+  const {setShopId} = useCurrentShopModel((model) => [model.shopId])
 
   useEffect(() => {
-    setShopId(params.shopId)
+    if (params.shopId) {
+      setShopId(params.shopId)
+    }
   }, [])
 
   useDidShow(() => {})

@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from 'react'
-import {useRouter} from '@tarojs/taro'
 import {View} from '@tarojs/components'
 import {AtTabs} from 'taro-ui'
 import GoodsCard from '@/components/goodsCard'
 import './index.scss'
 import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
+import {useCurrentShopModel} from '@/models/currentShop'
 
 const tabList = [{title: '按人数'}, {title: '按金额'}]
 
 export default function ({pageSize = 20, hideId = []}) {
-  const router = useRouter()
-  const params = router.params
+  const {shopId} = useCurrentShopModel((model) => [model.shopId])
   const [currentTab, setCurrentTab] = useState(0)
   const [goodsList, setGoodsList] = useState([])
   const [pageIndex] = useState(0)
@@ -21,13 +20,16 @@ export default function ({pageSize = 20, hideId = []}) {
 
   useEffect(() => {
     init()
-  }, [params])
+  }, [shopId])
 
   const init = () => {
+    if (!shopId) {
+      return
+    }
     commonHttpRequest(
       'goods',
       'getList',
-      {ownerId: params.shopId},
+      {ownerId: shopId},
       {index: pageIndex, size: pageSize, running: 1},
     ).then((res) => {
       const list = checkAndGetResult(res)

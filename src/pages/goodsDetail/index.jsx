@@ -9,9 +9,12 @@ import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
 import {createId} from '../../utils/idCreator'
 import {getUserId} from '@/utils/common'
 import DButton from '@/components/dButton'
+import {useCurrentShopModel} from '@/models/currentShop'
 
 export default function () {
   const router = useRouter()
+  const {setShopId} = useCurrentShopModel((model) => [model.shop])
+
   const [detail, setDetail] = useState({})
   const [ended, setEnded] = useState(false)
   const params = router.params
@@ -22,6 +25,7 @@ export default function () {
 
   const init = () => {
     if (params.goodsId && params.shopId) {
+      setShopId(params.shopId)
       Taro.showLoading({title: '加载中'})
       commonHttpRequest('goods', 'get', {
         ownerId: params.shopId,

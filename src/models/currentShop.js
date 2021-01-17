@@ -31,6 +31,7 @@ function useCurrentShop() {
   }
 
   return {
+    shopId,
     shop,
     setShopId,
     setShopOwnerId,
