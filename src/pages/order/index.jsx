@@ -27,7 +27,9 @@ export default function () {
     setRefreshTime,
   } = useOrderModel((model) => [model.status, model.orderList])
 
-  useDidShow(() => {})
+  useDidShow(() => {
+    // setRefreshTime(new Date().getTime())
+  })
 
   useDidHide(() => {})
 

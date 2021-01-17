@@ -1,42 +1,35 @@
 import React, {useState, useEffect} from 'react'
-import Taro, {useDidHide, useDidShow, useReady} from '@tarojs/taro'
+import Taro, {useRouter, useDidHide, useDidShow, useReady} from '@tarojs/taro'
 import {View, Image} from '@tarojs/components'
 import OrderCard from '@/components/orderCard'
 import {AtNoticebar} from 'taro-ui'
 import './index.scss'
+import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
 
 export default function () {
+  const router = useRouter()
+  const params = router.params
+
   const [shopInfo, setShopInfo] = useState({})
   const [orderDetail, setOrderDetail] = useState({})
 
   useEffect(() => {
-    setShopInfo({
-      id: 1,
-      address: '保利罗兰香谷二区社区惠民超市',
-      mobile: '18513971114',
-    })
-    setOrderDetail({
-      id: 4,
-      type: 0, // 0: 抢夺单，1: 福利单
-      status: 1, // 1: 进行中；2: 已开奖；3: 已关闭
-      winning: false, // 1: 中奖；0: 未中奖
-      payed: false, // 1: 已支付，0: 待支付
-      used: false, // 1: 已使用, 0: 未使用
-      totalPeople: 10,
-      hasPeople: 8,
-      goodsId: 1,
-      goodsName: '绿色冰糖西瓜3kg',
-      cover:
-        'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xigua.png',
-      count: 3,
-      price: 8,
-      totalAmount: 24,
-      startTime: 1609596415948,
-      endTime: 1609896495948,
-      exchangeCode: 'demo',
-    })
-  }, [])
+    init()
+  }, [params.userId, params.orderId])
 
+  const init = () => {
+    commonHttpRequest('order', 'get', {
+      ownerId: params.userId,
+      id: params.orderId,
+    }).then((res) => {
+      const order = checkAndGetResult(res)
+      console.log('order', order)
+      if (order) {
+        setShopInfo(order.shop)
+        setOrderDetail(order)
+      }
+    })
+  }
   useDidShow(() => {})
 
   useDidHide(() => {})

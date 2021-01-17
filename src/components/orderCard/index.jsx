@@ -18,29 +18,28 @@ import {toPayOrder} from '../../action/order'
 import {useUserModel} from '@/models/user'
 
 export default function ({order}) {
+  const goods = order.goods || {}
+
   const {user} = useUserModel((model) => [model.user])
   const [isOpened, setIsOpened] = useState(false)
-  const [ended, setEnded] = useState(dayjs(order.endTime) - dayjs() < 0)
+  const [payed, setPayed] = useState(order.payed)
+  const [ended, setEnded] = useState(dayjs(goods.endTime) - dayjs() < 0)
   const isFuli = order.type === 1
-  const goods = order.goods || {}
 
   const openExchangeCode = () => {
     setIsOpened(true)
   }
 
   const toPay = async () => {
-    console.log('发起支付')
     const res = await toPayOrder({userId: user.id, orderId: order.id})
-    console.log('toPay res', res)
     if (res) {
       // 参数调整
       res.package = res.packageValue
       Taro.requestPayment(res).then((payRes) => {
-        console.log('payRes', payRes)
         if (payRes.errMsg.indexOf('ok') >= 0) {
+          setPayed(true)
           // 支付成功
           Taro.navigateTo({url: '/pages/paySuccess/index'})
-          return
         } else {
           // 未支付成功
           Taro.showToast({title: '请继续完成支付哦', icon: 'none'})
@@ -110,7 +109,7 @@ export default function ({order}) {
           )}
         </View>
       </View>
-      {order.status === 1 && !order.payed && (
+      {order.status === 1 && !payed && (
         <View className="doing">
           <View className="left-1">
             <Image
@@ -126,22 +125,20 @@ export default function ({order}) {
           </View>
         </View>
       )}
-      {order.status === 3 &&
-        order.payed &&
-        order.totalPeople > order.hasPeople && (
-          <View className="closed">请到微信钱包查看零钱是否返回</View>
-        )}
-      {!order.payed && order.totalPeople <= order.hasPeople && (
+      {order.status === 3 && payed && goods.totalPeople > goods.hasPeople && (
+        <View className="closed">请到微信钱包查看零钱是否返回</View>
+      )}
+      {!payed && goods.totalPeople <= goods.hasPeople && (
         <View className="fulled">
           <View>当前人数已满，无法参与抢夺</View>
         </View>
       )}
-      {order.payed && order.status === 2 && !order.winning && (
+      {payed && order.status === 2 && !order.winning && (
         <View className="failed">
           <View>很遗憾，您未中奖</View>
         </View>
       )}
-      {order.payed && order.status === 2 && order.winning && (
+      {payed && order.status === 2 && order.winning && (
         <View className="success">
           <View className="left-2">
             <Image

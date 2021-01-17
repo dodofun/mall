@@ -79,7 +79,9 @@ export default function () {
       Taro.hideLoading()
       const data = checkAndGetResult(res)
       if (data) {
-        Taro.navigateTo({url: '/pages/orderDetail/index'})
+        Taro.navigateTo({
+          url: `/pages/orderDetail/index?userId=${order.ownerId}&orderId=${order.id}`,
+        })
       }
     })
   }
