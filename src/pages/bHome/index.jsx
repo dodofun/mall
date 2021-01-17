@@ -7,6 +7,7 @@ import './index.scss'
 
 const actions = [
   {
+    id: 'writeoff',
     label: '优惠核销',
     icon:
       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/b-home/%E6%A0%B8%E9%94%80%402x.png',

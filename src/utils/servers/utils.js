@@ -45,11 +45,17 @@ export const commonHttpRequest = (
   }
   let res
   switch (type) {
+    case 'get':
+      res = httpRequest.get(url, data, header)
+      break
     case 'getList':
       res = httpRequest.get(url, data, header)
       break
     case 'add':
       res = httpRequest.post(url, data, header)
+      break
+    case 'update':
+      res = httpRequest.put(url, data, header)
       break
     default:
       res = httpRequest[type.toLowerCase()](url, data, header)

@@ -3,9 +3,21 @@ import Taro from '@tarojs/taro'
 import {View, Image} from '@tarojs/components'
 import {AtIcon} from 'taro-ui'
 import './index.scss'
+import {scanCode} from '@/utils/scanCode'
 
 export default function ({action}) {
-  const handle = () => {
+  const handle = async () => {
+    // 核销
+    if (action.id === 'writeoff') {
+      const res = await scanCode()
+      if (res && res.length === 2) {
+        action.url = action.url + '?orderId=' + res[1] + '&ownerId=' + res[0]
+      } else {
+        Taro.showToast({title: '二维码无效', icon: 'none'})
+        return
+      }
+    }
+
     if (!action.url) {
       return
     }

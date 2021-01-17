@@ -18,7 +18,7 @@ import {toPayOrder} from '../../action/order'
 import {useUserModel} from '@/models/user'
 import {useOrderModel} from '@/models/order'
 
-export default function ({order}) {
+export default function ({order, isBuss}) {
   const goods = order.goods || {}
 
   const {user} = useUserModel((model) => [model.user])
@@ -126,7 +126,7 @@ export default function ({order}) {
           )}
         </View>
       </View>
-      {status === 1 && !payed && (
+      {status === 1 && !payed && !isBuss && (
         <View className="doing">
           <View className="left-1">
             <Image
@@ -142,7 +142,7 @@ export default function ({order}) {
           </View>
         </View>
       )}
-      {status === 3 && payed && (
+      {status === 3 && payed && !isBuss && (
         <View className="closed">请到微信钱包查看零钱是否返回</View>
       )}
       {status === 3 && !payed && (
@@ -174,7 +174,12 @@ export default function ({order}) {
               <View className="used-text">已领取</View>
             </View>
           )}
-          {!order.used && (
+          {!order.used && isBuss && (
+            <View className="right-2">
+              <View className="used-text">待使用</View>
+            </View>
+          )}
+          {!order.used && !isBuss && (
             <View className="right-2" onClick={() => openExchangeCode()}>
               <View className="code-btn">查看兑换码</View>
             </View>
@@ -186,7 +191,7 @@ export default function ({order}) {
         <AtModalContent>
           <View className="qrcode">
             <QRCode
-              text={'writeOff:order:' + order.id}
+              text={'writeOff:order:' + order.ownerId + ',' + order.id}
               size={160}
               scale={4}
               errorCorrectLevel="M"
