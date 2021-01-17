@@ -63,7 +63,7 @@ export default function () {
         })}
       </View>
       <View className="bottom-bar">
-        <AtButton className="btn" onClick={() => {}}>
+        <AtButton className="b-writeoff-btn" onClick={() => {}}>
           立即核销
         </AtButton>
       </View>

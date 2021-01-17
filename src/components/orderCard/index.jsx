@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Taro from '@tarojs/taro'
 import {View, Image, Text, Button} from '@tarojs/components'
 import {
@@ -25,6 +25,17 @@ export default function ({order}) {
   const [isOpened, setIsOpened] = useState(false)
   const [payed, setPayed] = useState(order.payed)
   const [ended, setEnded] = useState(dayjs(goods.endTime) - dayjs() < 0)
+
+  const [status, setStatus] = useState(0)
+
+  useEffect(() => {
+    if (ended) {
+      setStatus(goods.hasPeople === goods.totalPeople ? 2 : 3)
+    } else {
+      setStatus(1)
+    }
+  }, [ended])
+
   const isFuli = order.type === 1
 
   const {setRefreshTime} = useOrderModel((model) => [model.setRefreshTime])
@@ -74,7 +85,9 @@ export default function ({order}) {
               <View className="num">参加人数：{goods.hasPeople || 0}人</View>
               <View className="progress">
                 <AtProgress
-                  percent={((goods.hasPeople || 0) / goods.totalPeople) * 100}
+                  percent={Math.round(
+                    ((goods.hasPeople || 0) / goods.totalPeople) * 100,
+                  )}
                   strokeWidth={4}
                   status="progress"
                   color="#FAD000"
@@ -113,7 +126,7 @@ export default function ({order}) {
           )}
         </View>
       </View>
-      {order.status === 1 && !payed && (
+      {status === 1 && !payed && (
         <View className="doing">
           <View className="left-1">
             <Image
@@ -129,20 +142,25 @@ export default function ({order}) {
           </View>
         </View>
       )}
-      {order.status === 3 && payed && goods.totalPeople > goods.hasPeople && (
+      {status === 3 && payed && (
         <View className="closed">请到微信钱包查看零钱是否返回</View>
+      )}
+      {status === 3 && !payed && (
+        <View className="fulled">
+          <View>活动未生效，订单已关闭</View>
+        </View>
       )}
       {!payed && goods.totalPeople <= goods.hasPeople && (
         <View className="fulled">
           <View>当前人数已满，无法参与抢夺</View>
         </View>
       )}
-      {payed && order.status === 2 && !order.winning && (
+      {payed && status === 2 && !order.winning && (
         <View className="failed">
           <View>很遗憾，您未中奖</View>
         </View>
       )}
-      {payed && order.status === 2 && order.winning && (
+      {payed && status === 2 && order.winning && (
         <View className="success">
           <View className="left-2">
             <Image
@@ -168,7 +186,7 @@ export default function ({order}) {
         <AtModalContent>
           <View className="qrcode">
             <QRCode
-              text={order.id}
+              text={'writeOff:order:' + order.id}
               size={160}
               scale={4}
               errorCorrectLevel="M"

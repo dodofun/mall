@@ -8,7 +8,7 @@ import {useCurrentShopModel} from '@/models/currentShop'
 
 const tabList = [{title: '按人数'}, {title: '按金额'}]
 
-export default function ({pageSize = 20, hideId = []}) {
+export default function ({refresh, pageSize = 20, hideId = []}) {
   const {shopId} = useCurrentShopModel((model) => [model.shopId])
   const [currentTab, setCurrentTab] = useState(0)
   const [goodsList, setGoodsList] = useState([])
@@ -20,7 +20,7 @@ export default function ({pageSize = 20, hideId = []}) {
 
   useEffect(() => {
     init()
-  }, [shopId])
+  }, [shopId, currentTab, refresh])
 
   const init = () => {
     if (!shopId) {

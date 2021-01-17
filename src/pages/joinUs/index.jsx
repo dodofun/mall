@@ -39,7 +39,7 @@ export default function () {
         className="icon"
         src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/jiameng.png"
       />
-      <View className="btn">
+      <View className="join-us-btn">
         <AtButton
           full
           disabled={btnDisabled}

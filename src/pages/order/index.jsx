@@ -63,6 +63,7 @@ export default function () {
             )
           })}
       </View>
+      {orderList.length === 0 && <View className="no-data">暂无订单</View>}
     </View>
   )
 }

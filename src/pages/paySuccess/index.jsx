@@ -28,7 +28,7 @@ export default function () {
       <View className="tip">您的订单已支付成功，请到【订单】内查看详情</View>
       <View className="bottom-bar">
         <AtButton
-          className="btn"
+          className="back-btn"
           onClick={() => {
             Taro.switchTab({url: '/pages/index/index'})
           }}>

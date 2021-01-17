@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import Taro, {useRouter, useDidHide, useDidShow, useReady} from '@tarojs/taro'
 import {View, Image, Text} from '@tarojs/components'
 import {AtNoticebar} from 'taro-ui'
@@ -28,6 +28,7 @@ export default function () {
   const router = useRouter()
   const params = router.params
   const {setShopId} = useCurrentShopModel((model) => [model.shopId])
+  const [refresh, setRefresh] = useState(0)
 
   useEffect(() => {
     if (params.shopId) {
@@ -35,7 +36,9 @@ export default function () {
     }
   }, [])
 
-  useDidShow(() => {})
+  useDidShow(() => {
+    setRefresh(refresh + 1)
+  })
 
   useDidHide(() => {})
 
@@ -76,7 +79,7 @@ export default function () {
           人数：10人、30人、40人；价格：1元、2元、5元。
         </AtNoticebar>
       </View>
-      <GoodsList />
+      <GoodsList refresh={refresh} />
       <Footer />
     </View>
   )

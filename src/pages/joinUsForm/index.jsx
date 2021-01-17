@@ -147,7 +147,7 @@ export default function () {
           />
         </AtForm>
       </View>
-      <View className="btn">
+      <View className="join-us-form-btn">
         <AtButton
           full
           disabled={!verificated}
