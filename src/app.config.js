@@ -1,5 +1,7 @@
 export default {
   pages: [
+    'pages/order/index', // 订单
+
     'pages/index/index', // 用户首页
     'pages/welfare/index', // 福利页
     'pages/bHome/index', // 商户主页
@@ -15,7 +17,6 @@ export default {
     'pages/reviewing/index', // 入驻审核
     'pages/mine/index', // 我的主页
     'pages/contactUs/index', // 联系我们
-    'pages/order/index', // 订单
     'pages/coupon/index', // 优惠券
     'pages/paySuccess/index', // 支付成功
     'pages/orderDetail/index', // 订单详情
