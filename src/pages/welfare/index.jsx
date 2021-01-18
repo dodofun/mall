@@ -14,11 +14,13 @@ import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
 import dayjs from 'dayjs'
 import {useUserModel} from '@/models/user'
 
+const defaultJoinStatusText = '立即参与'
+
 export default function () {
   const router = useRouter()
   const params = router.params
-  const [joinBoxShow, setJoinBoxShow] = useState(false)
-  const [joinStatusText, setJoinStatusText] = useState('立即参与')
+  const [joinBoxShow, setJoinBoxShow] = useState(true)
+  const [joinStatusText, setJoinStatusText] = useState(defaultJoinStatusText)
   const [ruleShow, setRuleShow] = useState(false)
   const [userList, setUserList] = useState([])
   const [welfare, setWelfare] = useState({})
@@ -52,17 +54,37 @@ export default function () {
   useEffect(() => {
     if (welfare.id) {
       console.log('welfare', welfare)
+
+      // 是否人满
+      if (welfare.personNum <= welfare.hasPersonNum) {
+        Taro.showToast({title: '参与人数已满', icon: 'none'})
+        setJoinBoxShow(false)
+        setJoinStatusText('人数已满')
+      }
+      // 是否结束
+      if (welfare.endTime <= new Date().getTime()) {
+        Taro.showToast({title: '活动已结束', icon: 'none'})
+        setJoinBoxShow(false)
+        setJoinStatusText('已结束')
+      }
+
+      const join = welfare.join
+
       const defaultUserList = new Array(welfare.personNum)
       defaultUserList.fill({user: {}, orderId: 0}, 0, welfare.personNum)
       // 设置参与人列表
-      const join = welfare.join
       if (join && join.length > 0) {
+        // 参与过
+        if (join.findIndex((item) => item.user.id === user.id) > -1) {
+          Taro.showToast({title: '已参加', icon: 'none'})
+          setJoinBoxShow(false)
+          setJoinStatusText('已参加')
+        }
         for (let index = 0; index < join.length; index++) {
           const ele = join[index]
           defaultUserList[index] = ele
         }
       }
-      console.log('defaultUserList', defaultUserList)
       setUserList(defaultUserList)
     }
   }, [welfare])
@@ -86,13 +108,16 @@ export default function () {
     setDiffTime({hours, minutes, seconds})
   }
 
-  useEffect(() => {
-    // 判断：1.是否参与过，2.活动是否正在进行，3.是否人数已满，4.如果参与过，是否成功
-    // 没参与过活动，则弹窗
-    setJoinBoxShow(true)
-  }, [])
+  // useEffect(() => {
+  //   // 判断：1.是否参与过，2.活动是否正在进行，3.是否人数已满，4.如果参与过，是否成功
+  //   // 没参与过活动，则弹窗
+  //   setJoinBoxShow(false)
+  // }, [])
 
   const join = () => {
+    if (joinStatusText !== defaultJoinStatusText) {
+      return
+    }
     // 组装数据
     const data = {...welfare}
     data.hasPersonNum = (data.hasPersonNum || 0) + 1
@@ -109,8 +134,9 @@ export default function () {
     ).then((res) => {
       const r = checkAndGetResult(res)
       if (r) {
-        Taro.showToast({title: '参与成功', icon: 'none'})
-        setJoinStatusText('参与成功')
+        Taro.showToast({title: '成功参与', icon: 'none'})
+        setJoinStatusText('已参加')
+        setUserList([...userList, {user, orderId: 0}])
       }
     })
   }
