@@ -16,8 +16,10 @@ const defaultFormData = {
   personNum: 10,
   price: 0,
   startDate: '',
+  startTm: '',
   startTime: '',
   endDate: '',
+  endTm: '',
   endTime: '',
   enabled: true,
 }
@@ -52,8 +54,8 @@ export default function () {
     if (verificated) {
       // 组装数据
       formData.ownerId = shop.id
-      formData.startTime = parseTime(formData.startDate, formData.startTime)
-      formData.endTime = parseTime(formData.endDate, formData.endTime)
+      formData.startTime = parseTime(formData.startDate, formData.startTm)
+      formData.endTime = parseTime(formData.endDate, formData.endTm)
       setVerificated(false)
       // 提交数据
       commonHttpRequest(
@@ -130,7 +132,7 @@ export default function () {
             value={formData.startDate}
             start={dayjs().format('YYYY-MM-DD')}
             onChange={(e) => {
-              if (formData.startTime) {
+              if (formData.startTm) {
                 setFormData({
                   ...formData,
                   startDate: e.detail.value,
@@ -139,7 +141,7 @@ export default function () {
                 setFormData({
                   ...formData,
                   startDate: e.detail.value,
-                  startTime: dayjs().format('HH:mm'),
+                  startTm: dayjs().format('HH:mm'),
                 })
               }
             }}>
@@ -153,14 +155,14 @@ export default function () {
           </Picker>
           <Picker
             mode="time"
-            value={formData.startTime}
+            value={formData.startTm}
             onChange={(e) => {
-              setFormData({...formData, startTime: e.detail.value})
+              setFormData({...formData, startTm: e.detail.value})
             }}>
             <AtList>
               <AtListItem
                 title="上架时间"
-                extraText={formData.startTime}
+                extraText={formData.startTm}
                 arrow="right"
               />
             </AtList>
@@ -171,7 +173,7 @@ export default function () {
             value={formData.endDate}
             start={dayjs().format('YYYY-MM-DD')}
             onChange={(e) => {
-              if (formData.endTime) {
+              if (formData.endTm) {
                 setFormData({
                   ...formData,
                   endDate: e.detail.value,
@@ -180,7 +182,7 @@ export default function () {
                 setFormData({
                   ...formData,
                   endDate: e.detail.value,
-                  endTime: dayjs().format('HH:mm'),
+                  endTm: dayjs().format('HH:mm'),
                 })
               }
             }}>
@@ -194,14 +196,14 @@ export default function () {
           </Picker>
           <Picker
             mode="time"
-            value={formData.endTime}
+            value={formData.endTm}
             onChange={(e) => {
-              setFormData({...formData, endTime: e.detail.value})
+              setFormData({...formData, endTm: e.detail.value})
             }}>
             <AtList>
               <AtListItem
                 title="截止时间"
-                extraText={formData.endTime}
+                extraText={formData.endTm}
                 arrow="right"
               />
             </AtList>

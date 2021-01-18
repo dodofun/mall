@@ -43,6 +43,7 @@ export default function () {
       {index: 0, size: 1},
     ).then((res) => {
       const data = checkAndGetResult(res)
+      console.log('data', data)
       if (data && data.length > 0) {
         setWelfare(data[0])
       }
@@ -80,7 +81,7 @@ export default function () {
   useEffect(() => {
     // 判断：1.是否参与过，2.活动是否正在进行，3.是否人数已满，4.如果参与过，是否成功
     // 没参与过活动，则弹窗
-    setJoinBoxShow(false)
+    setJoinBoxShow(true)
   }, [])
 
   const join = () => {
