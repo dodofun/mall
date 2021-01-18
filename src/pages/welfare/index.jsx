@@ -43,7 +43,6 @@ export default function () {
       {index: 0, size: 1},
     ).then((res) => {
       const data = checkAndGetResult(res)
-      console.log('data', data)
       if (data && data.length > 0) {
         setWelfare(data[0])
       }
@@ -53,8 +52,17 @@ export default function () {
   useEffect(() => {
     if (welfare.id) {
       console.log('welfare', welfare)
-      const defaultUserList = new Array(10)
-      defaultUserList.fill({}, 0, welfare.personNum)
+      const defaultUserList = new Array(welfare.personNum)
+      defaultUserList.fill({user: {}, orderId: 0}, 0, welfare.personNum)
+      // 设置参与人列表
+      const join = welfare.join
+      if (join && join.length > 0) {
+        for (let index = 0; index < join.length; index++) {
+          const ele = join[index]
+          defaultUserList[index] = ele
+        }
+      }
+      console.log('defaultUserList', defaultUserList)
       setUserList(defaultUserList)
     }
   }, [welfare])
@@ -159,7 +167,7 @@ export default function () {
                   (index * 360) / userList.length
                 }deg) translateY(240rpx)`,
               }}>
-              <AtAvatar circle image={item.avatar}></AtAvatar>
+              <AtAvatar circle image={item.user.avatar}></AtAvatar>
             </View>
           )
         })}

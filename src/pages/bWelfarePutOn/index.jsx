@@ -15,6 +15,7 @@ const defaultFormData = {
   name: '',
   personNum: 10,
   price: 0,
+  winNum: 1,
   startDate: '',
   startTm: '',
   startTime: '',
