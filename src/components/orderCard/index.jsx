@@ -19,7 +19,9 @@ import {useUserModel} from '@/models/user'
 import {useOrderModel} from '@/models/order'
 
 export default function ({order, isBuss}) {
-  const goods = order.goods || {}
+  const isFuli = order.type === 1
+
+  const goods = (isFuli ? order.welfare : order.goods) || {}
 
   const {user} = useUserModel((model) => [model.user])
   const [isOpened, setIsOpened] = useState(false)
@@ -35,8 +37,6 @@ export default function ({order, isBuss}) {
       setStatus(1)
     }
   }, [ended])
-
-  const isFuli = order.type === 1
 
   const {setRefreshTime} = useOrderModel((model) => [model.setRefreshTime])
 
@@ -70,37 +70,78 @@ export default function ({order, isBuss}) {
       <View className={isFuli ? 'title1' : 'title2'}>
         {isFuli ? '福利单' : '抢夺单'}
       </View>
-      <View className="card">
-        <View className="tag">
-          <Image className="tag-icon" src={cardTagIcon[0]} />
-          <View className="tag-info">{goods.totalPeople}人抢</View>
-        </View>
-        <View className="main">
-          <View className="left">
-            <Image className="cover" src={goods.cover} lazyLoad />
+      {isFuli && (
+        <View className="card">
+          <View className="tag">
+            <Image className="tag-icon" src={cardTagIcon[0]} />
+            <View className="tag-info">{goods.personNum}人抢</View>
           </View>
-          <View className="right">
-            <View className="info">
-              <View className="name">{goods.name}</View>
-              <View className="num">参加人数：{goods.hasPeople || 0}人</View>
-              <View className="progress">
-                <AtProgress
-                  percent={Math.round(
-                    ((goods.hasPeople || 0) / goods.totalPeople) * 100,
-                  )}
-                  strokeWidth={4}
-                  status="progress"
-                  color="#FAD000"
-                />
-              </View>
-              <View className="order-count">
-                小计：￥{order.count * order.price}
-                <Text className="sub-count">(共{order.count}份)</Text>
+          <View className="main">
+            <View className="left">
+              <Image
+                className="cover"
+                src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/%E7%BB%84%2015%402x.png"
+                lazyLoad
+              />
+            </View>
+            <View className="right">
+              <View className="info">
+                <View className="name">{goods.name}</View>
+                <View className="num">
+                  参加人数：{goods.hasPersonNum || 0}人
+                </View>
+                <View className="progress">
+                  <AtProgress
+                    percent={Math.round(
+                      ((goods.hasPersonNum || 0) / goods.personNum) * 100,
+                    )}
+                    strokeWidth={4}
+                    status="progress"
+                    color="#FAD000"
+                  />
+                </View>
+                <View className="order-count">
+                  小计：￥{order.count * (order.price || 0)}
+                  <Text className="sub-count">(参与{order.count}次)</Text>
+                </View>
               </View>
             </View>
           </View>
         </View>
-      </View>
+      )}
+      {!isFuli && (
+        <View className="card">
+          <View className="tag">
+            <Image className="tag-icon" src={cardTagIcon[0]} />
+            <View className="tag-info">{goods.totalPeople}人抢</View>
+          </View>
+          <View className="main">
+            <View className="left">
+              <Image className="cover" src={goods.cover} lazyLoad />
+            </View>
+            <View className="right">
+              <View className="info">
+                <View className="name">{goods.name}</View>
+                <View className="num">参加人数：{goods.hasPeople || 0}人</View>
+                <View className="progress">
+                  <AtProgress
+                    percent={Math.round(
+                      ((goods.hasPeople || 0) / goods.totalPeople) * 100,
+                    )}
+                    strokeWidth={4}
+                    status="progress"
+                    color="#FAD000"
+                  />
+                </View>
+                <View className="order-count">
+                  小计：￥{order.count * order.price}
+                  <Text className="sub-count">(共{order.count}份)</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      )}
       <View className="date">
         <View className="time">
           <View className="label">开始时间</View>

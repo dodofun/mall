@@ -2,32 +2,30 @@ import React, {useState, useEffect} from 'react'
 import {View} from '@tarojs/components'
 import CouponCard from '@/components/coupon'
 import './index.scss'
+import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
+import {useUserModel} from '@/models/user'
 
 export default function () {
+  const {user} = useUserModel((model) => [model.user])
   const [couponList, setCouponList] = useState([])
 
   useEffect(() => {
-    setCouponList([
-      {
-        id: 1,
-        owner: 1,
-        amount: 1,
-        validityPeriod: 1609799495948, // 有效期
-        used: false, // false:未使用，true: 已使用
-        name: '【优惠券】1元优惠券',
-        note: '满10元可用，仅限购买水果 类使用 ',
-      },
-      {
-        id: 2,
-        owner: 1,
-        amount: 10,
-        validityPeriod: 1609596495948, // 有效期
-        used: true, // false:未使用，true: 已使用
-        name: '【优惠券】1元优惠券',
-        note: '满10元可用，仅限购买水果 类使用 ',
-      },
-    ])
-  }, [])
+    init()
+  }, [user.id])
+
+  const init = async () => {
+    if (!user.id) {
+      return
+    }
+    commonHttpRequest(
+      'coupon',
+      'getList',
+      {ownerId: user.id},
+      {valid: true},
+    ).then((res) => {
+      setCouponList(checkAndGetResult(res))
+    })
+  }
 
   return (
     <View className="coupon">

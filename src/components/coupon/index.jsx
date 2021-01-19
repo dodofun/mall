@@ -27,7 +27,7 @@ export default function ({coupon, hideBtn = false}) {
       {!coupon.used && (
         <View className="footer1">
           <View className="validity-period">
-            有效期至{parseTime(coupon.validityPeriod)}
+            有效期至{parseTime(coupon.validityPeriodEnd)}
           </View>
           {!hideBtn && (
             <View className="btn">
