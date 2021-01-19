@@ -91,7 +91,7 @@ export default function () {
           Taro.showToast({title: '成功发布商品', icon: 'none'})
           setTimeout(() => {
             // 跳转页面
-            Taro.switchTab({url: '/pages/index/index'})
+            Taro.navigateBack()
           }, 600)
         } else {
           setVerificated(true)

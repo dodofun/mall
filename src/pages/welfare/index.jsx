@@ -13,6 +13,7 @@ import {
 import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
 import dayjs from 'dayjs'
 import {useUserModel} from '@/models/user'
+import {useCurrentShopModel} from '@/models/currentShop'
 
 const defaultJoinStatusText = '立即参与'
 
@@ -26,21 +27,28 @@ export default function () {
   const [welfare, setWelfare] = useState({})
   const {user} = useUserModel((model) => [model.user])
 
+  const {shopId, setShopId} = useCurrentShopModel((model) => [model.shopId])
   const [diffMillisecond, setDiffMillisecond] = useState(0)
   const [diffTime, setDiffTime] = useState({hours: 0, minutes: 0, seconds: 0})
 
   useEffect(() => {
     if (params.shopId > 0) {
-      init()
+      setShopId(params.shopId)
     }
   }, [params.shopId])
+
+  useEffect(() => {
+    if (shopId > 0) {
+      init()
+    }
+  }, [shopId])
 
   const init = () => {
     commonHttpRequest(
       'welfare',
       'getList',
       {
-        ownerId: params.shopId,
+        ownerId: shopId,
       },
       {index: 0, size: 1},
     ).then((res) => {
@@ -53,19 +61,17 @@ export default function () {
 
   useEffect(() => {
     if (welfare.id) {
-      console.log('welfare', welfare)
-
       // 是否人满
       if (welfare.personNum <= welfare.hasPersonNum) {
-        Taro.showToast({title: '参与人数已满', icon: 'none'})
+        Taro.showToast({title: '参与人数已满', icon: 'none', duration: 3000})
         setJoinBoxShow(false)
         setJoinStatusText('人数已满')
       }
       // 是否结束
       if (welfare.endTime <= new Date().getTime()) {
-        Taro.showToast({title: '活动已结束', icon: 'none'})
+        Taro.showToast({title: '活动已结束', icon: 'none', duration: 3000})
         setJoinBoxShow(false)
-        setJoinStatusText('已结束')
+        setJoinStatusText('活动结束')
       }
 
       const join = welfare.join
@@ -76,9 +82,13 @@ export default function () {
       if (join && join.length > 0) {
         // 参与过
         if (join.findIndex((item) => item.user.id === user.id) > -1) {
-          Taro.showToast({title: '已参加', icon: 'none'})
+          Taro.showToast({
+            title: '您已参加过该福利活动',
+            icon: 'none',
+            duration: 3000,
+          })
           setJoinBoxShow(false)
-          setJoinStatusText('已参加')
+          setJoinStatusText('您已参加')
         }
         for (let index = 0; index < join.length; index++) {
           const ele = join[index]
@@ -134,8 +144,8 @@ export default function () {
     ).then((res) => {
       const r = checkAndGetResult(res)
       if (r) {
-        Taro.showToast({title: '成功参与', icon: 'none'})
-        setJoinStatusText('已参加')
+        Taro.showToast({title: '成功参与活动', icon: 'none'})
+        setJoinStatusText('您已参加')
         setUserList([...userList, {user, orderId: 0}])
       }
     })

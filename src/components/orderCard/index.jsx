@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import Taro from '@tarojs/taro'
 import {View, Image, Text, Button} from '@tarojs/components'
 import {
@@ -28,15 +28,7 @@ export default function ({order, isBuss}) {
   const [payed, setPayed] = useState(order.payed)
   const [ended, setEnded] = useState(dayjs(goods.endTime) - dayjs() < 0)
 
-  const [status, setStatus] = useState(0)
-
-  useEffect(() => {
-    if (ended) {
-      setStatus(goods.hasPeople === goods.totalPeople ? 2 : 3)
-    } else {
-      setStatus(1)
-    }
-  }, [ended])
+  const status = ended ? (goods.hasPeople === goods.totalPeople ? 2 : 3) : 1
 
   const {setRefreshTime} = useOrderModel((model) => [model.setRefreshTime])
 
@@ -198,7 +190,14 @@ export default function ({order, isBuss}) {
       )}
       {payed && status === 2 && !order.winning && (
         <View className="failed">
-          <View>很遗憾，您未中奖</View>
+          <View>很遗憾，您未中奖；</View>
+          <View
+            className="to-coupon-page"
+            onClick={() => {
+              Taro.navigateTo({url: '/pages/coupon/index'})
+            }}>
+            {'已为您发放优惠券>'}
+          </View>
         </View>
       )}
       {payed && status === 2 && order.winning && (

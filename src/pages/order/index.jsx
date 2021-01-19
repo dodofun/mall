@@ -23,6 +23,7 @@ export default function () {
   const {
     orderList,
     status,
+    openLoading,
     setStatus,
     setRefreshTime,
   } = useOrderModel((model) => [model.status, model.orderList])
@@ -63,7 +64,9 @@ export default function () {
             )
           })}
       </View>
-      {orderList.length === 0 && <View className="no-data">暂无订单</View>}
+      {!openLoading && orderList.length === 0 && (
+        <View className="no-data">暂无订单</View>
+      )}
     </View>
   )
 }

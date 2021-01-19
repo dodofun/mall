@@ -54,6 +54,7 @@ function useOrder() {
   return {
     status,
     orderList,
+    openLoading,
     setStatus,
     setRefreshTime,
   }

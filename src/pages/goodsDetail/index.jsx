@@ -120,7 +120,9 @@ export default function () {
       <View className="rules">
         <View className="rule">
           <View className="label-left">优惠券</View>
-          <View className="label-right">抢夺失败可以领对应金额的优惠券</View>
+          <View className="label-right">
+            抢夺失败也可以领到【{detail.couponAmount}元】优惠券
+          </View>
         </View>
         <View className="rule">
           <View className="label-left">活动规则</View>

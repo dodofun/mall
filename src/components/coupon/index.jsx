@@ -21,7 +21,7 @@ export default function ({coupon, hideBtn = false}) {
         <View className="coupon-icon">￥{coupon.amount}</View>
         <View className="coupon-detail">
           <View className="name">{coupon.name}</View>
-          <View className="note">{coupon.note}</View>
+          <View className="note">{coupon.notes}</View>
         </View>
       </View>
       {!coupon.used && (
