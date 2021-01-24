@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import Taro, {useRouter, useDidHide, useDidShow, useReady} from '@tarojs/taro'
+import Taro, {
+  useRouter,
+  useDidHide,
+  useDidShow,
+  useReady,
+  useShareAppMessage,
+} from '@tarojs/taro'
 import {View, Image} from '@tarojs/components'
 import './index.scss'
 import Footer from '@/components/footer'
@@ -10,6 +16,7 @@ import {createId} from '../../utils/idCreator'
 import {getUserId} from '@/utils/common'
 import DButton from '@/components/dButton'
 import {useOrderModel} from '@/models/order'
+import {useShareModel} from '@/models/share'
 
 export default function () {
   const router = useRouter()
@@ -17,6 +24,15 @@ export default function () {
   const [detail, setDetail] = useState({})
   const [ended, setEnded] = useState(false)
   const params = router.params
+
+  const {shareMsg} = useShareModel((model) => [model.shareMsg])
+  useShareAppMessage((res) => {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return shareMsg
+  })
 
   useEffect(() => {
     init()

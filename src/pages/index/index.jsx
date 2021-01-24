@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import Taro, {useRouter, useDidHide, useDidShow, useReady} from '@tarojs/taro'
+import Taro, {
+  useRouter,
+  useDidHide,
+  useDidShow,
+  useReady,
+  useShareAppMessage,
+} from '@tarojs/taro'
 import {View, Image, Text} from '@tarojs/components'
 import {AtNoticebar} from 'taro-ui'
 import {APP_CONSTANTS} from '@/config'
@@ -8,6 +14,7 @@ import Footer from '@/components/footer'
 import DButton from '@/components/dButton'
 import GoodsList from '@/components/goodsList'
 import {useCurrentShopModel} from '@/models/currentShop'
+import {useShareModel} from '@/models/share'
 
 const tipList = [
   {
@@ -29,6 +36,15 @@ export default function () {
   const params = router.params
   const {setShopId} = useCurrentShopModel((model) => [model.shopId])
   const [refresh, setRefresh] = useState(0)
+
+  const {shareMsg} = useShareModel((model) => [model.shareMsg])
+  useShareAppMessage((res) => {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return shareMsg
+  })
 
   useEffect(() => {
     if (params.shopId) {
