@@ -55,4 +55,4 @@ export const TOTAL_INCOME = `/v1/owner/{shopId}/totalincome`
  * 获取收益列表
  * @type {string}
  */
-export const SUCCESS_GOODS_LIST = `/v1/owner/{shopId}/success/goodss`
+export const SUCCESS_GOODS_LIST = `/v1/owner/{shopId}/success/goodss?index={index}&size={size}`

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Taro, {useDidHide, useDidShow, useReady} from '@tarojs/taro'
 import {View} from '@tarojs/components'
-import {useUserModel} from '@/models/user'
 import ActionCell from '@/components/actionCell'
 import './index.scss'
 import {useShopModel} from '@/models/shop'
@@ -39,12 +38,10 @@ const actions = [
 ]
 
 export default function () {
-  const {user} = useUserModel((model) => [model.user])
   const {shop} = useShopModel((model) => [model.shop])
   const [amount, setAmount] = useState(0)
 
   useEffect(() => {
-    console.log('user', user)
     init()
   }, [])
 

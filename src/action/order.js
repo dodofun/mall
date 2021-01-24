@@ -36,9 +36,11 @@ export const getTotalIncome = async (shopId) => {
  * @param payload
  * @returns {Promise<void>}
  */
-export const getSuccessGoodsList = async (shopId) => {
+export const getSuccessGoodsList = async (shopId, index = 0, size = 40) => {
   const result = await http.get(
-    api.SUCCESS_GOODS_LIST.replace('{shopId}', shopId),
+    api.SUCCESS_GOODS_LIST.replace('{shopId}', shopId)
+      .replace('{index}', index)
+      .replace('{size}', size),
   )
   return checkAndGetResult(result)
 }

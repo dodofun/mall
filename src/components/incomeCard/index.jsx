@@ -37,8 +37,8 @@ export default function ({record}) {
                 />
               </View>
               <View className="record-count">
-                小计：￥{record.totalAmount}
-                <Text className="sub-count">(共{record.count}份)</Text>
+                单价：{record.price}
+                <Text className="sub-count">(共{record.hasPeople}份)</Text>
               </View>
             </View>
           </View>
@@ -71,7 +71,10 @@ export default function ({record}) {
       </View>
       <View className="footer">
         <View className="income-text">
-          此单收益:<View className="amount">￥{record.totalIncome}</View>
+          此单收益:
+          <View className="amount">
+            ￥{Math.round(record.price * record.hasPeople * 100) / 100}
+          </View>
         </View>
       </View>
     </View>
