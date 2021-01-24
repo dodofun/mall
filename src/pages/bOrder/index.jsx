@@ -1,5 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import Taro, {useDidHide, useDidShow, useReady} from '@tarojs/taro'
+import Taro, {
+  useDidHide,
+  useDidShow,
+  useReady,
+  useShareAppMessage,
+} from '@tarojs/taro'
 import {View} from '@tarojs/components'
 import {AtTabs} from 'taro-ui'
 import './index.scss'
@@ -15,101 +20,25 @@ export default function () {
   const pageSize = 20
   const [goodsPageIndex] = useState(0)
   const [welfarePageIndex] = useState(0)
-  const [currentTab, setCurrentTab] = useState(1)
+  const [currentTab, setCurrentTab] = useState(0)
   const [openLoading, setOpenLoading] = useState(false)
   const {shop} = useShopModel((model) => [model.shop])
 
   const [goodsList, setGoodsList] = useState([])
   const [welfareList, setWelfareList] = useState([])
 
-  useEffect(() => {
-    // setOrderList([
-    //   {
-    //     id: 2,
-    //     type: 0, // 0: 抢夺单，1: 福利单
-    //     status: 4, // 1: 进行中；2: 已开奖；3: 未生效；4: 未开始；0: 全部
-    //     totalPeople: 10,
-    //     hasPeople: 8,
-    //     goodsId: 1,
-    //     goodsName: '绿色冰糖西瓜3kg',
-    //     cover:
-    //       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xigua.png',
-    //     count: 3,
-    //     price: 8,
-    //     totalAmount: 24,
-    //     startTime: 1610696495948,
-    //     endTime: 1610699495948,
-    //     exchangeCode: 'demo',
-    //   },
-    //   {
-    //     id: 4,
-    //     type: 0, // 0: 抢夺单，1: 福利单
-    //     status: 1, // 1: 进行中；2: 已开奖；3: 未生效；4: 未开始；0: 全部
-    //     totalPeople: 10,
-    //     hasPeople: 8,
-    //     goodsId: 1,
-    //     goodsName: '绿色冰糖西瓜3kg',
-    //     cover:
-    //       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xigua.png',
-    //     count: 3,
-    //     price: 8,
-    //     totalAmount: 24,
-    //     startTime: 1609596415948,
-    //     endTime: 1610696495948,
-    //     exchangeCode: 'demo',
-    //   },
-    //   {
-    //     id: 5,
-    //     type: 0, // 0: 抢夺单，1: 福利单
-    //     status: 2, // 1: 进行中；2: 已开奖；3: 未生效；4: 未开始；0: 全部
-    //     totalPeople: 10,
-    //     hasPeople: 8,
-    //     goodsId: 1,
-    //     goodsName: '绿色冰糖西瓜3kg',
-    //     cover:
-    //       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xigua.png',
-    //     count: 3,
-    //     price: 8,
-    //     totalAmount: 24,
-    //     startTime: 1609596415948,
-    //     endTime: 1610696495948,
-    //     exchangeCode: 'demo',
-    //   },
-    //   {
-    //     id: 1,
-    //     type: 0, // 0: 抢夺单，1: 福利单
-    //     status: 3, // 1: 进行中；2: 已开奖；3: 未生效；4: 未开始；0: 全部
-    //     totalPeople: 10,
-    //     hasPeople: 8,
-    //     goodsId: 1,
-    //     goodsName: '绿色冰糖西瓜3kg',
-    //     cover:
-    //       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/goods/goods-xigua.png',
-    //     count: 3,
-    //     price: 8,
-    //     totalAmount: 24,
-    //     startTime: 1609596415948,
-    //     endTime: 1610696495948,
-    //     exchangeCode: 'demo',
-    //   },
-    //   {
-    //     id: 1,
-    //     type: 1, // 0: 抢夺单，1: 福利单
-    //     status: 1, // 1: 进行中；2: 已开奖；3: 未生效；4: 未开始；0: 全部
-    //     totalPeople: 10,
-    //     hasPeople: 10,
-    //     goodsId: 1,
-    //     goodsName: '绿色冰糖西瓜3kg',
-    //     cover:
-    //       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/%E7%BB%84%2015%402x.png',
-    //     count: 3,
-    //     price: 8,
-    //     totalAmount: 24,
-    //     startTime: 1609596415948,
-    //     endTime: 1609599455948,
-    //   },
-    // ])
+  useShareAppMessage((res) => {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: shop.name,
+      path: `/pages/index/index?shopId=${shop.id}`,
+    }
+  })
 
+  useEffect(() => {
     init()
   }, [currentTab])
 

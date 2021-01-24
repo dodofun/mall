@@ -6,7 +6,7 @@
  */
 export const shareInfo = (that, res) => {
   console.log(that, res)
-  return {
-    path: '/pages/index/index',
-  }
+  // return {
+  //   path: '/pages/index/index',
+  // }
 }
