@@ -7,6 +7,7 @@ import OrderCard from '@/components/bOrderCard'
 import {commonHttpRequest} from '@/utils/servers/utils'
 import {checkAndGetResult} from '../../utils/servers/utils'
 import {useShopModel} from '@/models/shop'
+import BWelfareCard from '@/components/bWelfareCard'
 
 const tabList = [{title: '抢夺单'}, {title: '福利单'}]
 
@@ -14,7 +15,7 @@ export default function () {
   const pageSize = 20
   const [goodsPageIndex] = useState(0)
   const [welfarePageIndex] = useState(0)
-  const [currentTab, setCurrentTab] = useState(0)
+  const [currentTab, setCurrentTab] = useState(1)
   const [openLoading, setOpenLoading] = useState(false)
   const {shop} = useShopModel((model) => [model.shop])
 
@@ -193,7 +194,7 @@ export default function () {
           welfareList.map((item) => {
             return (
               <View key={item.id} className="order-item">
-                <OrderCard order={item} isFuli />
+                <BWelfareCard order={item} />
               </View>
             )
           })}

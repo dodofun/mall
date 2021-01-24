@@ -7,7 +7,7 @@ import Timer from '../timer'
 import dayjs from 'dayjs'
 import CommonBtn from '../commonBtn'
 
-export default function ({order, isFuli = false}) {
+export default function ({order, isFuli = true}) {
   const [ended, setEnded] = useState(dayjs(order.endTime) - dayjs() < 0)
 
   // 1: 进行中；2: 已开奖；3: 未生效；4: 未开始；0: 全部
@@ -19,7 +19,7 @@ export default function ({order, isFuli = false}) {
     } else if (order.endTime > dayjs().valueOf()) {
       setStatus(1)
     } else if (order.endTime <= dayjs().valueOf()) {
-      if (order.totalPeople <= order.hasPeople) {
+      if (order.personNum <= order.hasPersonNum) {
         setStatus(2)
       } else {
         setStatus(3)
@@ -35,21 +35,25 @@ export default function ({order, isFuli = false}) {
       <View className="card">
         <View className="tag">
           <Image className="tag-icon" src={cardTagIcon[0]} />
-          <View className="tag-info">{order.totalPeople}人抢</View>
+          <View className="tag-info">{order.personNum}人抢</View>
         </View>
         <View className="main">
           <View className="left">
-            <Image className="cover" src={order.cover} lazyLoad />
+            <Image
+              className="cover"
+              src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/%E7%BB%84%2015%402x.png"
+              lazyLoad
+            />
           </View>
           <View className="right">
             <View className="info">
               <View className="name">{order.goodsName}</View>
-              <View className="num">参加人数：{order.hasPeople || 0}人</View>
+              <View className="num">参加人数：{order.hasPersonNum || 0}人</View>
               <View className="progress">
                 <AtProgress
                   percent={
                     Math.round(
-                      ((order.hasPeople || 0) / order.totalPeople) * 100 * 100,
+                      ((order.hasPersonNum || 0) / order.personNum) * 100 * 100,
                     ) / 100
                   }
                   strokeWidth={4}
@@ -57,7 +61,7 @@ export default function ({order, isFuli = false}) {
                   color="#FAD000"
                 />
               </View>
-              <View className="order-count">价格：￥{order.price}</View>
+              <View className="order-count">价格：￥{order.price || 0}</View>
             </View>
           </View>
         </View>
@@ -104,7 +108,9 @@ export default function ({order, isFuli = false}) {
         <View className="doing">
           <View className="income-text">
             此单收益:
-            <View className="amount">￥{order.totalPeople * order.price}</View>
+            <View className="amount">
+              ￥{order.personNum * (order.price || 0)}
+            </View>
           </View>
           <CommonBtn text="再推一单" onClick={() => {}} />
         </View>

@@ -18,10 +18,8 @@ const defaultFormData = {
   winNum: 1,
   startDate: '',
   startTm: '',
-  startTime: '',
   endDate: '',
   endTm: '',
-  endTime: '',
   enabled: true,
 }
 const personNum = [5, 10, 15, 20]
@@ -31,6 +29,7 @@ export default function () {
   const [verificated, setVerificated] = useState(false)
 
   useEffect(() => {
+    console.log('formData', formData)
     const varif = Object.keys(formData).every((item) => {
       if (typeof formData[item] === 'number') {
         return true
