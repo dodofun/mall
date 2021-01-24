@@ -13,6 +13,7 @@ import {commonHttpRequest} from '@/utils/servers/utils'
 import {checkAndGetResult} from '../../utils/servers/utils'
 import {useShopModel} from '@/models/shop'
 import BWelfareCard from '@/components/bWelfareCard'
+import {useShareModel} from '@/models/share'
 
 const tabList = [{title: '抢夺单'}, {title: '福利单'}]
 
@@ -27,15 +28,13 @@ export default function () {
   const [goodsList, setGoodsList] = useState([])
   const [welfareList, setWelfareList] = useState([])
 
+  const {shareMsg} = useShareModel((model) => [model.shareMsg])
   useShareAppMessage((res) => {
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res.target)
     }
-    return {
-      title: shop.name,
-      path: `/pages/index/index?shopId=${shop.id}`,
-    }
+    return shareMsg
   })
 
   useEffect(() => {
