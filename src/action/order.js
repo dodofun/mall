@@ -20,3 +20,25 @@ export const toPayOrder = async ({orderId, userId}) => {
   })
   return checkAndGetResult(result)
 }
+
+/***
+ * 获取店铺总收益
+ * @param payload
+ * @returns {Promise<void>}
+ */
+export const getTotalIncome = async (shopId) => {
+  const result = await http.get(api.TOTAL_INCOME.replace('{shopId}', shopId))
+  return checkAndGetResult(result)
+}
+
+/***
+ * 获取成功活动列表
+ * @param payload
+ * @returns {Promise<void>}
+ */
+export const getSuccessGoodsList = async (shopId) => {
+  const result = await http.get(
+    api.SUCCESS_GOODS_LIST.replace('{shopId}', shopId),
+  )
+  return checkAndGetResult(result)
+}

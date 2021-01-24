@@ -4,6 +4,8 @@ import {View} from '@tarojs/components'
 import {useUserModel} from '@/models/user'
 import ActionCell from '@/components/actionCell'
 import './index.scss'
+import {useShopModel} from '@/models/shop'
+import {getTotalIncome} from '@/action/order'
 
 const actions = [
   {
@@ -37,13 +39,22 @@ const actions = [
 ]
 
 export default function () {
-  const user = useUserModel((model) => [model.user])
+  const {user} = useUserModel((model) => [model.user])
+  const {shop} = useShopModel((model) => [model.shop])
   const [amount, setAmount] = useState(0)
 
   useEffect(() => {
     console.log('user', user)
-    setAmount(388.2)
+    init()
   }, [])
+
+  const init = () => {
+    getTotalIncome(shop.id).then((res) => {
+      if (res) {
+        setAmount(res.doubleValue)
+      }
+    })
+  }
 
   const goto = (url) => {
     Taro.navigateTo({url})
@@ -67,7 +78,7 @@ export default function () {
         </View>
         <View className="income">
           <View className="tite">累计收益金额</View>
-          <View className="amount">{amount}</View>
+          <View className="amount">￥{amount}</View>
         </View>
         <View className="footer">
           <View

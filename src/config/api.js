@@ -44,3 +44,15 @@ export const ALIYUN_OSS_SIGNATURE = `/aliyun/oss/getOssSignature`
  * @type {string}
  */
 export const TO_PAY_ORDER = `/v1/order/wx/topay`
+
+/***
+ * 获取总收益
+ * @type {string}
+ */
+export const TOTAL_INCOME = `/v1/owner/{shopId}/totalincome`
+
+/***
+ * 获取收益列表
+ * @type {string}
+ */
+export const SUCCESS_GOODS_LIST = `/v1/owner/{shopId}/success/goodss`
