@@ -101,7 +101,7 @@ export default function ({order, isFuli = true}) {
       </View>
       {status === 1 && (
         <View className="doing">
-          <CommonBtn text="立即分享" onClick={() => {}} />
+          <CommonBtn text="立即分享" openType="share" />
         </View>
       )}
       {status === 2 && (
