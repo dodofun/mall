@@ -9,9 +9,14 @@ import dayjs from 'dayjs'
 
 export default function ({goods}) {
   const [ended, setEnded] = useState(dayjs(goods.endTime) - dayjs() < 0)
+  const started = dayjs(goods.startTime) - dayjs() < 0
 
   useEffect(() => {}, [])
   const goDetail = () => {
+    if (!started) {
+      Taro.showToast({title: '活动未开始', icon: 'none'})
+      return
+    }
     Taro.navigateTo({
       url: `/pages/goodsDetail/index?shopId=${goods.ownerId}&goodsId=${goods.id}`,
     })
@@ -38,7 +43,7 @@ export default function ({goods}) {
           />
         </View>
         {ended && <View className="ended">已结束</View>}
-        {!ended && (
+        {started && !ended && (
           <Timer
             className="timer"
             endTime={goods.endTime}
@@ -47,6 +52,7 @@ export default function ({goods}) {
             }}
           />
         )}
+        {!started && <View className="ended">未开始</View>}
         <View className="goods-footer">
           <View className="price">￥{goods.price}</View>
           <Image

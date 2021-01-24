@@ -22,11 +22,11 @@ function useOrder() {
   }, [user.id, status, refreshTime])
 
   useEffect(() => {
-    if (openLoading) {
-      Taro.showLoading({title: '加载中'})
-    } else {
-      Taro.hideLoading()
-    }
+    // if (openLoading) {
+    //   Taro.showLoading({title: '加载中'})
+    // } else {
+    //   Taro.hideLoading()
+    // }
   }, [openLoading])
 
   const updateOrderList = () => {

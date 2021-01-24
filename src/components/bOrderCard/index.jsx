@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {View, Image} from '@tarojs/components'
 import {AtProgress} from 'taro-ui'
 import './index.scss'
@@ -7,9 +7,25 @@ import Timer from '../timer'
 import dayjs from 'dayjs'
 import CommonBtn from '../commonBtn'
 
-export default function ({order}) {
+export default function ({order, isFuli}) {
   const [ended, setEnded] = useState(dayjs(order.endTime) - dayjs() < 0)
-  const isFuli = order.type === 1
+
+  // 1: 进行中；2: 已开奖；3: 未生效；4: 未开始；0: 全部
+  const [status, setStatus] = useState(0)
+
+  useEffect(() => {
+    if (order.startTime > dayjs().valueOf()) {
+      setStatus(4)
+    } else if (order.endTime > dayjs().valueOf()) {
+      setStatus(1)
+    } else if (order.endTime <= dayjs().valueOf()) {
+      if (order.totalPeople <= order.hasPeople) {
+        setStatus(2)
+      } else {
+        setStatus(3)
+      }
+    }
+  }, [order])
 
   return (
     <View className="order-card">
@@ -28,10 +44,14 @@ export default function ({order}) {
           <View className="right">
             <View className="info">
               <View className="name">{order.goodsName}</View>
-              <View className="num">参加人数：{order.hasPeople}人</View>
+              <View className="num">参加人数：{order.hasPeople || 0}人</View>
               <View className="progress">
                 <AtProgress
-                  percent={(order.hasPeople / order.totalPeople) * 100}
+                  percent={
+                    Math.round(
+                      ((order.hasPeople || 0) / order.totalPeople) * 100 * 100,
+                    ) / 100
+                  }
                   strokeWidth={4}
                   status="progress"
                   color="#FAD000"
@@ -43,58 +63,58 @@ export default function ({order}) {
         </View>
       </View>
       <View className="date">
-        {order.status !== 4 && (
+        <View className="time">
+          <View className="label">开始时间</View>
+          <View className="value">
+            {dayjs(order.startTime).format('YYYY-MM-DD HH:mm:ss')}
+          </View>
+        </View>
+        {status !== 4 && (
           <View className="time">
-            <View className="label">开始时间</View>
-            <View className="value">
-              {dayjs(order.startTime).format('YYYY-MM-DD HH:mm:ss')}
-            </View>
+            <View className="label">结束时间</View>
+            {ended && (
+              <View className="value">
+                {dayjs(order.endTime).format('YYYY-MM-DD HH:mm:ss')}
+              </View>
+            )}
+            {!ended && (
+              <Timer
+                className="timer"
+                endTime={order.endTime}
+                onSetEnded={(val) => {
+                  setEnded(val)
+                }}
+              />
+            )}
           </View>
         )}
-        <View className="time">
-          <View className="label">结束时间</View>
-          {(ended || order.status === 4) && (
-            <View className="value">
-              {dayjs(order.endTime).format('YYYY-MM-DD HH:mm:ss')}
-            </View>
-          )}
-          {!ended && order.status !== 4 && (
-            <Timer
-              className="timer"
-              endTime={order.endTime}
-              onSetEnded={(val) => {
-                setEnded(val)
-              }}
-            />
-          )}
-        </View>
-        {order.status === 4 && (
+        {status === 4 && (
           <View className="time">
             <View className="label">距上架时间</View>
             <Timer className="timer" endTime={order.startTime} />
           </View>
         )}
       </View>
-      {order.status === 1 && (
+      {status === 1 && (
         <View className="doing">
           <CommonBtn text="立即分享" onClick={() => {}} />
         </View>
       )}
-      {order.status === 2 && (
+      {status === 2 && (
         <View className="doing">
           <View className="income-text">
             此单收益:
-            <View className="amount">￥{order.count * order.price}</View>
+            <View className="amount">￥{order.totalPeople * order.price}</View>
           </View>
           <CommonBtn text="再推一单" onClick={() => {}} />
         </View>
       )}
-      {order.status === 3 && (
+      {status === 3 && (
         <View className="failed">
           <View>因人数不全，抢夺未生效</View>
         </View>
       )}
-      {order.status === 4 && (
+      {false && status === 4 && (
         <View className="pending">
           <View className="action">
             <Image
