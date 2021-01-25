@@ -48,7 +48,7 @@ export default function () {
   const init = () => {
     getTotalIncome(shop.id).then((res) => {
       if (res) {
-        setAmount(res.doubleValue)
+        setAmount(res.totalIncome)
       }
     })
   }

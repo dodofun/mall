@@ -6,9 +6,11 @@ import BottomBtn from '@/components/bottomBtn'
 import WithdrawalCard from '@/components/withdrawalCard'
 import {AtInput} from 'taro-ui'
 import {commonHttpRequest} from '@/utils/servers/utils'
-import {useUserModel} from '@/models/user'
 import {createId} from '../../utils/idCreator'
 import {checkAndGetResult} from '../../utils/servers/utils'
+import {useShopModel} from '@/models/shop'
+import {getTotalIncome} from '@/action/order'
+import dayjs from 'dayjs'
 
 export default function () {
   const rate = '0.20'
@@ -21,16 +23,41 @@ export default function () {
   const [inputVal, setInputVal] = useState('')
   const [fee, setFee] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [penddingRecord, setPenddingRecord] = useState([])
 
-  const {user} = useUserModel((model) => [model.user])
+  const {shop} = useShopModel((model) => [model.shop])
 
   useEffect(() => {
-    setAmount({
-      canWithdrawn: 23411.0,
-      withdrawned: 2000.0,
-      totalIncome: 30000.0,
-    })
+    init()
   }, [])
+
+  const init = () => {
+    getTotalIncome(shop.id).then((res) => {
+      if (res) {
+        setAmount(res.totalIncome)
+        setAmount({
+          canWithdrawn: res.amount || 0,
+          withdrawned: res.withdrawalAmount || 0,
+          totalIncome: res.totalIncome || 0,
+        })
+      }
+    })
+
+    commonHttpRequest(
+      'withdrawalRecord',
+      'getList',
+      {ownerId: shop.id},
+      {index: 0, size: 1},
+    ).then((res) => {
+      const resList = checkAndGetResult(res)
+      if (resList) {
+        const list = resList.filter((item) => !item.status)
+        setPenddingRecord(list)
+      } else {
+        setPenddingRecord([])
+      }
+    })
+  }
 
   const withdrawal = () => {
     if (inputVal <= 0) {
@@ -42,8 +69,8 @@ export default function () {
     const id = createId()
     const formData = {
       id,
-      ownerId: user.id,
-      name: '申请提现',
+      ownerId: shop.id,
+      name: shop.name,
       amount: inputVal,
       feeRate: rate,
       feeAmount: fee,
@@ -53,7 +80,7 @@ export default function () {
     commonHttpRequest(
       'withdrawalRecord',
       'add',
-      {ownerId: user.id, id},
+      {ownerId: shop.id, id},
       {},
       formData,
     ).then((res) => {
@@ -87,6 +114,20 @@ export default function () {
   return (
     <View className="b-withdrawal">
       <WithdrawalCard amount={amount} />
+      <View className="pendding-card">
+        {penddingRecord.map((item) => {
+          return (
+            <View key={item.id} className="pendding-item">
+              <View className="header-label">
+                {dayjs(item.createdAt).format('YYYY年MM月DD日 HH:mm:ss')}
+                ，提现金额
+                {item.amount}元
+              </View>
+              <View className="status-txt">审核中</View>
+            </View>
+          )
+        })}
+      </View>
       <View className="amount-card">
         <View className="title">提现金额</View>
         <View className="input">
@@ -120,6 +161,7 @@ export default function () {
           <View className="label-end">￥{fee}</View>
         </View>
       </View>
+      <View className="footer-tip">*提现发起后，审核通过后1至2日到账</View>
       <BottomBtn disabled={loading} text="立即提现" onClick={withdrawal} />
     </View>
   )

@@ -3,43 +3,37 @@ import {useDidHide, useDidShow, useReady} from '@tarojs/taro'
 import {View} from '@tarojs/components'
 import dayjs from 'dayjs'
 import './index.scss'
+import {commonHttpRequest} from '@/utils/servers/utils'
+import {useShopModel} from '@/models/shop'
+import {checkAndGetResult} from '../../utils/servers/utils'
 
 export default function () {
+  const pageSize = 20
+  const [pageIndex, setPageIndex] = useState(0)
+
+  const {shop} = useShopModel((model) => [model.shop])
   const [list, setList] = useState([])
   useEffect(() => {
-    setList([
-      {
-        id: 1,
-        shopName: '惠明超市',
-        amount: 432,
-        createAt: 1609999179948,
-      },
-      {
-        id: 2,
-        shopName: '惠明超市',
-        amount: 20,
-        createAt: 1609999179948,
-      },
-      {
-        id: 3,
-        shopName: '惠明超市',
-        amount: 432,
-        createAt: 1609999179948,
-      },
-      {
-        id: 4,
-        shopName: '惠明超市',
-        amount: 432,
-        createAt: 1609999179948,
-      },
-      {
-        id: 5,
-        shopName: '惠明超市',
-        amount: 432,
-        createAt: 1609999179948,
-      },
-    ])
-  }, [])
+    setPageIndex(0)
+    init()
+  }, [shop])
+
+  const init = () => {
+    commonHttpRequest(
+      'withdrawalRecord',
+      'getList',
+      {ownerId: shop.id},
+      {index: pageIndex, size: pageSize},
+    ).then((res) => {
+      const resList = checkAndGetResult(res)
+      if (resList) {
+        console.log('resList', resList)
+        setList(resList)
+      } else {
+        setList([])
+      }
+    })
+  }
 
   useDidShow(() => {})
 
@@ -54,9 +48,9 @@ export default function () {
           return (
             <View className="record" key={item.id}>
               <View className="left">
-                <View className="name">{item.shopName}</View>
+                <View className="name">{item.name}</View>
                 <View className="time">
-                  {dayjs(item.createAt).format('YYYY.MM.DD HH:mm')}
+                  {dayjs(item.createAt).format('YYYY-MM-DD HH:mm')}
                 </View>
               </View>
               <View className="right">+￥{item.amount}</View>
