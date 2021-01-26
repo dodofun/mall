@@ -7,10 +7,12 @@ function useShare() {
   const [shareMsg, setShareMsg] = useState()
 
   useEffect(() => {
-    setShareMsg({
-      title: shop.name,
-      path: `/pages/index/index?shopId=${shop.id}`,
-    })
+    if (shop && shop.id) {
+      setShareMsg({
+        title: shop.name,
+        path: `/pages/index/index?shopId=${shop.id}`,
+      })
+    }
   }, [shop])
 
   return {

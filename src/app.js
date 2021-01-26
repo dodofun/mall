@@ -9,7 +9,7 @@ import {APP_CONSTANTS} from './config/index'
 const App = (props) => {
   const userModel = useUserModel((model) => [model.updateUser])
   const router = useRouter()
-  const params = router.params
+  const params = router.params || {}
 
   const paramsShopId = params.shopId || APP_CONSTANTS.DEFAULT_SHOP_ID
 
