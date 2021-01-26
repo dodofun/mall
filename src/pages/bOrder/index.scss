@@ -26,4 +26,15 @@
     border-radius: 20px;
     position: fixed;
   }
+
+  .no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 28px;
+    font-family: PingFang SC;
+    font-weight: 300;
+    color: #999;
+  }
 }

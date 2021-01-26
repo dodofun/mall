@@ -27,6 +27,8 @@ export default function () {
 
   const [goodsList, setGoodsList] = useState([])
   const [welfareList, setWelfareList] = useState([])
+  const [noData, setNoData] = useState(false)
+  const [pageLoaded, setPageLoaded] = useState(false)
 
   const {shareMsg} = useShareModel((model) => [model.shareMsg])
   useShareAppMessage((res) => {
@@ -41,6 +43,16 @@ export default function () {
     init()
   }, [currentTab])
 
+  useEffect(() => {
+    if (pageLoaded) {
+      if (currentTab === 0) {
+        setNoData(goodsList.length === 0)
+      } else {
+        setNoData(welfareList.length === 0)
+      }
+    }
+  }, [pageLoaded])
+
   const init = () => {
     if (!shop || !shop.id) {
       return
@@ -54,6 +66,7 @@ export default function () {
         {index: goodsPageIndex, size: pageSize},
       ).then((res) => {
         setOpenLoading(false)
+        setPageLoaded(true)
         const list = checkAndGetResult(res)
         if (list) {
           setGoodsList(list)
@@ -71,6 +84,7 @@ export default function () {
         {index: welfarePageIndex, size: pageSize},
       ).then((res) => {
         setOpenLoading(false)
+        setPageLoaded(true)
         const list = checkAndGetResult(res)
         if (list) {
           setWelfareList(list)
@@ -127,6 +141,7 @@ export default function () {
             )
           })}
       </View>
+      {noData && <View className="no-data">暂无数据</View>}
     </View>
   )
 }
