@@ -51,7 +51,7 @@ export default function () {
         setNoData(welfareList.length === 0)
       }
     }
-  }, [pageLoaded])
+  }, [pageLoaded, goodsList, welfareList])
 
   const init = () => {
     if (!shop || !shop.id) {
@@ -114,7 +114,7 @@ export default function () {
   }
 
   return (
-    <View className="order">
+    <View className="border">
       <AtTabs
         className="tabs"
         scroll
