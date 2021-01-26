@@ -1,15 +1,17 @@
 import Taro, {useRouter, useDidShow} from '@tarojs/taro'
-import {useEffect} from 'react'
 import './app.scss'
 import {init} from './init'
 import {login} from './action/user'
 import {useUserModel} from '@/models/user'
 import {useCurrentShopModel} from '@/models/currentShop'
+import {APP_CONSTANTS} from './config/index'
 
 const App = (props) => {
   const userModel = useUserModel((model) => [model.updateUser])
   const router = useRouter()
   const params = router.params
+
+  const paramsShopId = params.shopId || APP_CONSTANTS.DEFAULT_SHOP_ID
 
   const {setShopId} = useCurrentShopModel((model) => [model.shopId])
 
@@ -18,25 +20,14 @@ const App = (props) => {
     initApp()
   })
 
-  useEffect(() => {
-    if (params.shopId) {
-      initShop()
-    }
-  }, [params.shopId])
-
   const initApp = async () => {
-    // 登录
+    // 初始化用户
     const userInfo = await login()
     Taro.setStorageSync('userInfo', userInfo || {})
     userModel.updateUser()
 
     // 初始化shop
-    initShop()
-  }
-
-  const initShop = async () => {
-    // 设置商铺ID
-    setShopId(params.shopId)
+    setShopId(paramsShopId)
   }
 
   return props.children

@@ -19,6 +19,7 @@ const constants = {
   ASSETS_IMAGE_HOST: 'https://assets.yiduohoulang.com',
   ASSETS_HOST: 'https://assets.yiduohoulang.com',
   CUSTOMER_SERVICE: '18513971114',
+  DEFAULT_SHOP_ID: 1610774913590707,
 }
 const config = {
   projectName: pkgData.name,

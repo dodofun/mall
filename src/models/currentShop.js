@@ -15,7 +15,7 @@ function useCurrentShop() {
   }, [shopId])
 
   const getShop = () => {
-    if (shop) {
+    if (shop && shop.id === shopId) {
       return
     }
     if (shopId > 0) {

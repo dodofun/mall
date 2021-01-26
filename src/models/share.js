@@ -1,9 +1,9 @@
 import {useState, useEffect} from 'react'
 import {createModel} from 'hox'
-import {useShopModel} from '@/models/shop'
+import {useCurrentShopModel} from '@/models/currentShop'
 
 function useShare() {
-  const {shop} = useShopModel((model) => [model.shop])
+  const {shop} = useCurrentShopModel((model) => [model.shop])
   const [shareMsg, setShareMsg] = useState()
 
   useEffect(() => {
