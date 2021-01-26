@@ -69,6 +69,13 @@ export const getAppid = () => {
 }
 
 /***
+ * @description 获取app信息
+ */
+export const getAppInfo = () => {
+  return Taro.getStorageSync('appInfo')
+}
+
+/***
  * @description 获取appOwnerId
  */
 export const getAppOwnerId = () => {

@@ -1,12 +1,13 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useDidHide, useDidShow, useReady} from '@tarojs/taro'
 import {View} from '@tarojs/components'
 import {useUserModel} from '@/models/user'
 import {AtAvatar} from 'taro-ui'
 import ActionCell from '@/components/actionCell'
 import './index.scss'
+import {getAppInfo} from '../../utils/common'
 
-const actions = [
+const defaultActions = [
   {
     label: '优惠券',
     icon:
@@ -21,12 +22,6 @@ const actions = [
     isTab: false,
   },
   {
-    label: '商家入驻',
-    icon:
-      'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-mine/%E5%95%86%E5%AE%B6%E5%85%A5%E9%A9%BB%402x.png',
-    url: '/pages/joinUs/index',
-  },
-  {
     label: '联系我们',
     icon:
       'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-mine/%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC-%E9%82%AE%E4%BB%B6%20%E6%8B%B7%E8%B4%9D%402x.png',
@@ -36,8 +31,22 @@ const actions = [
 
 export default function () {
   const user = useUserModel((model) => [model.user])
+  const [actions, setActions] = useState(defaultActions)
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    const appInfo = getAppInfo()
+    if (appInfo.enabled) {
+      setActions([
+        ...actions,
+        {
+          label: '商家入驻',
+          icon:
+            'https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-mine/%E5%95%86%E5%AE%B6%E5%85%A5%E9%A9%BB%402x.png',
+          url: '/pages/joinUs/index',
+        },
+      ])
+    }
+  }, [])
 
   useDidShow(() => {})
 

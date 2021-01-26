@@ -7,7 +7,9 @@ export const init = () => {
   // 更新app
   updateApp()
   // 获取 app 信息
-  queryAppinfo()
+  queryAppinfo().then((res) => {
+    Taro.setStorageSync('appInfo', res)
+  })
 
   if (isWeapp()) {
     // 找不到页面时，回到首页
