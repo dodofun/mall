@@ -1,7 +1,7 @@
 export default {
   pages: [
-    'pages/bOrder/index', // 商户订单
     'pages/index/index', // 用户首页
+    'pages/bOrder/index', // 商户订单
     'pages/order/index', // 订单
     'pages/welfare/index', // 福利页
     'pages/bHome/index', // 商户主页
