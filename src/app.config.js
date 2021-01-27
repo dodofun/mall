@@ -11,7 +11,7 @@ export default {
     'pages/bWriteOff/index', // 核销
     'pages/bIncomeRecord/index', // 收益记录
     'pages/bWithdrawalRecord/index', // 提现记录
-    'pages/joinUs/index', // 商家入驻
+    'pages/openShop/index', // 商家入驻
     'pages/joinUsForm/index', // 商家入驻表单
     'pages/reviewing/index', // 入驻审核
     'pages/mine/index', // 我的主页
