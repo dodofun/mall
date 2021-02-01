@@ -1,9 +1,10 @@
 export default {
   pages: [
     'pages/index/index', // 用户首页
-    'pages/bOrder/index', // 商户订单
-    'pages/order/index', // 订单
     'pages/welfare/index', // 福利页
+    'pages/order/index', // 订单
+    'pages/mine/index', // 我的主页
+    'pages/bOrder/index', // 商户订单
     'pages/bHome/index', // 商户主页
     'pages/bWelfarePutOn/index', // 福利发布
     'pages/bPutOn/index', // 商品上架
@@ -14,7 +15,6 @@ export default {
     'pages/openShop/index', // 商家入驻
     'pages/joinUsForm/index', // 商家入驻表单
     'pages/reviewing/index', // 入驻审核
-    'pages/mine/index', // 我的主页
     'pages/contactUs/index', // 联系我们
     'pages/coupon/index', // 优惠券
     'pages/paySuccess/index', // 支付成功
