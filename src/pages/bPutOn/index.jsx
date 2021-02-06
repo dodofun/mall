@@ -110,30 +110,36 @@ export default function () {
     <View className="b-put-on">
       <View className="form-card">
         <View className="form-title">商品图片</View>
-        <AtImagePicker
-          className="images"
-          count={1}
-          multiple={false}
-          files={files}
-          length={2}
-          mode="scaleToFill"
-          showAddBtn={files.length === 0}
-          onChange={async (fileList) => {
-            if (fileList.length > 0) {
-              console.log('fileList', fileList, fileList[0].url)
-              const key = `images/goods/${createId()}.png`
-              const url = await upload(key, fileList[0].url, '活动商品图')
-              if (url) {
-                setFormData({...formData, cover: url})
-              }
-            } else {
-              setFormData({...formData, cover: ''})
-            }
-          }}
-          onFail={(msg) => {
-            console.log('onFail', msg)
-          }}
-        />
+        <View className="form-image">
+          <View className="form-left">
+            <AtImagePicker
+              className="images"
+              count={1}
+              multiple={false}
+              files={files}
+              length={2}
+              mode="scaleToFill"
+              showAddBtn={files.length === 0}
+              onChange={async (fileList) => {
+                if (fileList.length > 0) {
+                  console.log('fileList', fileList, fileList[0].url)
+                  const key = `images/goods/${createId()}.png`
+                  const url = await upload(key, fileList[0].url, '活动商品图')
+                  if (url) {
+                    setFormData({...formData, cover: url})
+                  }
+                } else {
+                  setFormData({...formData, cover: ''})
+                }
+              }}
+              onFail={(msg) => {
+                console.log('onFail', msg)
+              }}
+            />
+            <View className="img-add">添加</View>
+          </View>
+          <View className="form-tip">（为了商品美观，请上传3:2的图片）</View>
+        </View>
       </View>
       <View className="form-card">
         <View className="form-title">商品信息</View>

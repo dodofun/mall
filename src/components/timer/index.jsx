@@ -4,7 +4,7 @@ import {AtCountdown} from 'taro-ui'
 import dayjs from 'dayjs'
 import './index.scss'
 
-export default function ({endTime, onSetEnded}) {
+export default function ({endTime, onSetEnded, type = 'red'}) {
   const [loaded, setLoaded] = useState(false)
   const [diffMillisecond, setDiffMillisecond] = useState(0)
   const [diffTime, setDiffTime] = useState({hours: 0, minutes: 0, seconds: 0})
@@ -34,11 +34,19 @@ export default function ({endTime, onSetEnded}) {
   }
 
   return (
-    <View className="timer">
-      <Image
-        class="timer-icon"
-        src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/%E7%BB%84%2018%402x.png"
-      />
+    <View className={`${type === 'white' ? 'timer-white' : 'timer-red'}`}>
+      {type === 'red' && (
+        <Image
+          class="timer-icon"
+          src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/%E7%BB%84%2018%402x.png"
+        />
+      )}
+      {type === 'white' && (
+        <Image
+          class="timer-icon"
+          src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/%E6%97%B6%E9%92%9F%402x.png"
+        />
+      )}
       <AtCountdown
         className="timer-main"
         isShowHour

@@ -46,7 +46,7 @@
       }
 
       .timer {
-        margin-top: 10px;
+        margin-top: 5px;
       }
     }
   }
@@ -74,6 +74,11 @@
         font-family: PingFang SC;
         font-weight: 500;
         color: #000;
+
+        .coupon-amount {
+          display: inline-block;
+          color: #faa500;
+        }
       }
     }
   }

@@ -37,4 +37,23 @@
       }
     }
   }
+
+  .at-noticebar {
+    background: linear-gradient(90deg, #f4ea95, #f0d577);
+    opacity: 0.8;
+    border-radius: 14px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .at-noticebar__content-icon {
+    }
+
+    .at-noticebar__content-text {
+      font-size: 22px;
+      font-family: PingFang SC;
+      font-weight: 500;
+      color: rgba($color: #000, $alpha: 0.8);
+    }
+  }
 }

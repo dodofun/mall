@@ -4,7 +4,7 @@ page {
 
 .b-put-on {
   width: 100%;
-  padding: 30px;
+  padding: 0 20px 20px 20px;
   margin-bottom: 140px;
 
   .form-card {
@@ -13,30 +13,68 @@ page {
     padding: 40px 30px;
     margin-top: 30px;
 
-    .images {
-      margin-top: 40px;
-
-      .at-image-picker__flex-box {
-        padding: 0;
-      }
-
-      .at-image-picker__item {
-        width: 180px;
-        height: 120px;
-      }
-
-      .at-image-picker__flex-item {
-        margin-left: 0;
-        margin-right: 10px;
-        width: 180px;
-        height: 120px;
-      }
-    }
-
     .form-title {
       font-size: 30px;
       font-family: PingFang SC;
       color: #000;
+    }
+
+    .form-image {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .form-left {
+        width: 150px;
+
+        .images {
+          margin-top: 40px;
+
+          .at-image-picker__flex-box {
+            padding: 0;
+          }
+
+          .at-image-picker__item {
+            width: 150px;
+            height: 100px;
+            background: #f5f4f9;
+            border-radius: 14px;
+            border: none;
+
+            .add-bar {
+              width: 2px;
+              height: 38px;
+            }
+          }
+
+          .at-image-picker__flex-item {
+            margin-left: 0;
+            margin-right: 10px;
+            width: 180px;
+            height: 120px;
+          }
+
+          .at-image-picker__remove-btn {
+            top: 0;
+            right: 0;
+          }
+        }
+
+        .img-add {
+          font-size: 26px;
+          font-family: PingFang SC;
+          font-weight: 400;
+          color: #666;
+          text-align: center;
+        }
+      }
+
+      .form-tip {
+        font-size: 26px;
+        font-family: PingFang SC;
+        font-weight: 400;
+        color: #999;
+      }
     }
 
     .at-form::after {

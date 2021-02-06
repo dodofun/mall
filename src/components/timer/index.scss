@@ -1,4 +1,4 @@
-.timer {
+.timer-red {
   background: linear-gradient(90deg, #f33529, #fe2126, #ff2334);
   border-radius: 17px;
   display: inline-flex;
@@ -28,6 +28,41 @@
       font-family: PingFang SC;
       font-weight: bold;
       color: #fff;
+      align-self: center;
+    }
+  }
+}
+
+.timer-white {
+  background: #fff;
+  border-radius: 17px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 40px;
+
+  .timer-icon {
+    width: 36px;
+    height: 34px;
+  }
+
+  .timer-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .at-countdown__time-box {
+      font-size: 22px;
+      font-family: PingFang SC;
+      font-weight: bold;
+      color: #fad000;
+    }
+
+    .at-countdown__separator {
+      font-size: 22px;
+      font-family: PingFang SC;
+      font-weight: bold;
+      color: #fad000;
       align-self: center;
     }
   }

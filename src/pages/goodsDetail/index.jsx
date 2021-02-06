@@ -125,6 +125,7 @@ export default function () {
           {!ended && (
             <Timer
               className="timer"
+              type="white"
               endTime={detail.endTime}
               onSetEnded={(val) => {
                 setEnded(val)
@@ -137,7 +138,9 @@ export default function () {
         <View className="rule">
           <View className="label-left">优惠券</View>
           <View className="label-right">
-            抢夺失败也可以领到【{detail.couponAmount}元】优惠券
+            抢夺失败也可以领到
+            <View className="coupon-amount">【{detail.couponAmount}元】</View>
+            优惠券
           </View>
         </View>
         <View className="rule">
