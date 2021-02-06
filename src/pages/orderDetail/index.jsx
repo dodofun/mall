@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Taro, {useRouter, useDidHide, useDidShow, useReady} from '@tarojs/taro'
 import {View, Image} from '@tarojs/components'
-import OrderCard from '@/components/orderCard'
+import OrderDetailCard from '@/components/orderDetailCard'
 import './index.scss'
 import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
 
@@ -61,7 +61,7 @@ export default function () {
       </View>
 
       <View className="order-card">
-        <OrderCard order={orderDetail} />
+        <OrderDetailCard order={orderDetail} />
       </View>
     </View>
   )
