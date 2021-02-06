@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import Taro, {useRouter, useDidHide, useDidShow, useReady} from '@tarojs/taro'
 import {View, Image} from '@tarojs/components'
 import OrderCard from '@/components/orderCard'
-import {AtNoticebar} from 'taro-ui'
 import './index.scss'
 import {commonHttpRequest, checkAndGetResult} from '@/utils/servers/utils'
 
@@ -60,11 +59,7 @@ export default function () {
           src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-pay/%E7%BB%84%2010%402x.png"
         />
       </View>
-      <View className="notice">
-        <AtNoticebar icon="volume-plus">
-          抢夺失败可领取对应金额的优惠券呦
-        </AtNoticebar>
-      </View>
+
       <View className="order-card">
         <OrderCard order={orderDetail} />
       </View>

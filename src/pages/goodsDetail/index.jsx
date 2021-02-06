@@ -64,7 +64,6 @@ export default function () {
       // 设置页面title
       Taro.setNavigationBarTitle({title: detail.name})
     }
-    console.log('getUserId()', getUserId())
   }, [detail])
 
   const placeOrder = () => {

@@ -30,10 +30,11 @@ export default function ({record}) {
               <View className="num">参加人数：{record.hasPeople}人</View>
               <View className="progress">
                 <AtProgress
+                  isHidePercent
                   percent={(record.hasPeople / record.totalPeople) * 100}
-                  strokeWidth={4}
+                  strokeWidth={5}
                   status="progress"
-                  color="#FAD000"
+                  color="#FAE100"
                 />
               </View>
               <View className="record-count">

@@ -84,12 +84,13 @@ export default function ({order, isBuss}) {
                 </View>
                 <View className="progress">
                   <AtProgress
+                    isHidePercent
                     percent={Math.round(
                       ((goods.hasPersonNum || 0) / goods.personNum) * 100,
                     )}
-                    strokeWidth={4}
+                    strokeWidth={5}
                     status="progress"
-                    color="#FAD000"
+                    color="#FAE100"
                   />
                 </View>
                 <View className="order-count">
@@ -117,12 +118,13 @@ export default function ({order, isBuss}) {
                 <View className="num">参加人数：{goods.hasPeople || 0}人</View>
                 <View className="progress">
                   <AtProgress
+                    isHidePercent
                     percent={Math.round(
                       ((goods.hasPeople || 0) / goods.totalPeople) * 100,
                     )}
-                    strokeWidth={4}
+                    strokeWidth={5}
                     status="progress"
-                    color="#FAD000"
+                    color="#FAE100"
                   />
                 </View>
                 <View className="order-count">
@@ -163,6 +165,7 @@ export default function ({order, isBuss}) {
         <View className="doing">
           <View className="left-1">
             <Image
+              lazyLoad
               className="wexinpay-icon"
               src="https://ydhl-assets.oss-cn-beijing.aliyuncs.com/images/mall/app-order/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98%402x.png"
             />

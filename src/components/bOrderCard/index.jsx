@@ -47,14 +47,15 @@ export default function ({order, isFuli = false}) {
               <View className="num">参加人数：{order.hasPeople || 0}人</View>
               <View className="progress">
                 <AtProgress
+                  isHidePercent
                   percent={
                     Math.round(
                       ((order.hasPeople || 0) / order.totalPeople) * 100 * 100,
                     ) / 100
                   }
-                  strokeWidth={4}
+                  strokeWidth={5}
                   status="progress"
-                  color="#FAD000"
+                  color="#FAE100"
                 />
               </View>
               <View className="order-count">价格：￥{order.price}</View>

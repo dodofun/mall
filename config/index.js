@@ -68,9 +68,9 @@ const config = {
         config: {},
       },
       url: {
-        enable: true,
+        enable: false,
         config: {
-          limit: 10, // 设定转换尺寸上限
+          limit: 1024, // 设定转换尺寸上限
         },
       },
       cssModules: {

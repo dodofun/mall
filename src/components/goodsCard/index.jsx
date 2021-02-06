@@ -34,12 +34,13 @@ export default function ({goods}) {
         <View className="num">当前参加人数：{goods.hasPeople || 0} 人</View>
         <View className="progress">
           <AtProgress
+            isHidePercent
             percent={Math.round(
               ((goods.hasPeople || 0) / goods.totalPeople) * 100,
             )}
-            strokeWidth={6}
+            strokeWidth={5}
             status="progress"
-            color="#FAD000"
+            color="#FAE100"
           />
         </View>
         {ended && <View className="ended">已结束</View>}
