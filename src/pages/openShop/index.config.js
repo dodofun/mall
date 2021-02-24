@@ -1,4 +1,4 @@
 export default {
-  navigationBarTitleText: '商家入驻',
+  navigationBarTitleText: '入驻',
   usingComponents: {},
 }
